@@ -1,5 +1,6 @@
 import './globals.css'
 import Navbar from '../components/navbar'
+import Information from '../components/information'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
@@ -21,6 +22,9 @@ export default function RootLayout({
         <header>
           <Navbar />
         </header>
+        <footer>
+          <Information />
+        </footer>
     </html>
   )
 }

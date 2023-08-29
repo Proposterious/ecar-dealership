@@ -3,12 +3,14 @@ import Image from 'next/image'
 
 function Navbar() {
     return ( 
-        <nav className="flex justify-between flex-wrap p-6 text-white">
+        <nav className="list-none flex items-center justify-between flex-wrap p-4 text-white">
             <li>
-                <Image src=''
+                <Image 
+                src=''
+                alt=''/>
             </li>
             <li>
-                <Link href=''>Home</Link>
+                <Link href='/'>Home</Link>
             </li>
             <li>
                 <Link href='/about'>About</Link>
