@@ -1,35 +1,74 @@
 // MODEL THIS OFF OF: https://www.enterprise.com/en/car-rental-locations/us/tx/austin.html
-// Imports
+// Nextjs Imports
 import Link from 'next/link'
 import Image from 'next/image'
+// Hero Icon Imports
+import Popout from '../public/svg/popout'
+import Check from '../public/svg/check'
+// Image Imports
+import GithubCircle from '../public/img/github-mark.png'
+import GithubWritten from '../public/img/github-written.png'
+import Youtube from '../public/img/youtube-mark.png'
+import LinkedIn from '../public/img/linkedin-written.png'
+// Link Variables
+const yt_link = 'https://www.youtube.com/channel/UCImWneNIF1tbuownEPODS4g';
+const github_link = 'https://github.com/Proposterious';
+const li_link = 'https://www.linkedin.com/';
+
 
 function Information() {
     return (  
         /* Profile Links */
-        <nav className="flex flex-wrap fixed bottom-1 p-5 w-full">
-            <div className="divide-y-2 divide-green-400">
-                <ul id='footer_social' className="list-none flex flex-wrap space-x-2 inline-block bg-gray-200 text-orange-400 w-full">
-                    <li>
-                        <Image src='' alt='Github Profile' />
-                    </li>
-                    <li>
-                        <Image src='' alt='Instagram Profile' />
-                    </li>
-                    <li>
-                        <Image src='' alt='LinkedIn Profile' />
-                    </li>
-                    <li>
-                        <Image src='' alt='Youtube Profile' />
-                    </li>
-                </ul>
-                <ul id='footer_notices' className="list-none flex flex-wrap w-full space-x-5 bg-gray-300 text-orange-400">
-                    <li><Link href='/'>Terms of Use</Link></li>
-                    <li><Link href='/'>Privacy Policy</Link></li>
-                    <li><Link href='/'>Cookie Policy</Link></li>
-                    <li><Link href='/'>Privacy Choices</Link></li>
-                    <li>Copyright Trademark...</li>
-                </ul>
-            </div>
+        <nav className="bottom-0 w-full fixed">
+            <ul id='footer_social' className="list-none flex flex-wrap justify-center items-center space-x-16 p-3 h-30 bg-slate-100 text-orange-400">
+                <li>
+                    <Link href={yt_link}>
+                        <Image src={Youtube}
+                        height={70}
+                        width={150}
+                        alt='Youtube Profile' />
+                    </Link>
+                </li>
+                <li className='ml-6'>
+                    <Link href={github_link}>
+                        <Image src={GithubCircle} 
+                        height={70}
+                        width={70}
+                        alt='Github Profile' />
+                        <Image src={GithubWritten}
+                        height={70}
+                        width={70}
+                        alt='Github Profile' />
+                    </Link>
+                </li>
+                <li>
+                    <Link href={li_link}>
+                        <Image src={LinkedIn}
+                        height={70}
+                        width={150}
+                        alt='LinkedIn Profile' />
+                    </Link>
+                </li>
+            </ul>
+            <ul id='footer_notices' className="h-14 list-none flex flex-wrap justify-center items-center space-x-10 bg-gray-300">
+                <li className="inline-flex text-orange-600">
+                    <Link href='/'>Terms of Use</Link>
+                    <Popout />  
+                </li>    
+                <li className="inline-flex text-orange-600">
+                    <Link href='/'>Privacy Policy</Link>
+                    <Popout />
+                </li>
+                <li className="inline-flex text-amber-900">
+                    <Link href='/'>Cookie Policy</Link>
+                    <Popout />
+                </li>
+                <li className="inline-flex text-blue-600/90">
+                    <Link href='/'>Privacy Choices</Link>
+                    <Check />
+                </li>
+                <li className="text-gray-400">&copy;2023 Proposterious</li>
+            </ul>
         </nav>
     );
 }

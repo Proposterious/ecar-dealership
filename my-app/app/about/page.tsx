@@ -1,10 +1,10 @@
 function About() {
     return ( 
-        <main>
+        <section>
             <article>
                 <h1>This is an article</h1>
             </article>
-        </main>
+        </section>
      );
 }
 
