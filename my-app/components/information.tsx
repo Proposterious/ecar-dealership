@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 // Hero Icon Imports
-import Popout from '../public/svg/popout'
-import Check from '../public/svg/check'
+import Popout from '../public/svg/popout.svg'
+import Check from '../public/svg/check.svg'
 // Image Imports
 import GithubCircle from '../public/img/github-mark.png'
 import GithubWritten from '../public/img/github-written.png'
@@ -53,19 +53,19 @@ function Information() {
             <ul id='footer_notices' className="h-14 list-none flex flex-wrap justify-center items-center space-x-10 bg-gray-300">
                 <li className="inline-flex text-orange-600">
                     <Link href='/'>Terms of Use</Link>
-                    <Popout />  
+                    <a href='/'><Image src={Popout} alt='' /></a> 
                 </li>    
                 <li className="inline-flex text-orange-600">
                     <Link href='/'>Privacy Policy</Link>
-                    <Popout />
+                    <a href='/'><Image src={Popout} alt='' /></a> 
                 </li>
                 <li className="inline-flex text-amber-900">
                     <Link href='/'>Cookie Policy</Link>
-                    <Popout />
+                    <a href='/'><Image src={Popout} alt='' /></a> 
                 </li>
                 <li className="inline-flex text-blue-600/90">
                     <Link href='/'>Privacy Choices</Link>
-                    <Check />
+                    <a href='/'><Image src={Check} alt='' /></a> 
                 </li>
                 <li className="text-gray-400">&copy;2023 Proposterious</li>
             </ul>
