@@ -8,12 +8,17 @@
 - [Realtime Colors](https://realtimecolors.com/?colors=000000-ffffff-8fb3ff-ebf1ff-d41d6d)
 - [Adobe SVG Converter](https://new.express.adobe.com/)
   
-### Coding
+### Frontend
 
+- [Figma Web Design](https://www.figma.com/)
 - [Tailwind CSS Homepage](https://tailwindcss.com/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs/installation)
 - [React Dev Documentation](https://react.dev/learn)
 - [Nextjs Documentation](https://nextjs.org/docs)
+
+### Backend 
+
+- [Django Authentication](https://www.djangoproject.com/start/)
 
 ### Free Icons, Images, Logos, etc.
 

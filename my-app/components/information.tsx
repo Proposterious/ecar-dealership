@@ -19,7 +19,7 @@ const li_link = 'https://www.linkedin.com/';
 function Information() {
     return (  
         /* Profile Links */
-        <nav className="bottom-0 w-full fixed">
+        <nav className="bottom-0 w-full">
             <ul id='footer_social' className="list-none flex flex-wrap justify-center items-center space-x-16 p-3 h-30 bg-slate-100 text-orange-400">
                 <li>
                     <Link href={yt_link}>
