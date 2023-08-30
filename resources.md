@@ -14,6 +14,10 @@
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs/installation)
 - [React Dev Documentation](https://react.dev/learn)
 - [Nextjs Documentation](https://nextjs.org/docs)
+
+### Free Icons, Images, Logos, etc.
+
+- [Heroicons](https://heroicons.com/)
   
 ## Youtube Help
 
