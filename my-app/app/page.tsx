@@ -2,17 +2,28 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className='overflow-auto divide-y-2 divide-orange-600'>
-      <article className="h-50 w-full flex p-24">
-        <h1>
-
-        </h1>
-        <p className="">
-          We guarantee well-priced, well-handled vehicles for any need you have!
-        </p>
+    <main className='overflow-auto divide-y-reverse divide-y-2 divide-orange-600'>
+      <article className=" w-full flex bg-cover bg-center bg-[url('../public/img/red-luxury-sedan-road.jpg')] py-64">
+        <section className='mx-auto w-full py-16 bg-black bg-opacity-70'>
+          <h1 className='text-6xl text-center font-semibold text-orange-500 mb-6'>
+            Low on Cash, But Need A Ride? 
+            <br></br>
+            Rely On Us @ eCar Dealer
+          </h1>
+          <p className="font-semibold text-center text-2xl text-white">
+            Receive A Sparkling New Car
+            <br></br>
+            At A Low Price With No Hidden Fees!
+          </p>
+        </section>
       </article>
-      <article className="h-50 w-full flex bg-inherit p-24">
-        <section className="w-[50%]">
+      <article className="h-96 w-full flex bg-inherit p-24">
+        <section>
+          <img src='' alt=''>
+
+          </img>
+        </section>
+        <section className="w-1/2">
           <h1 className="font-bold text-3xl text-orange-600/80 mb-3 ">
             Title
           </h1>
@@ -21,8 +32,13 @@ export default function Home() {
           </p>
         </section>
       </article>
-      <article className="h-50 w-full flex bg-slate-100 p-24">
-        <section className="w-[50%]">
+      <article className="h-96 w-full flex bg-slate-100 p-24">
+        <section className="w-1/2">
+          <img src='' alt=''>
+
+          </img>
+        </section>
+        <section className="w-1/2">
           <h1 className="font-bold text-3xl text-orange-600/80 mb-3">
             Hello
           </h1>

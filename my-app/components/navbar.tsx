@@ -6,14 +6,16 @@ import Logo from '../public/car-dealership-logo.png'
 
 function Navbar() {
     return ( 
-        <nav className="list-none flex flex-wrap items-center justify-center space-x-6  text-black h-20 bg-slate-100">
+        <nav className="list-none flex flex-wrap h-28 items-center justify-center space-x-6 text-black bg-slate-100">
             <Image 
             src={Logo}
             height={50}
             width={120}
             alt='' />
-            <li className="border-2 ring-2 ring-gray-600 rounded-full px-6 py-2 bg-orange-400 font-bold hover:text-orange-600">
-                <Link href='/'>Home</Link>
+            <li className='font-bold text-white hover:text-orange-600'>
+                <Link href='/' className="border-2 border-black rounded-full px-6 py-2 bg-orange-500">
+                    Home
+                </Link>
             </li>
             <li className="hover:text-orange-600">
                 <Link href='/about'>About</Link>
