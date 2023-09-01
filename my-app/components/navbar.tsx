@@ -18,7 +18,7 @@ function Navbar() {
                 </Link>
             </li>
             <li className="hover:text-orange-600">
-                <Link href='./about.tsx'>About</Link>
+                <Link href='/about'>About</Link>
             </li>
             <li className="hover:text-orange-600">
                 <Link href='/service'>Service</Link>
@@ -31,6 +31,9 @@ function Navbar() {
             </li>
             <li className="font-semibold hover:text-orange-600">
                 <Link href='/support'>Support</Link>
+            </li>
+            <li className="font-semibold hover:text-orange-600">
+                <Link href='app/api/auth/signin?CallbackUrl=%2Fserver'>Server</Link>
             </li> 
         </nav>
     );
