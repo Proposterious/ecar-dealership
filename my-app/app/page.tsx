@@ -17,11 +17,9 @@ export default function Home() {
           </p>
         </section>
       </article>
-      <article className="h-96 w-full flex bg-inherit p-24">
+      <article className="h-96 w-1/2 flex bg-inherit p-24">
         <section>
-          <img src='' alt=''>
-
-          </img>
+          null
         </section>
         <section className="w-1/2">
           <h1 className="font-bold text-3xl text-orange-600/80 mb-3 ">
@@ -34,9 +32,7 @@ export default function Home() {
       </article>
       <article className="h-96 w-full flex bg-slate-100 p-24">
         <section className="w-1/2">
-          <img src='' alt=''>
-
-          </img>
+          null
         </section>
         <section className="w-1/2">
           <h1 className="font-bold text-3xl text-orange-600/80 mb-3">

@@ -18,7 +18,7 @@ function Navbar() {
                 </Link>
             </li>
             <li className="hover:text-orange-600">
-                <Link href='/about'>About</Link>
+                <Link href='./about.tsx'>About</Link>
             </li>
             <li className="hover:text-orange-600">
                 <Link href='/service'>Service</Link>
