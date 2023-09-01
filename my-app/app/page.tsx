@@ -47,6 +47,22 @@ export default function Home() {
           </p>
         </section>
       </article>
+      <section className='w-full'>
+        <article className='h-96 px-32 justify-between items-center flex flex-row '>
+          <div>
+            <h1>Box 1</h1>
+          </div>
+          <div>
+            <h1>Box 2</h1>
+          </div>
+          <div>
+            <h1>Box 3</h1>
+          </div>
+          <div>
+            <h1>Box 4</h1>
+          </div>
+        </article>
+      </section>
     </main>
   )
 }
