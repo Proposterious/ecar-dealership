@@ -11,9 +11,9 @@ function Navbar() {
             src={Logo}
             height={50}
             width={120}
-            alt='' />
+            alt='' /> 
             <li className='font-bold text-white hover:text-orange-600'>
-                <Link href='/' className="border-2 border-black rounded-full px-6 py-2 bg-orange-500">
+                <Link href='/' className="border-2 border-black rounded-full px-5 py-3 bg-orange-500">
                     Home
                 </Link>
             </li>
@@ -29,11 +29,11 @@ function Navbar() {
             <li className="hover:text-orange-600">
                 <Link href='/contact'>Contact</Link>
             </li>
-            <li className="font-semibold hover:text-orange-600">
+            <li className=" hover:text-orange-600 ">
                 <Link href='/support'>Support</Link>
             </li>
             <li className="font-semibold hover:text-orange-600">
-                <Link href='app/api/auth/signin?CallbackUrl=%2Fserver'>Server</Link>
+                <Link href='/api/auth/signin'>Server</Link>
             </li> 
         </nav>
     );
