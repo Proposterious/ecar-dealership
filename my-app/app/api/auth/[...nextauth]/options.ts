@@ -3,7 +3,7 @@ import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-export const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   // Check 'resources.md' for information about custom pages:
   // pages: {
   //   signIn: '/auth/signin',
@@ -46,8 +46,6 @@ export const options: NextAuthOptions = {
     }),
   ],
   session: {
-    strategy: 'database',
-    maxAge: 12 * 60 * 60,
-    updateAge: 0,
+    strategy: 'jwt'
   },
 }
