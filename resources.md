@@ -29,6 +29,7 @@
 - [NextAuth Login YT Vid](https://youtu.be/w2h54xz6Ndw?t=1542)
 - [NextAuth Securing Pages and API Routes](https://next-auth.js.org/tutorials/securing-pages-and-api-routes)
 - [NextAuth Custom Pages Configuration](https://next-auth.js.org/configuration/pages)
+- [NextAuth + Prisma](https://www.youtube.com/watch?v=2kgqPvs0j_I)
 
 ### MongoDB Useful Information
 
