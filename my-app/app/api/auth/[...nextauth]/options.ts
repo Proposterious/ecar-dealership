@@ -1,4 +1,5 @@
-import type { NextAuthOptions } from 'next-auth'
+import type { NextAuthOptions } from 'next-auth';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import { compare } from 'bcrypt';
 
@@ -14,7 +15,7 @@ export const authOptions: NextAuthOptions = {
   //   signIn: '/auth/signin',
   //   signOut: '/auth/signout',
   //   error: '/auth/error', // Error code passed in query string as ?error=
-  //   verifyRequest: '/auth/verify-request', // (used for check email message)
+  //   verifyRequest: '/auth/verify-request', // (used for check verification email)
   //   newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   // },
   providers:[
@@ -74,4 +75,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt'
   },
+  adapter: 
+    PrismaAdapter(prisma),
 }
