@@ -33,7 +33,7 @@ function Navbar() {
                 <Link href='/support'>Support</Link>
             </li>
             <li className="font-semibold hover:text-orange-600">
-                <Link href='/auth/signin'>Server</Link>
+                <Link href='/api/auth/signin'>Server</Link>
             </li> 
         </nav>
     );
