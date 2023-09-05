@@ -1,13 +1,10 @@
-import type { NextAuthOptions } from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
-import { compare } from 'bcrypt';
+import type { NextAuthOptions } from 'next-auth'
+import { TypeORMAdapter }
 
 import GitHubProvider from 'next-auth/providers/github'
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from 'next-auth/providers/credentials'
-
-const prisma = new PrismaClient;
+import AppleProvider from 'next-auth/providers/apple'
+import FacebookProvider from 'next-auth/providers/facebook'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions: NextAuthOptions = {
   // Check 'resources.md' for information about custom pages:
@@ -18,63 +15,84 @@ export const authOptions: NextAuthOptions = {
   //   verifyRequest: '/auth/verify-request', // (used for check verification email)
   //   newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   // },
+  adapter: MongoDBAdapter(clientPromise),
   providers:[
+    // OAuth authentication providers...
     GitHubProvider({
-        clientId: process.env.GITHUB_ID as string,
-        clientSecret: process.env.GITHUB_SECRET as string,
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
+    AppleProvider({
+      clientId: process.env.APPLE_ID,
+      clientSecret: process.env.APPLE_SECRET
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
-    CredentialsProvider({
-        // The name to display on the sign in form (e.g. "Sign in with...")
-        name: "Credentials",
-        credentials: {
-          email: { 
-            label: "Email", 
-            type: "email", 
-            placeholder: "test@test.com" 
-          },
-          password: { 
-            label: "Password", 
-            type: "password", 
-            placeholder:"********" 
-          }
-        },
-        async authorize(credentials) {
-        // Add logic here to look up the user from the credentials supplied
-        if (!credentials?.email || !credentials.password) {
-            // Missing information returns 'null' for user
-            return null
-        }
-        // Find user 'email' in prisma db
-        const user = await prisma.user.findUnique({
-          where:{
-            email: credentials.email
-          }
-        })
-        // Incorrect information returns 'null'
-        if (!user) { return null }
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET
+    })
+    // CredentialsProvider({
+    //     // The name to display on the sign in form (e.g. "Sign in with...")
+    //     name: "Credentials",
+    //     credentials: {
+    //       email: { 
+    //         label: "Email", 
+    //         type: "email", 
+    //         placeholder: "test@test.com" 
+    //       },
+    //       password: { 
+    //         label: "Password", 
+    //         type: "password", 
+    //         placeholder:"********" 
+    //       }
+    //     },
+    //     async authorize(credentials) {
+    //     // Add logic here to look up the user from the credentials supplied
+    //     if (!credentials?.email || !credentials.password) {
+    //         // Missing information returns 'null' for user
+    //         return null
+    //     } else {
+    //       // Find user 'email' in MongoDB
+    //       const user = await mongoose.find({
+    //         credentials.email,
+    //         credentials.password,
+    //         }
+    //       })
+    //       // Incorrect information returns 'null'
+    //       if (!user) { return null }
 
-        const isPasswordValid = await compare(
-          credentials.password,
-          user.password
-        )
-        if (!isPasswordValid) {
-          return null
-        }
-        return {
-          id: user.id + '',
-          email: user.email,
-          name: user.name,
-        }
-      }
-    }),
+    //       const isPasswordValid = await compare(
+    //         credentials.password,
+    //         user.password
+    //       )
+    //       if (!isPasswordValid) {
+    //         return null
+    //       }
+    //       return {
+    //         id: user.id + '',
+    //         email: user.email,
+    //         name: user.name,
+    //       }
+    //     }
+    //   },
   ],
   session: {
     strategy: 'jwt'
   },
-  adapter: 
-    PrismaAdapter(prisma),
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+     const isAllowedToSignIn = true
+      if (isAllowedToSignIn) {
+        return true
+      } else {
+        // Return false to display a default error message
+        return false
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    }
+  }
 }
