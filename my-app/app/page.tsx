@@ -17,25 +17,31 @@ export default function Home() {
           </p>
         </section>
       </article>
-      <article className='w-full'>
-        <section className='h-96 space-x-32 justify-center items-center flex flex-row px-8'>
+      <article className='w-full bg-slate-100'>
+        <section className='h-96 px-24 items-center flex flex-row'>
           <div className='w-1/3'>
             <h1 className='text-4xl leading-tight font-semibold text-orange-500 mb-6'>
               Your Job is <br /> Your Credit
             </h1>
-            <p>
-            At Dynamic Motors we feel every Austin car buyer deserves a second chance, so we offer in-house financing (second-chance financing) to ensure hard working people like you can get approved for a better car today.
+            <p className='w-3/4 text-slate-600'>
+            At [Insert Dealer] we feel every [Insert City] car buyer deserves a <em>second chance</em>, so we offer <b>in-house financing</b> (second-chance financing) to ensure hard working people like you can get approved for a better car today, and at a lower price than other car dealers!
             </p>
           </div>
           <div className='w-1/3'>
           <h1 className='text-4xl leading-tight font-semibold text-orange-500 mb-6'>
-              Box 2
+              No Model <br /> Left Behind
             </h1>
+          <p className='w-3/4 text-slate-600'>
+          Most of our auto inventory spans between [0] and [2023], and all of them are available for sale. That means you can drive away in <i>your</i> style, whether it be <b>new and simple</b> or <b><em>historic and flashy</em></b>. No other dealership in [Insert City] offers the level of quality vehicles as we do. 
+          </p>
           </div>
           <div className='w-1/3'>
           <h1 className='text-4xl leading-tight font-semibold text-orange-500 mb-6'>
-              Box 3
+              Our Services <br/> Are Open 24/7
             </h1>
+          <p className='w-3/4 text-slate-600'>
+            This business depends on you, the consumer. As such we also understand the importance of being able to find a car during all times of the day. This is why our dealership stays open <b>24/7</b>, so don't hesitate to stop by at <b>your own pace</b>. Our goal is to make buying easy.
+          </p>
           </div>
         </section>
       </article>
