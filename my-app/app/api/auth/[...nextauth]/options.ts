@@ -1,5 +1,4 @@
 import type { NextAuthOptions } from 'next-auth'
-import { TypeORMAdapter }
 
 import GitHubProvider from 'next-auth/providers/github'
 import AppleProvider from 'next-auth/providers/apple'
@@ -15,24 +14,23 @@ export const authOptions: NextAuthOptions = {
   //   verifyRequest: '/auth/verify-request', // (used for check verification email)
   //   newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   // },
-  adapter: MongoDBAdapter(clientPromise),
   providers:[
     // OAuth authentication providers...
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
     AppleProvider({
-      clientId: process.env.APPLE_ID,
-      clientSecret: process.env.APPLE_SECRET
+      clientId: process.env.APPLE_ID ?? "",
+      clientSecret: process.env.APPLE_SECRET ?? ""
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!
     }),
     FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET
+      clientId: process.env.FACEBOOK_ID ?? "",
+      clientSecret: process.env.FACEBOOK_SECRET ?? ""
     })
     // CredentialsProvider({
     //     // The name to display on the sign in form (e.g. "Sign in with...")
@@ -49,7 +47,7 @@ export const authOptions: NextAuthOptions = {
     //         placeholder:"********" 
     //       }
     //     },
-    //     async authorize(credentials) {
+    //     async authorize(credentials, req) {
     //     // Add logic here to look up the user from the credentials supplied
     //     if (!credentials?.email || !credentials.password) {
     //         // Missing information returns 'null' for user

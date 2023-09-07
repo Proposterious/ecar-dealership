@@ -3,17 +3,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 // Main Logo Import
 import Logo from '../public/car-dealership-logo.png'
+// Component Import
+import AuthButton from './AuthButton'
 
 function Navbar() {
     return ( 
-        <nav className="list-none flex flex-wrap h-28 items-center justify-center space-x-6 text-black bg-slate-100">
+        <nav className="list-none flex flex-wrap h-28 items-center justify-center space-x-8 text-black bg-slate-100">
             <Image 
             src={Logo}
             height={50}
             width={120}
             alt='' /> 
-            <li className='font-bold text-white hover:text-orange-600'>
-                <Link href='/' className="border-2 border-black rounded-full px-5 py-3 bg-orange-500">
+            <li className='font-bold text-white hover:text-black'>
+                <Link href='/' className="border-2 border-black rounded-full px-6 py-3 bg-orange-600">
                     Home
                 </Link>
             </li>
@@ -29,12 +31,12 @@ function Navbar() {
             <li className="hover:text-orange-600">
                 <Link href='/contact'>Contact</Link>
             </li>
-            <li className=" hover:text-orange-600 ">
+            <li className="font-semibold hover:text-orange-600 ">
                 <Link href='/support'>Support</Link>
             </li>
-            <li className="font-semibold hover:text-orange-600">
-                <Link href='/api/auth/signin'>Server</Link>
-            </li> 
+            <li className="text-center border-2 rounded-full border-orange-900 bg-black px-6 py-3 text-white hover:bg-slate-700">
+                <AuthButton />
+            </li>
         </nav>
     );
 }
