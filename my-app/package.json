@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^2.0.0",
     "@auth/prisma-adapter": "^1.0.2",
     "@prisma/client": "^5.2.0",
     "@types/bcrypt": "^5.0.0",

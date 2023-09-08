@@ -15,7 +15,7 @@ function Navbar() {
             width={120}
             alt='' /> 
             <li className='font-bold text-white hover:text-black'>
-                <Link href='/' className="border-2 border-black rounded-full px-6 py-3 bg-orange-600">
+                <Link href='/' className="border-2 border-black rounded-2xl px-6 py-3 bg-orange-600">
                     Home
                 </Link>
             </li>
@@ -34,7 +34,7 @@ function Navbar() {
             <li className="font-semibold hover:text-orange-600 ">
                 <Link href='/support'>Support</Link>
             </li>
-            <li className="text-center border-2 rounded-2xl border-orange-600 bg-slate-200 px-6 py-3 font-medium text-black">
+            <li className="text-center border-2 rounded-3xl border-black bg-orange-600 px-6 py-3 font-medium text-white">
                 <AuthButton />
             </li>
         </nav>

@@ -1,4 +1,6 @@
 import type { NextAuthOptions } from 'next-auth'
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import clientPromise from "../../../lib/mongodb"
 
 import GitHubProvider from 'next-auth/providers/github'
 import AppleProvider from 'next-auth/providers/apple'
@@ -14,6 +16,7 @@ export const authOptions: NextAuthOptions = {
   //   verifyRequest: '/auth/verify-request', // (used for check verification email)
   //   newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   // },
+  adapter: MongoDBAdapter(clientPromise),
   providers:[
     // OAuth authentication providers...
     GitHubProvider({

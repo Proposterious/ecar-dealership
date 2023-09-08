@@ -49,7 +49,7 @@ export default function Home() {
           </div>
         </section>
       </article>
-      <article className="h-96 w-full flex bg-orange-500 px-24 py-16">
+      <article className="h-96 w-full flex bg-orange-500 px-24 py-12">
         <section className="w-1/2">
           <h1 className="font-extrabold text-3xl text-slate-100 mb-3">
             Our Storage is <span className='tracking-wider px-2 bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent'>EXPANSIVE</span>
@@ -57,11 +57,12 @@ export default function Home() {
           <p className="w-4/5 text-slate-100">
             We work with over <i>[insert number]</i> car manufacturers worldwide and closely with the <i>[hypothetically government]</i> to make sure you can drive in any of our cars without having to worry about conflicts with the city's jurisdiction. No matter what state drivers' license you possess or which car you choose to take home, we guarantee your safety!
           </p>
-          <div>
-            insert divide here
+          <div className='cursor-default divide-x-2 divide-black'>
+            ________________________
           </div>
-          <Link href={support}>
-            See Vehicles
+          <Link href={support}
+          className='font-semibold text-black border-none border-2 rounded-2xl px-5 py-3 bg-sky-300'>
+            View Vehicles
           </Link>
         </section>
         <section className="w-1/2">
