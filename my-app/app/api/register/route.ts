@@ -1,12 +1,15 @@
 //import type { NextApiRequest, NextApiResponse} from 'next'
+import { connectMongoDB } from "../../../lib/mongodb";
 import { NextResponse } from 'next/server'
-import { connectMongoDB } from "../../lib/mongodb";
 import { hash } from "bcrypt"
-import User from "../../models/user";
+import User from "../../../models/user";
+
+// Specify 'POST' Request as 'user' action
+const action = 'user' as string;
 
 // Processes 'POST' Request
 export async function POST(req: Request) {
-    connectMongoDB().catch(err => NextResponse.json(err));
+    await connectMongoDB(action).catch(err => NextResponse.json(err));
     // Process a POST request
     if (!req.body) {
         console.log("Error: 400")
@@ -25,6 +28,7 @@ export async function POST(req: Request) {
         console.log("Executing User Creation")
         if (JSON.stringify(data.password) === undefined) {
             console.log("Invalid Information")
+
             return NextResponse.json({error: "Password should be at least 6 characters long"}, { status: 409 });
         }
         // Encrypt password
@@ -37,6 +41,7 @@ export async function POST(req: Request) {
         })
         // Log creation
         console.log("User created")
+        return NextResponse.json({data})
     }
 }
 

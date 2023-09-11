@@ -20,12 +20,11 @@ const userSchema = new Schema({
     default: () => Date.now(),
     immutable: true,
   },
-  updatedAt: Date,
-  comments: [{
-    user: String,
-    content: String,
-    votes: Number
-  }]
+  updatedAt: {
+    type: Date,
+    default: () => Date.now(),
+    immutable: true
+  }
 });
 
 const User = models.User || model('User', userSchema)

@@ -1,99 +1,103 @@
 import type { NextAuthOptions } from 'next-auth'
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import clientPromise from '@/app/lib/promise'
+import { compare } from 'bcrypt'
+import mongoose from 'mongoose'
 
+import clientPromise from '@/lib/promise'
+const uri = process.env.MONGODB_URI as string;
+
+import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import AppleProvider from 'next-auth/providers/apple'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
+import User from '@/models/user';
 
 export const authOptions: NextAuthOptions = {
   // Check 'resources.md' for information about custom pages:
-  // pages: {
-  //   signIn: '/auth/signin',
-  //   signOut: '/auth/signout',
+  pages: {
+    signIn: '/auth/signup',
+  // signOut: '/auth/signout',
   //   error: '/auth/error', // Error code passed in query string as ?error=
   //   verifyRequest: '/auth/verify-request', // (used for check verification email)
-  //   newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-  // },
-  adapter: MongoDBAdapter(clientPromise),
+ // New users will be directed here on first sign in (leave the property out if not of interest)
+  },
   providers:[
     // OAuth authentication providers...
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
     AppleProvider({
-      clientId: process.env.APPLE_ID ?? "",
-      clientSecret: process.env.APPLE_SECRET ?? ""
+      clientId: process.env.APPLE_ID ?? "" as string,
+      clientSecret: process.env.APPLE_SECRET ?? "" as string
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string
     }),
     FacebookProvider({
-      clientId: process.env.FACEBOOK_ID ?? "",
-      clientSecret: process.env.FACEBOOK_SECRET ?? ""
-    })
-    // CredentialsProvider({
-    //     // The name to display on the sign in form (e.g. "Sign in with...")
-    //     name: "Credentials",
-    //     credentials: {
-    //       email: { 
-    //         label: "Email", 
-    //         type: "email", 
-    //         placeholder: "test@test.com" 
-    //       },
-    //       password: { 
-    //         label: "Password", 
-    //         type: "password", 
-    //         placeholder:"********" 
-    //       }
-    //     },
-    //     async authorize(credentials, req) {
-    //     // Add logic here to look up the user from the credentials supplied
-    //     if (!credentials?.email || !credentials.password) {
-    //         // Missing information returns 'null' for user
-    //         return null
-    //     } else {
-    //       // Find user 'email' in MongoDB
-    //       const user = await mongoose.find({
-    //         credentials.email,
-    //         credentials.password,
-    //         }
-    //       })
-    //       // Incorrect information returns 'null'
-    //       if (!user) { return null }
+      clientId: process.env.FACEBOOK_ID ?? "" as string,
+      clientSecret: process.env.FACEBOOK_SECRET ?? "" as string
+    }),
+    CredentialsProvider({
+        // The name to display on the sign in form (e.g. "Sign in with...")
+        name: "Sign In",
+        credentials: {
+          email: { 
+            label: "Email", 
+            type: "email", 
+            placeholder: "test@test.com" 
+          },
+          password: { 
+            label: "Password", 
+            type: "password", 
+            placeholder:"********" 
+          }
+        },
+        async authorize(credentials) {
+        // Add logic here to look up the user from the credentials supplied
+          if (!credentials?.email || !credentials.password) {
+              // Missing information returns 'null' for user
+              return null
+          } else {
+            // Find user 'email' in MongoDB
+            const user = await User.findOne(
+              {email: credentials.email}
+            );
+            // Incorrect information returns 'null'
+            if (!user) { return null }
 
-    //       const isPasswordValid = await compare(
-    //         credentials.password,
-    //         user.password
-    //       )
-    //       if (!isPasswordValid) {
-    //         return null
-    //       }
-    //       return {
-    //         id: user.id + '',
-    //         email: user.email,
-    //         name: user.name,
-    //       }
-    //     }
-    //   },
+            const isPasswordValid = await compare(
+              credentials.password,
+              user.password
+            )
+            if (!isPasswordValid) {
+              return null
+            }
+            return {
+              id: user.id + '',
+              email: user.email,
+              name: user.name,
+            }
+        }
+      }
+    })
   ],
+  callbacks: {
+    async jwt({ token, user, session}) {
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      console.log('jwt callback', { token, user, session })
+      return token
+    },
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      console.log('session callback', { session, token, user})
+      return session;
+    }
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt'
   },
-  callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-     const isAllowedToSignIn = true
-      if (isAllowedToSignIn) {
-        return true
-      } else {
-        // Return false to display a default error message
-        return false
-        // Or you can return a URL to redirect to:
-        // return '/unauthorized'
-      }
-    }
-  }
-}
+  debug: process.env.NODE_ENV === 'development',
+};

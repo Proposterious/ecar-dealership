@@ -3,13 +3,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 // Hero Icon Imports
-import Popout from '../public/svg/popout.svg'
-import Check from '../public/svg/check.svg'
+import Popout from '../../public/svg/popout.svg'
+import Check from '../../public/svg/check.svg'
 // Image Imports
-import GithubCircle from '../public/img/github-mark.png'
-import GithubWritten from '../public/img/github-written.png'
-import Youtube from '../public/img/youtube-mark.png'
-import LinkedIn from '../public/img/linkedin-written.png'
+import GithubCircle from '../../public/img/github-mark.png'
+import GithubWritten from '../../public/img/github-written.png'
+import Youtube from '../../public/img/youtube-mark.png'
+import LinkedIn from '../../public/img/linkedin-written.png'
 // Link Variables
 const yt_link = 'https://www.youtube.com/channel/UCImWneNIF1tbuownEPODS4g';
 const github_link = 'https://github.com/Proposterious';

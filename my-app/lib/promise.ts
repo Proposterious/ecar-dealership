@@ -9,7 +9,7 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI;
 const options = {};
 
-// Initializing client vars
+// Initializing client
 let client;
 let clientPromise: Promise<MongoClient>;
 

@@ -57,7 +57,7 @@ export default function Home() {
           <p className="w-4/5 text-slate-100">
             We work with over <i>[insert number]</i> car manufacturers worldwide and closely with the <i>[hypothetically government]</i> to make sure you can drive in any of our cars without having to worry about conflicts with the city's jurisdiction. No matter what state drivers' license you possess or which car you choose to take home, we guarantee your safety!
           </p>
-          <div className='cursor-default divide-x-2 divide-black'>
+          <div className='cursor-default divide-x-2 divide-black mb-6'>
             ________________________
           </div>
           <Link href={support}
