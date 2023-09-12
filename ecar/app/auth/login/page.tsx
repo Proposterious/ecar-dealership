@@ -1,11 +1,4 @@
 'use client'
-import GoogleSignInBtn from "@/components/ui/provider/google-signin";
-import GithubSignInBtn from "@/components/ui/provider/github-signin";
-import MetaSignInBtn from "@/components/ui/provider/meta-signin";
-
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 import { redirect } from 'next/navigation'
 import { useState } from "react"
@@ -39,14 +32,12 @@ export default function SignIn() {
         <section className='shadow-xl p-4 bg-white rounded-md'>
           <h1 className='font-semibold text-2xl bg-orange-600 text-white rounded-sm mb-6 p-4'>Login to your eCar-Dealership Account</h1>
           <div className='mb-2 w-auto h-auto space-y-3 items-center flex flex-col rounded-lg p-4 bg-zinc-300'>
-            <GithubSignInBtn />
-            <GoogleSignInBtn />  
-            <MetaSignInBtn />
+            {/* INSERT PROVIDER BUTTONS HERE */}
           </div>
         <form onSubmit={onSubmit} className='space-y-6 tracking-wide'>
             <div className='grid-w-full max-w-lg items-center gap-2'>
-                <Label className='text-md mb-2' htmlFor="email">Email</Label>
-                <Input 
+                <label className='text-md mb-2' htmlFor="email">Email</label>
+                <input 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     id="email" 
@@ -55,8 +46,8 @@ export default function SignIn() {
                 />
             </div>
             <div className='grid-w-full max-w-lg items-center gap-2'>
-                <Label className='text-md mb-2' htmlFor="password">Password</Label>
-                <Input 
+                <label className='text-md mb-2' htmlFor="password">Password</label>
+                <input 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     id="password" 
@@ -65,7 +56,7 @@ export default function SignIn() {
                 />
             </div>
             <div className='flex items-center space-x-2'>
-                <Button className='text-md w-full' variant="secondary">Sign In</Button>
+                <button className='text-md w-full'>Sign In</button>
             </div>
           </form>
         </section>

@@ -3,5 +3,8 @@
         "Heroicons",
         "Juxtopposed",
         "Nextjs"
+    ],
+    "cSpell.ignoreWords": [
+        "ecar"
     ]
 }

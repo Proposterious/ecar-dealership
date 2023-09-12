@@ -8,7 +8,7 @@ import AuthButton from './AuthButton'
 
 function Navbar() {
     return ( 
-        <nav className="list-none flex flex-wrap h-28 items-center justify-center space-x-8 text-black bg-slate-100">
+        <nav className="list-none flex flex-wrap h-28 border-b-2 border-amber-600 items-center justify-center space-x-8 text-black bg-slate-200">
             <Image 
             src={Logo}
             height={50}
