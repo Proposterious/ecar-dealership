@@ -1,16 +1,12 @@
 import type { NextAuthOptions } from 'next-auth'
 import { compare } from 'bcrypt'
-import mongoose from 'mongoose'
 
-import clientPromise from '@/lib/promise'
-const uri = process.env.MONGODB_URI as string;
 
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import AppleProvider from 'next-auth/providers/apple'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
-import User from '@/models/user';
 
 export const authOptions: NextAuthOptions = {
   // Check 'resources.md' for information about custom pages:
@@ -40,48 +36,46 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.FACEBOOK_SECRET ?? "" as string
     }),
     CredentialsProvider({
-        // The name to display on the sign in form (e.g. "Sign in with...")
-        name: "Sign In",
-        credentials: {
-          email: { 
-            label: "Email", 
-            type: "email", 
-            placeholder: "test@test.com" 
-          },
-          password: { 
-            label: "Password", 
-            type: "password", 
-            placeholder:"********" 
-          }
+      // The name to display on the sign in form (e.g. "Sign in with...")
+      name: "Sign In",
+      credentials: {
+        email: { 
+          label: "Email", 
+          type: "email", 
+          placeholder: "test@test.com" 
         },
-        async authorize(credentials) {
-        // Add logic here to look up the user from the credentials supplied
-          if (!credentials?.email || !credentials.password) {
-              // Missing information returns 'null' for user
-              return null
-          } else {
-            // Find user 'email' in MongoDB
-            const user = await User.findOne(
-              {email: credentials.email}
-            );
-            // Incorrect information returns 'null'
-            if (!user) { return null }
-
-            const isPasswordValid = await compare(
-              credentials.password,
-              user.password
-            )
-            if (!isPasswordValid) {
-              return null
-            }
-            return {
-              id: user.id + '',
-              email: user.email,
-              name: user.name,
-            }
+        password: { 
+          label: "Password", 
+          type: "password", 
+          placeholder:"********" 
         }
-      }
-    })
+      },
+      async authorize(credentials) {
+      // Add logic here to look up the user from the credentials supplied
+        if (!credentials?.email || !credentials.password) {
+            // Missing information returns 'null' for user
+            return null
+        } else {
+          // Find user 'email' in MongoDB
+          const user: any = { email: 'lol', password: 'pass'};
+          };
+          // Incorrect information returns 'null'
+          if (!user) { return null }
+
+          const isPasswordValid = await compare(
+            credentials.password,
+            user.password
+          )
+          if (!isPasswordValid) {
+            return null
+          }
+          return {
+            id: user.id + '',
+            email: user.email,
+            name: user.name,
+          }
+        } 
+      })
   ],
   callbacks: {
     async jwt({ token, user, session}) {

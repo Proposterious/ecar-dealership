@@ -11,7 +11,7 @@ function MetaSignInBtn() {
             <Image 
             src={logo}
             alt='Facebook Login'
-            width={200} height={90}/>
+            width={390} height={90}/>
         </button>
      );
 }

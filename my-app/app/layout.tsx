@@ -24,7 +24,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel="shortcut icon" type="image/x-icon" href="../public/ecar-logo.ico" />
+      <link rel="shortcut icon" type="image/png" href="../public/ecar-logo.png" />
       </head>
       <body className={inter.className}>
         <SessionProvider session={session}>

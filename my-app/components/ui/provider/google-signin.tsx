@@ -11,7 +11,7 @@ function GoogleSignInBtn() {
             <Image 
             src={logo}
             alt='Google Login'
-            width={200} height={120}/>
+            width={390} height={120}/>
         </button>
      );
 }

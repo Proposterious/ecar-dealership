@@ -14,7 +14,7 @@ export const RegisterForm = () => {
         e.preventDefault()
         
         try {
-            const res = await fetch('/api/signup', {
+            const res = await fetch('http:localhost:3000/api/signup', {
                 method: 'POST',
                 body: JSON.stringify({
                     email, password 
@@ -24,12 +24,12 @@ export const RegisterForm = () => {
                 }
             })
             if (res.ok) {
-                redirect('./signin')
+                redirect('../login')
             }
         } catch (error) {
             console.log(error)
         }
-        console.log('Register!')
+        console.log('Registered!')
     }
     return (
         <form onSubmit={onSubmit} className='space-y-12 tracking-wide'>

@@ -11,7 +11,7 @@ function GithubSignInBtn() {
             <Image 
             src={logo}
             alt='Github Login'
-            width={220} height={100}/>
+            width={390} height={100}/>
         </button>
      );
 }
