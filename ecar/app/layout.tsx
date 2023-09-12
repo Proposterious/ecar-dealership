@@ -3,10 +3,10 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { getServerSession } from 'next-auth';
-import SessionProvider from '@/components/content/SessionProvider';
+import Provider from '@/components/provider/Provider';
 // Component imports
-import Navbar from '../components/content/navbar'
-import Information from '../components/content/information'
+import Navbar from '../components/content/header/navbar'
+import Information from '../components/content/footer/information'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,14 +20,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession();
   return (
     <html lang="en">
       <head>
-      <link rel="shortcut icon" type="image/png" href="../public/ecar-logo.png" />
+      <link rel="icon" type="image/png" href="/ecar/public/car-dealership-logo.png" />
       </head>
-      <body className={inter.className}>
-        <SessionProvider session={session}>
+      <Provider>
+        <body className={inter.className}>
           <header>
             <Navbar />
           </header>  
@@ -35,8 +34,8 @@ export default async function RootLayout({
           <footer>
             <Information />
           </footer>
-        </SessionProvider>
-      </body>
+        </body>
+      </Provider>
     </html>
   )
 }

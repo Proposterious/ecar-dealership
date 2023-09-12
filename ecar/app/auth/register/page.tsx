@@ -1,5 +1,4 @@
 import RegisterForm from './form';
-import Link from 'next/link';
 
 function Register() {
     return ( 

@@ -2,15 +2,17 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'
+import { useSession, signIn } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-function RegisterForm() {
-    // Assign 'useRouter()
+function LoginForm() {
+    // Assign 'useRouter()'
     const router = useRouter()
+    // Assign 'useSession
+    const { update: updateSession } = useSession()
     // Handle 'useState' and 'onChange'
     const [data, setData] = useState({
-        name: "",
         email: "",
         password: ""
     })
@@ -23,22 +25,15 @@ function RegisterForm() {
         }));
       };
 
-    const registerUser = async (e: any) => {
-        // const newName = data.name; const newEmail = data.email; const newPass = data.password;
-        // const newData = {newName, newEmail, newPass}
-        console.log({data})
+    const loginUser = async (e: any) => {
+        // Handle 'signIn()' request
         e.preventDefault()
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
+        signIn('credentials', {
+            ...data,
+            redirect: false,
         })
-
-        const userInfo = await response.json()
-        console.log(userInfo)
-        router.push('/auth/login')
+        updateSession()
+        router.push('/dashboard');
     }
 
     return ( 
@@ -52,31 +47,14 @@ function RegisterForm() {
                         alt={"eCar Dealership"}
                     />
 
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight decoration-dashed underline text-orange-500">
-                        Create An Account
+                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight underline text-orange-500">
+                        Login to Your Account
                     </h2>
                 </div>
                 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    {/* ENTER A USERNAME */}
-                    <form className="space-y-6" action="#" method="POST" onSubmit={registerUser}>
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                                Username
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                id="name"
-                                name="name"
-                                type="name"
-                                required
-                                value={data.name}
-                                onChange={handleInputChange}
-                                placeholder="Very Cool Original Username"
-                                className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
+                    {/* ENTER CREDENTIALS */}
+                    <form className="space-y-4" action="#" method="POST" onSubmit={loginUser}>
                         {/* ENTER AN EMAIL */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -128,16 +106,16 @@ function RegisterForm() {
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Sign Up
+                                Sign In
                             </button>
                         </div>
                     </form>
                     {/* Additional Providers Section */}
                     {/* REPLACE THIS SECTION BELOW WITH PROVIDER BUTTON(S) */}
                     <p className="mt-10 text-center text-sm text-gray-500">
-                        Already a member?{' '}
-                        <Link href="/auth/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                        Sign In
+                        Not a member?{' '}
+                        <Link href="/auth/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        Sign Up for Free
                         </Link>
                     </p>
                 </div>
@@ -146,6 +124,6 @@ function RegisterForm() {
     );
 }
 
-export default RegisterForm;
+export default LoginForm;
     
   
