@@ -43,10 +43,10 @@ function RegisterForm() {
 
     return ( 
         <section className='h-full w-1/3 mx-auto py-12'>
-            <div className="flex min-h-full flex-1 flex-col justify-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-200">
+            <div className="flex min-h-full flex-1 flex-col justify-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">
                 {/* Card Header */}
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <Image className={'mx-auto w-full bg-white'}
+                    <Image className={'mx-auto w-full'}
                         width={300} height={100}
                         src={"/car-dealership-logo.png"}
                         alt={"eCar Dealership"}

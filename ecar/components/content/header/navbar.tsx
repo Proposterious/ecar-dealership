@@ -34,9 +34,7 @@ function Navbar() {
             <li className="font-semibold hover:text-orange-600 ">
                 <Link href='/support'>Support</Link>
             </li>
-            <li className="text-center border-2 rounded-3xl border-black bg-orange-600 px-6 py-3 font-medium text-white">
-                <AuthButton />
-            </li>
+            <AuthButton />
         </nav>
     );
 }

@@ -8,22 +8,31 @@ function AuthButton() {
     const { data: session } = useSession()
     if (session) {
         return ( 
-            <div className='inline-block'>
-                <p className='inline-block'>Greetings:</p>
-                <p className='indent-1 inline-block underline decoration-inherit hover:text-black'>{session.user?.name}</p>!
-                <br />
-                <button className='font-bold hover:text-black' onClick={() => signOut({callbackUrl: '/' })}>
-                    Sign Out
-                </button>
-            </div>
+            <>
+                <li className="font-semibold hover:text-orange-600 | border-l pl-6 border-black">
+                    <Link href='/dashboard'>Dashboard</Link>
+                </li>
+                <li className="text-center border-2 rounded-3xl border-black bg-orange-600 px-6 py-3 font-medium text-white">
+                    <p className='inline-block'>Greetings:</p>
+                    <Link href='/dashboard' className='indent-1 inline-block underline decoration-inherit hover:text-indigo-600'>
+                        {session.user?.name}
+                    </Link> !
+                    <br />
+                    <button className='font-bold hover:text-black' onClick={() => signOut({callbackUrl: '/' })}>
+                        Logout
+                    </button>
+                </li>
+            </>
         );
     } else {
         return(
-            <Link href='/auth/login'>
-                <button className='font-bold hover:text-slate-200/80' >
-                    Sign In
-                </button>
-            </Link>
+            <li className = 'border-l pl-6 border-black'>
+                <Link href='/auth/login'>
+                    <button className='text-white font-bold hover:text-slate-200/80 | border-2 rounded-3xl border-black bg-orange-600 px-6 py-3' >
+                        Login
+                    </button>
+                </Link>
+            </li>
         );
     }
 }

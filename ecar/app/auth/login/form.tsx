@@ -38,11 +38,11 @@ function LoginForm() {
 
     return ( 
         <section className='h-full w-1/3 mx-auto py-12'>
-            <div className="flex min-h-full flex-1 flex-col justify-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-200">
+            <div className="flex min-h-full flex-1 flex-col justify-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">
                 {/* Card Header */}
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <Image className={'mx-auto w-full bg-white'}
-                        width={300} height={100}
+                    <Image className={'mx-auto w-full'}
+                        width={400} height={100}
                         src={"/car-dealership-logo.png"}
                         alt={"eCar Dealership"}
                     />
@@ -70,7 +70,7 @@ function LoginForm() {
                                 value={data.email}
                                 onChange={handleInputChange}
                                 placeholder="johndoe01@email.com"
-                                className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
@@ -81,7 +81,7 @@ function LoginForm() {
                             Password
                             </label>
                             <div className="text-sm">
-                            <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                            <a href="#" className="font-semibold text-orange-600 hover:text-indigo-500">
                                 Forgot password?
                             </a>
                             </div>
