@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react'
 
 function AuthButton() {
-    const { data: session } = useSession()
-    if (session) {
+    const { data: token } = useSession()
+    if (token) {
         return ( 
             <>
                 <li className="font-semibold hover:text-orange-600 | border-l pl-6 border-black">
@@ -15,7 +15,7 @@ function AuthButton() {
                 <li className="text-center border-2 rounded-3xl border-black bg-orange-600 px-6 py-3 font-medium text-white">
                     <p className='inline-block'>Greetings:</p>
                     <Link href='/dashboard' className='indent-1 inline-block underline decoration-inherit hover:text-indigo-600'>
-                        {session.user?.name}
+                        {token.user?.name}
                     </Link> !
                     <br />
                     <button className='font-bold hover:text-black' onClick={() => signOut({callbackUrl: '/' })}>

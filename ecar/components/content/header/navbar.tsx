@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 // Main Logo Import
-import Logo from '../../../public/car-dealership-logo.png'
+import Logo from '../../../public/shrunk-car-logo.png'
 // Component Import
 import AuthButton from './AuthButton'
 
