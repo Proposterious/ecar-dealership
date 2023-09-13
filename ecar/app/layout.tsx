@@ -2,9 +2,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { getServerSession } from 'next-auth';
-import Provider from '@/components/provider/Provider';
 // Component imports
+import Provider from '@/components/provider/Provider';
 import Navbar from '../components/content/header/navbar'
 import Information from '../components/content/footer/information'
 
@@ -23,7 +22,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel="icon" type="image/png" href="/ecar/public/car-dealership-logo.png" />
+      <link rel="icon" type="image/png" href="/car-dealership-logo.png" />
       </head>
       <Provider>
         <body className={inter.className}>
