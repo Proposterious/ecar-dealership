@@ -2,15 +2,18 @@
 // React, Next components
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import Router from 'next/router';
 // Custom components
-import React from 'react';
-import arrow from '@/public/svg/arrow-right.svg';
-import Logo from '@/components/content/image/logo';
+import Image from 'next/image'
+import logo from '../../public/shrunk-car-logo.png'
+import arrow from  '../../public/svg/arrow-right.svg';
 
 function Dashboard() {
-    const { data: session } = useSession();
-    console.log(session);
+    const { data: token } = useSession();
+    const router = useRouter()
+    console.log(token);
+    if (!token) { router.push('/auth/logout')}
     // Handle entered information
     const [data, setData] = useState({
         fullName: "",
@@ -21,12 +24,12 @@ function Dashboard() {
     });
     
     const handleInputChange = (e: any) => {
-        const { name, value } = e.target;
-        setData((prevProps) => ({
-          ...prevProps,
-          [name]: value
-        }))
-      };
+      const { name, value } = e.target;
+      setData((prevProps) => ({
+        ...prevProps,
+        [name]: value
+      }))
+    };
 
     const updateUser = async() => {
         console.log("Update the user's information from 'Personal Information'")
@@ -50,6 +53,7 @@ function Dashboard() {
           <div className="mx-auto max-w-screen-2xl p-4">
             <div className="mx-auto max-w-2/3">
               <div className="mb-6 flex flex-col gap-4">
+
 
                 <h2 className="text-2xl font-bold text-black">
                   Settings Page
@@ -94,7 +98,7 @@ function Dashboard() {
                           <label className="mb-3 block text-sm font-medium text-black" htmlFor="email">Email Address</label>
                           <div className="relative">
                             <span className="absolute left-4 top-4">
-                              {arrow}
+                              
                             </span>
                             <input className="flex items-center w-full rounded border border-stroke bg-gray py-3 pl-4 pr-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="email" name="email" id="email" placeholder="devidjond45@gmail.com" value={data.email} onChange={handleInputChange} />
                           </div>
@@ -136,8 +140,8 @@ function Dashboard() {
                       <form action="#" method="POST" onSubmit={updateUser}>
                         <div className="gap-4">
                             <div className="flex py-3">
-                                <span className="flex h-20 w-20 rounded-full border border-stroke bg-black">
-                                    <Logo w={null} h={null} s='' o/>
+                                <span className="flex h-20 w-20 rounded-full border border-stroke ">
+                                    <Image src={logo} alt='' objectFit='cover' className='py-4 px-1' />
                                 </span>
                                 <div className="pl-3 font-medium text-orange-500">
                                     <p className='text-black'>Edit your photo</p>
@@ -154,7 +158,7 @@ function Dashboard() {
 
                         <div id="FileUpload" className="relative mb-6 w-full cursor-pointer appearance-none rounded border-2 border-dashed border-orange-500 py-4 px-4">
                           <input type="file" accept="image/*" className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none" />
-                          <div className="flex flex-col flex-1 items-center justify-center space-y-3 h-36">
+                          <div className="flex flex-col flex-1 items-center justify-center space-y-3 h-36 text-black">
                             <p className="flex text-sm font-medium indent-1">
                               <p className='text-orange-600'>Click to upload</p>or drag and drop
                             </p>
