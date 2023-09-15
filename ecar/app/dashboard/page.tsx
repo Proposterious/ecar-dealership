@@ -1,28 +1,24 @@
 'use client'
 // React, Next components
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import Router from 'next/router';
+// Import functions
+import getUser from './getUser'
 // Custom components
 import Image from 'next/image'
 import logo from '../../public/shrunk-car-logo.png'
 import arrow from  '../../public/svg/arrow-right.svg';
 
 function Dashboard() {
-    const { data: token } = useSession();
-    const router = useRouter()
-    console.log(token);
-    if (!token) { router.push('/auth/logout')}
     // Handle entered information
     const [data, setData] = useState({
         fullName: "",
         phoneNumber: "",
-        username: "",
+        name: "",
         email: "",
         bio: "",
     });
-    
+
     const handleInputChange = (e: any) => {
       const { name, value } = e.target;
       setData((prevProps) => ({
@@ -31,6 +27,7 @@ function Dashboard() {
       }))
     };
 
+    // Create, Read, Update/Write functions 
     const updateUser = async() => {
         console.log("Update the user's information from 'Personal Information'")
     };
@@ -47,6 +44,19 @@ function Dashboard() {
     const updateImage = () => {
         console.log("Update the user's image from 'Your Photo'")
     }
+
+    // Update User with Complete Data
+    const userId = getUser(); // grabs id from current user session
+    let completeData = [data.fullName, data.name, data.bio, data.phoneNumber, data.email, userId]
+    function remove() {
+      for (let i = 0, len = completeData.length; i < len; i++) {
+          if (completeData[i] === 'cool') {
+              completeData.splice(i, 1)
+              console.log(completeData)
+              console.log('hello')
+          }
+      }
+  }
 
     return (
         <section>
@@ -105,12 +115,14 @@ function Dashboard() {
                         </div>
 
                         <div className="mb-6">
-                          <label className="mb-3 block text-sm font-medium text-black" htmlFor="username">Username</label>
-                          <input className="flex items-center w-full rounded border border-stroke bg-gray py-3 pl-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="username" id="username" placeholder="murdoxholmes06" value={data.username} onChange={handleInputChange}/>
+                          <label className="mb-3 block text-sm font-medium text-black" htmlFor="name">Username</label>
+                          <input className="flex items-center w-full rounded border border-stroke bg-gray py-3 pl-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="name" id="name" placeholder="murdoxholmes06" value={data.name} onChange={handleInputChange}/>
                         </div>
 
                         <div className="mb-6">
-                          <label className="mb-3 block text-sm font-medium text-black" htmlFor="Username">BIO <p className='inline-block font-light'>(helps us determine the best cars for you)</p></label>
+                          <label className="mb-3 block text-sm font-medium text-black" htmlFor="bio">
+                            BIO <p className='inline-block font-light'>(helps us determine the best cars for you)</p>
+                          </label>
                           <div className="relative">
                             <textarea className="flex items-center w-full rounded border border-stroke bg-gray py-4 pl-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none line-clamp-2" name="bio" id="bio"placeholder="Write your bio here" value={data.bio} onChange={handleInputChange}>
                             </textarea>
@@ -188,7 +200,8 @@ function Dashboard() {
             </div>
           </div>
         </section>
-    );
+  );
 }
+
 
 export default Dashboard;

@@ -95,16 +95,13 @@ export const authOptions: NextAuthOptions = {
       if (account) {
         token.accessToken = account.access_token;
       }
-      console.log(token)
-      console.log('was jwt')
       return token;
     },
     async session({ session, token }: any) {
-      session.user.id = token.id;
-      session.accessToken = token.accessToken;
-      console.log(session.accessToken)
-      console.log('was session')
-      return session;
+      return {
+        ...session,
+        id : token.id,
+      }
     }
   },
   secret: process.env.NEXTAUTH_SECRET,
