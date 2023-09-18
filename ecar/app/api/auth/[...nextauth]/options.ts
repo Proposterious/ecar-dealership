@@ -97,11 +97,13 @@ export const authOptions: NextAuthOptions = {
       if (account) { // allows 'token' access to third party 'account'
         token.accessToken = account.access_token;
       }
-
+      console.log(token)
       return token;
     },
     async session({ session, token }: any) {
-      session.user.id = token.id; // gives session 'id' attribute
+      session.user.id = token.id;
+      session.user.biography = token.bio;
+      console.log(session) // gives session 'id' attribute
       return session;
     }
   },

@@ -32,7 +32,7 @@ function Dashboard() {
   // Placeholder's values with 'session' data
   const placeholderName = session?.user?.name as string; 
   const placeholderEmail = session?.user?.email as string;
-  const placeholderBio = getBio(session?.user?.biography);
+  const placeholderBio = session?.user?.biography;
   const placeholderImage = getImage(session?.user?.image);
   
   // Update User with Complete Data
