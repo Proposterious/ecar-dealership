@@ -103,6 +103,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }: any) {
       session.user.id = token.id;
       session.user.biography = token.bio;
+      session.user.fullName = token.fullName;
       console.log(session) // gives session 'id' attribute
       return session;
     }
