@@ -6,10 +6,10 @@ import { useState } from 'react';
 import Router from 'next/router';
 // Import custom functions/instances
 import removeBlankData from './removeBlankData';
-import { getImage, getBio } from './getInfo';
+import { getImage } from './getInfo';
 // Next components
 import Image from 'next/image';
-
+import logo from '/public/car-logo.png'
 function Dashboard() {
   // Handle entered information
   const [data, setData] = useState({
@@ -18,6 +18,7 @@ function Dashboard() {
       name: "",
       email: "",
       bio: "",
+      image: ""
   });
 
   const handleInputChange = (e: any) => {
@@ -30,7 +31,8 @@ function Dashboard() {
   // Assign instances
   const { data: session } = useSession() as any;
   // Placeholder's values with 'session' data
-  const placeholderName = session?.user?.name as string; 
+  const placeholderName = session?.user?.name as string;
+  const placeholderFullName = session?.user?.fullName as string;
   const placeholderEmail = session?.user?.email as string;
   const placeholderBio = session?.user?.biography;
   const placeholderImage = getImage(session?.user?.image);
@@ -42,18 +44,19 @@ function Dashboard() {
     biography: data.bio,
     phoneNumber: data.phoneNumber,
     email: data.email,  
+    image: data.image,
   }
   //[data.fullName, data.name, data.bio, data.phoneNumber, data.email]
 
   // Create, Read, Update/Write functions 
   const updateUser = async(e: any) => {
-    loading()
+    await loading()
     console.log('Session from dashboard page:', session)
     // Part one
     const newData = removeBlankData(completeData)
     // Part two
     e.preventDefault()
-    const response = await fetch('/api/settings', {
+    const response = await fetch('/api/update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -80,11 +83,25 @@ function Dashboard() {
     Router.reload()
   };
 
-  const deleteImage = () => {
+  const updateImage = async (e: any) => {
+    await loading()
+    console.log('Session from dashboard page:', session)
+    // Part one
+    const newData = removeBlankData(completeData)
+    // Part two
+    e.preventDefault()
+    const response = await fetch('/api/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newData)
+    })
     console.log("Delete the user's image from 'Your Photo'")
   }
 
-  const updateImage = () => {
+  const deleteImage = () => {
+    const placeholderImage = logo;
     console.log("Update the user's image from 'Your Photo'")
   }
 
@@ -124,7 +141,7 @@ function Dashboard() {
                         <div className="w-full sm:w-1/2">
                           <label className="mb-3 block text-sm font-medium text-black" htmlFor="fullName">Full Name</label>
                           <div className="relative">
-                            <input className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-{4.5} font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="fullName" id="fullName" placeholder='Your Full Name' value={data.fullName} onChange={handleInputChange}/>
+                            <input className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-{4.5} font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="fullName" id="fullName" placeholder={placeholderFullName} value={data.fullName} onChange={handleInputChange}/>
                           </div>
                         </div>
 
@@ -191,7 +208,7 @@ function Dashboard() {
                                   <button className="indent-1.5 text-sm font-medium" onSubmit={() => deleteImage()}>
                                       Delete
                                   </button>
-                                  <button className="text-sm font-medium" onSubmit={() => updateImage()}>
+                                  <button className="text-sm font-medium" onSubmit={() => updateImage}>
                                       Update
                                   </button>
                                 </div>
