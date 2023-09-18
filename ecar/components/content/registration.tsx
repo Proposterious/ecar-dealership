@@ -8,7 +8,7 @@ function RegisterForm() {
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <Image className={'mx-auto bg-blue-400'}
                         width={300} height={100}
-                        src={"/car-dealership-logo.png"}
+                        src={"/car-logo.png"}
                         alt={"eCar Dealership"}
                     />
 

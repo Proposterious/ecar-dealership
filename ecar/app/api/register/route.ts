@@ -30,6 +30,6 @@ export async function POST(req: Request) {
             hashedPassword
         }
     });
-    prisma.$disconnect
+    prisma.$disconnect()
     return NextResponse.json(user);
 }

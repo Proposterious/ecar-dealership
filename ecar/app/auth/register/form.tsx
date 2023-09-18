@@ -46,12 +46,11 @@ function RegisterForm() {
             <div className="flex min-h-full flex-1 flex-col justify-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">
                 {/* Card Header */}
                 <div className="mx-auto max-w-sm">
-                    <Image className={'w-full'}
-                        width={300} height={100}
-                        src={"/car-dealership-logo.png"}
+                <Image width={400} height={60}
+                        className='-my-12 md:-my-6 sm:-my-3'
+                        src={"/car-logo.png"}
                         alt={"eCar Dealership"}
                     />
-
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight decoration-dashed underline text-orange-500">
                         Create An Account
                     </h2>

@@ -1,49 +1,63 @@
 'use client'
-
+// Function Imports
+import { useSession, signIn } from 'next-auth/react';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'
-import { useSession, signIn } from 'next-auth/react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { redirect } from 'next/navigation';
+// Component Imports
+import Image from 'next/image';
+import Link from 'next/link';
 
 function LoginForm() {
-    // Assign 'useRouter()'
-    const router = useRouter()
-    // Assign 'useSession
-    const { update } = useSession()
     // Handle 'useState' and 'onChange'
     const [data, setData] = useState({
         email: "",
         password: ""
     })
-
     const handleInputChange = (e: any) => {
         const { name, value } = e.target;
         setData((prevProps) => ({
           ...prevProps,
           [name]: value
         }));
-      };
-
+    };
+    // Login User
     const loginUser = async (e: any) => {
+        awaitLogin();
         // Handle 'signIn()' request
         e.preventDefault()
         signIn('credentials', {
-            ...data,
-            redirect: false,
+            ...data
         })
-        update()
-        router.push('/dashboard');
+    }
+    // Provide loading screen
+    const awaitLogin = () => {
+        return (
+            <div className='flex absolute justify-center items-center min-h-screen bg-black w-full'> 
+                <div className='loader'></div> 
+            </div> 
+        )
     }
 
-    return ( 
+    // Assign 'useSession'
+    const { status } = useSession()
+
+    if (status === "authenticated") {redirect('/dashboard')} // redirect user to dashboard when authenticated
+    else if (status === 'loading') { // display loading animation while waiting for status
+        return (
+            <div className='flex justify-center items-center min-h-screen bg-black w-full'> 
+                <div className='loader'></div> 
+            </div> 
+        )
+    }
+    
+    return (
         <section className='h-full w-1/3 mx-auto py-12'>
-            <div className="flex min-h-full flex-1 flex-col justify-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">
+            <div className="flex min-h-full flex-1 flex-col justify-center items-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">
                 {/* Card Header */}
-                <div className="mx-auto max-w-sm">
-                    <Image className={'w-full'}
-                        width={300} height={30}
-                        src={"/car-dealership-logo.png"}
+                <div className="max-w-sm">
+                    <Image width={400} height={60}
+                        className='-my-12'
+                        src={"/car-logo.png"}
                         alt={"eCar Dealership"}
                     />
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight underline text-orange-500">
@@ -53,7 +67,7 @@ function LoginForm() {
                 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     {/* ENTER CREDENTIALS */}
-                    <form className="space-y-4" action="#" method="POST" onSubmit={loginUser}>
+                    <form className="space-y-4" action="#" onSubmit={loginUser}>
                         {/* ENTER AN EMAIL */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -99,7 +113,7 @@ function LoginForm() {
                             />
                         </div>
                         </div>
-
+                        {/* CLICK TO SIGN IN */}
                         <div>
                             <button
                             type="submit"
@@ -110,6 +124,9 @@ function LoginForm() {
                         </div>
                     </form>
                     {/* Additional Providers Section */}
+                    <div> {/* Change to include providers please for the love of god fix this... CHECK 'Providers.tsx' */}
+                        {null}
+                    </div>
                     {/* REPLACE THIS SECTION BELOW WITH PROVIDER BUTTON(S) */}
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not a member?{' '}

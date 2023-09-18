@@ -44,26 +44,24 @@ export default function Home() {
               Our Services <br/> are Open 24/7
             </h1>
           <p className='w-3/4 text-slate-600'>
-            This business depends on you, the consumer. As such we also understand the importance of being able to find a car during all times of the day. This is why our dealership stays open <b>24/7</b>, so don't hesitate to stop by at <b>your own pace</b>. Our goal is to make buying easy.
+            This business depends on you, the consumer. As such we also understand the importance of being able to find a car during all times of the day. This is why our dealership stays open <b>24/7</b>, so don&#39;t hesitate to stop by at <b>your own pace</b>. Our goal is to make buying easy.
           </p>
           </div>
         </section>
       </article>
-      <article className="h-96 w-full flex bg-orange-500 px-24 py-12">
-        <section className="w-1/2">
+      <article className="h-96 w-full flex bg-orange-500 px-24 py-12 border-collapse">
+        <section className="w-1/2 ">
           <h1 className="font-extrabold text-3xl text-slate-100 mb-3">
             Our Storage is <span className='tracking-wider px-2 bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent'>EXPANSIVE</span>
           </h1>
-          <p className="w-4/5 text-slate-100">
-            We work with over <i>[insert number]</i> car manufacturers worldwide and closely with the <i>[hypothetically government]</i> to make sure you can drive in any of our cars without having to worry about conflicts with the city's jurisdiction. No matter what state drivers' license you possess or which car you choose to take home, we guarantee your safety!
-          </p>
-          <div className='cursor-default divide-x-2 divide-black mb-6'>
-            ________________________
-          </div>
-          <Link href={support}
-          className='font-semibold text-black border-none border-2 rounded-2xl px-5 py-3 bg-sky-300'>
-            View Vehicles
-          </Link>
+            <div className="w-4/5 border-b-2 border-white text-slate-100 pb-8 mb-12">
+                We work with over <i>[insert number]</i> car manufacturers worldwide and closely with the <i>[hypothetically government]</i> to make sure you can drive in any of our cars without having to worry about conflicts with the city&#39;s jurisdiction. No matter what state drivers&#39; license you possess or which car you choose to take home, we guarantee your safety!
+              </div>
+            <div>
+              <Link href={support} className='font-semibold text-black rounded-2xl w-fit h-fit px-5 py-3 bg-sky-300 hover:bg-sky-400/80'>
+                View Vehicles
+              </Link>
+            </div>
         </section>
         <section className="w-1/2">
           insert image element

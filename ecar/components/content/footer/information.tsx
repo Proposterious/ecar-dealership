@@ -1,4 +1,3 @@
-// MODEL THIS OFF OF: https://www.enterprise.com/en/car-rental-locations/us/tx/austin.html
 // Nextjs Imports
 import Link from 'next/link'
 import Image from 'next/image'
