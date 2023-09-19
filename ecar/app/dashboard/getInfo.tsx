@@ -6,7 +6,7 @@ import logo from '../../public/shrunk-car-logo.png';
 export function getImage(checkImage: string) {
     if (checkImage != undefined && checkImage != null) { 
         console.log('User Image exists ', checkImage)
-        return checkImage
+        return checkImage;
     } else { 
         console.log('User Image DOES NOT exist...')
         return logo; 

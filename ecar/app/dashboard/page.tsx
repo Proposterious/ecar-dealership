@@ -9,7 +9,7 @@ import removeBlankData from './removeBlankData';
 import { getImage } from './getInfo';
 // Next components
 import Image from 'next/image';
-import logo from '/public/car-logo.png'
+
 function Dashboard() {
   // Handle entered information
   const [data, setData] = useState({
@@ -29,7 +29,7 @@ function Dashboard() {
     }))
   };
   // Assign instances
-  const { data: session } = useSession() as any;
+  const { data: session, update } = useSession() as any;
   // Placeholder's values with 'session' data
   const placeholderName = session?.user?.name as string;
   const placeholderFullName = session?.user?.fullName as string;
@@ -50,13 +50,12 @@ function Dashboard() {
 
   // Create, Read, Update/Write functions 
   const updateUser = async(e: any) => {
-    await loading()
     console.log('Session from dashboard page:', session)
     // Part one
     const newData = removeBlankData(completeData)
     // Part two
     e.preventDefault()
-    const response = await fetch('/api/update', {
+    const response = await fetch('/api/update', { // make call to api
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -71,23 +70,15 @@ function Dashboard() {
     signOut()
   };
 
-  function loading() {
-    return (
-      <div className='flex justify-around items-center min-h-screen bg-black w-full'>
-        <div className='loader'></div>
-      </div>
-    )}
-
   function handleRefresh() {
     console.log("Force refresh the 'Dashboard' page")
     Router.reload()
   };
 
   const updateImage = async (e: any) => {
-    await loading()
     console.log('Session from dashboard page:', session)
     // Part one
-    const newData = removeBlankData(completeData)
+    const res = '';
     // Part two
     e.preventDefault()
     const response = await fetch('/api/update', {
@@ -95,19 +86,21 @@ function Dashboard() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify(res)
     })
+    console.log(response)
     console.log("Delete the user's image from 'Your Photo'")
+    signOut()
   }
 
   const deleteImage = () => {
-    const placeholderImage = logo;
+    
     console.log("Update the user's image from 'Your Photo'")
   }
 
 
   return (
-      <section>
+      <section id='dashboard'>
         <div className="mx-auto max-w-screen-2xl p-4">
           <div className="mx-auto max-w-2/3">
             <div className="mb-6 flex flex-col gap-4">
