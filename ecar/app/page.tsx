@@ -2,6 +2,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 // Defining Vars
+import royce from '../public/img/car-models/2024-rolls-royce-phantom.jpg'
+import porsche from '../public/img/car-models/2017-porsche-911-turbo-s.jpg'
 const support = './support/'
 
 export default function Home() {
@@ -49,12 +51,12 @@ export default function Home() {
           </div>
         </section>
       </article>
-      <article className="h-96 w-full flex bg-orange-500 px-24 py-12 border-collapse">
-        <section className="w-1/2 ">
+      <article className="h-96 w-full flex bg-orange-500 p-12 border-collapse">
+        <section className="w-1/2">
           <h1 className="font-extrabold text-3xl text-slate-100 mb-3">
-            Our Storage is <span className='tracking-wider px-2 bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent'>EXPANSIVE</span>
+            Our Storage is <span className='tracking-wider bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent'>EXPANSIVE</span>
           </h1>
-            <div className="w-4/5 border-b-2 border-white text-slate-100 pb-8 mb-12">
+            <div className="w-4/5 border-b-2 border-white text-slate-100 pb-4 mb-8">
                 We work with over <i>[insert number]</i> car manufacturers worldwide and closely with the <i>[hypothetically government]</i> to make sure you can drive in any of our cars without having to worry about conflicts with the city&#39;s jurisdiction. No matter what state drivers&#39; license you possess or which car you choose to take home, we guarantee your safety!
               </div>
             <div>
@@ -63,11 +65,13 @@ export default function Home() {
               </Link>
             </div>
         </section>
-        <section className="w-1/2">
-          insert image element
+        <section className="max-h-full grid grid-flow-row grid-rows-4 grid-cols-2 max-w-xl justify-evenly">
+          <Image className='max-w-sm rounded-lg shadow-lg shadow-slate-300' src={royce} objectFit='fit' alt='' />
+          <div></div><div></div>
+          <Image className='max-w-sm rounded-lg shadow-lg shadow-slate-800' src={porsche} objectFit='fit' alt='' />
         </section>
       </article>
-      <article className="h-96 w-full flex bg-slate-100 p-24">
+      <article className="h-96 w-full flex bg-slate-100 p-12">
         <section className="w-1/2">
           <h1 className="font-extrabold text-3xl text-orange-500 mb-3">
             Hello
