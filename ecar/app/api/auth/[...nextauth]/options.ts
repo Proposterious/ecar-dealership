@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/login',
     signOut: '/auth/logout',
-  //   error: '/auth/error', // Error code passed in query string as ?error=
+    error: '/auth/logout', // Error code passed in query string as ?error=
   //   verifyRequest: '/auth/verify-request', // (used for check verification email)
  // New users will be directed here on first sign in (leave the property out if not of interest)
   },
@@ -99,15 +99,13 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = account.access_token;
       }
 
-      console.log(token)
       return token;
     },
     async session({ session, token }: any) {
-      session.user.id = token.id;
+      session.user.id = token.id; // session does not usually contain id
       session.user.biography = token.bio;
       session.user.image = token.image;
       session.user.fullName = token.fullName;
-      console.log(session) // gives session 'id' attribute
       return session;
     }
   },
