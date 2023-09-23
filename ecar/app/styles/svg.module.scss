@@ -1,0 +1,28 @@
+
+.arrow input {
+    padding-left:30px;
+    background-image: url('../../public/svg/arrow-right.svg');  
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: 10px 1rem;
+
+    &:not([value=""]) {
+        background-image: url('../../public/svg/check.svg')
+    }
+}
+
+/* .left-inner-addon {
+    position: relative;
+    width: 200px;
+}
+.left-inner-addon input {
+    padding-left: 24px;
+    width: 170px; /* 200px - 30px
+}
+.left-inner-addon img {
+    position: absolute;
+    left: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+    top: 1rem;
+} */
