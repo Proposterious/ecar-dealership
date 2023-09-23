@@ -23,7 +23,7 @@ function Dashboard() {
       bio: "",
   });
   
-
+  // Handle input changes
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setData((prevProps) => ({
@@ -32,10 +32,13 @@ function Dashboard() {
     }))
   };
 
-  const handleFileInput = (e: any) => {
+  const handleFileInput = async (e: any) => {
   // handle validations
     setImage(e.target.files[0]);
-    console.log('Image ', image);
+    const file: Blob = e.target.files[0];
+    const bytes = await convertToBase64(file);
+    console.log('This is the file from e.target\n ', file)
+    console.log('This is the bytes from file\n', bytes)
     DashboardImage();
   }
 
@@ -57,12 +60,14 @@ function Dashboard() {
   if (checkBio === null ||checkBio === '' || checkBio === undefined ) {
     var placeholderBio = `Tell us about yourself... \nMy favorite type of car is the Ford F-150 Truck`;
   } else { var placeholderBio = session?.user?.biography as string}
+
   // Check if user.image returns empty
   const checkImage = session?.user?.image; 
   if (checkImage === null || checkImage === '' || checkImage === undefined ) {
     var placeholderImage = logo as StaticImageData;
   } else { var placeholderImage = session?.user?.image as StaticImageData}
 
+  // Return logo as placeholderImage or user.image
   const DashboardImage = () => {
     console.log(image);
 
@@ -78,13 +83,13 @@ function Dashboard() {
     let imageSource = URL.createObjectURL(image);
     return (
     <>
-      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"contain", width:'auto', height:'auto', borderRadius: '100%'}} className='w-auto h-auto' />
+      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"contain", width:'auto', height:'auto',borderRadius:'45%'}} />
     </>
   )}
     
   }
-
-  const deleteImage = () => {
+  // 
+  function deleteImage() {
     setImage(null);
     DashboardImage();
     console.log("Reset image to none")
@@ -130,22 +135,25 @@ function Dashboard() {
 
   const updateImage = async (e: any) => {
     // Part one
-    const res = '';
+    // TODO: CONVERT IMAGE TO BASE64 BYTES AND ADD formData VARIABLE
+    console.log("This was the user's image", );
     // Part two
-    // e.preventDefault()
-    // const response = await fetch('/api/image', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(res)
-    // })
-    // console.log(response)
-    // console.log("Delete the user's image from 'Your Photo'")
-    // signOut()
+    e.preventDefault()
+    const response = await fetch('/api/image', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        body: JSON.stringify('')
+    })
+    const imageRes = await response.json();
+    console.log(imageRes)
+    console.log("Update the user's image from 'Your Photo'")
+    signOut()
     return null
   }
 
+  
   return (
       <section id='dashboard'>
         <DashboardImage />
@@ -188,7 +196,7 @@ function Dashboard() {
 
                         <div className="w-full sm:w-1/2">
                           <label className="mb-3 block text-sm font-medium text-black" htmlFor="phoneNumber">Phone Number</label>
-                          <input className="w-full pl-4 rounded border border-stroke bg-gray py-3 px-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="phoneNumber" id="phoneNumber" placeholder={`+(800) 1234 6799`} value={data.phoneNumber} onChange={handleInputChange}/>
+                          <input className="w-full pl-4 rounded border border-stroke bg-gray py-3 px-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="phoneNumber" id="phoneNumber" placeholder='Currently Empty' value={data.phoneNumber} onChange={handleInputChange}/>
                         </div>
                       </div>
                       
@@ -240,18 +248,15 @@ function Dashboard() {
                     <form action="#" method="POST" onSubmit={updateImage}>
                       <div className="gap-4">
                           <div className="flex mb-2 -mt-2">
-                              <span className="flex h-20 w-20 max-h-20 max-w-20 rounded-full border border-stroke bg-indigo-100 items-center">
+                              <span className="flex h-20 w-20 max-h-20 max-w-20 rounded-full border border-stroke bg-indigo-100">
                                   {/* Returns 'logo' if user has not given new 'image' input */}
                                   <DashboardImage />
                               </span>
                               <div className="pl-3 font-medium text-orange-500 mt-2">
                                   <label className='text-black'>Edit your photo</label>
                                 <div className='space-x-3'>
-                                  <button className="indent-1.5 text-sm font-medium" onClick={() => deleteImage()}>
-                                      Delete
-                                  </button>
-                                  <button className="text-sm font-medium" onClick={() => null}>
-                                      Update
+                                  <button className="pl-6 text-sm font-medium" onClick={() => deleteImage()}>
+                                      Remove
                                   </button>
                                 </div>
                               </div>
@@ -290,6 +295,20 @@ function Dashboard() {
         </div>
       </section>
   );
+}
+
+function convertToBase64(file: Blob) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    }; 
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  })
 }
 
 

@@ -28,10 +28,10 @@ export async function POST(req: NextRequestWithAuth) {
     // Update user with 'req' data if user found
     await prisma.user.update({
         where: { id: checkId, },
-        data: image,
+        data: {image: image},
     })
     
-    console.log('Completed User Update')
+    console.log('Completed Image Update')
     prisma.$disconnect()
     return NextResponse.json('Completed action');
 }

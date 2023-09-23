@@ -43,7 +43,7 @@ model User {
   email             String?     @unique
   hashedPassword    String?
   emailVerified     DateTime?   
-  image             String?
+  image             Bytes?
   biography         String?
   accounts          Account[]
   sessions          Session[]
