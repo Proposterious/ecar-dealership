@@ -13,8 +13,35 @@ import logo from '../../public/shrunk-car-logo.png';
 import arrow from '../styles/svg.module.scss';
 
 function Dashboard() {
+  
+  // Get userData as 'session' from useSession()
+  const { data: session } = useSession() as any;
+  console.log(session)
+
+  // Assign placeholders variables with 'session' values
+  const placeholderName = session?.user?.name as string; // required for register/login
+  const placeholderEmail = session?.user?.email as string; // required for register/login
+
+  // Check if user.fullName returns empty
+  const checkFullName = session?.user?.fullName as string;
+  if (checkFullName === null || checkFullName === '' || checkFullName === undefined) {
+    var placeholderFullName = `Your Full Name`;
+  } else { var placeholderFullName = session?.user?.fullName as string}
+
+  // Check if user.biography returns empty
+  const checkBio = session?.user?.biography; 
+  if (checkBio === null ||checkBio === '' || checkBio === undefined) {
+    var placeholderBio = `Tell us about yourself... \nMy favorite type of car is the Ford F-150 Truck`;
+  } else { var placeholderBio = session?.user?.biography as string}
+
+  // Check if user.image returns empty
+  const checkImage = session?.user?.image; 
+  if (checkImage === null || checkImage === '' || checkImage === undefined) {
+    var placeholderImage = logo as StaticImageData;
+  } else { var placeholderImage = session?.user?.image as StaticImageData}
+
   // Handle entered information
-  const [image, setImage]: any = useState(null);
+  const [image, setImage] = useState() as any;
   const [data, setData] = useState({
       fullName: "",
       phoneNumber: "",
@@ -22,6 +49,7 @@ function Dashboard() {
       email: "",
       bio: "",
   });
+  
   
   // Handle input changes
   const handleInputChange = (e: any) => {
@@ -32,46 +60,18 @@ function Dashboard() {
     }))
   };
 
-  const handleFileInput = async (e: any) => {
-  // handle validations
-    setImage(e.target.files[0]);
-    const file: Blob = e.target.files[0];
-    const bytes = await convertToBase64(file);
-    console.log('This is the file from e.target\n ', file)
-    console.log('This is the bytes from file\n', bytes)
+  const handleFileInput = (e: any) => {
+  // Handle file validations
+    console.log('handleFileInput triggered')
+    setImage(e.target.files[0]);  
+  // Re-render DashboardImage component
     DashboardImage();
   }
 
-  // Get userData as 'session' from useSession()
-  const { data: session } = useSession() as any;
-
-  // Assign placeholders variables with 'session' values
-  const placeholderName = session?.user?.name as string; // required for register/login
-  const placeholderEmail = session?.user?.email as string; // required for register/login
-
-  // Check if user.fullName returns empty
-  const checkFullName = session?.user?.fullName as string;
-  if (checkFullName === null || checkFullName === '' || checkFullName === undefined ) {
-    var placeholderFullName = `Your Full Name`;
-  } else { var placeholderFullName = session?.user?.fullName as string}
-
-  // Check if user.biography returns empty
-  const checkBio = session?.user?.biography; 
-  if (checkBio === null ||checkBio === '' || checkBio === undefined ) {
-    var placeholderBio = `Tell us about yourself... \nMy favorite type of car is the Ford F-150 Truck`;
-  } else { var placeholderBio = session?.user?.biography as string}
-
-  // Check if user.image returns empty
-  const checkImage = session?.user?.image; 
-  if (checkImage === null || checkImage === '' || checkImage === undefined ) {
-    var placeholderImage = logo as StaticImageData;
-  } else { var placeholderImage = session?.user?.image as StaticImageData}
-
-  // Return logo as placeholderImage or user.image
-  const DashboardImage = () => {
+  const DashboardImage = () => {// return logo as placeholderImage or user.image
     console.log(image);
 
-    if (image === null || image === undefined || image === '') 
+    if (image === null || image === undefined) 
       { return (
       /* Returns 'logo' if user has not given new 'image' input */
       <>
@@ -83,24 +83,13 @@ function Dashboard() {
     let imageSource = URL.createObjectURL(image);
     return (
     <>
-      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"contain", width:'auto', height:'auto',borderRadius:'45%'}} />
+      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"contain", width:'auto', height:'auto',borderRadius:'45%', alignSelf:'center'}} />
     </>
-  )}
-    
+    )}
   }
-  // 
-  function deleteImage() {
-    setImage(null);
-    DashboardImage();
-    console.log("Reset image to none")
-  }
-
-  function handleRefresh() {
-    console.log("Force refresh the 'Dashboard' page")
-    Router.reload()
-  };
-  // Update User with Complete Data
-  const completeData = { 
+  
+// Create, Read, Update, Write main functions 
+  const completeData = { // dictionary of 'data' vars
     name: data.name, 
     fullName: data.fullName, 
     biography: data.bio,
@@ -109,8 +98,7 @@ function Dashboard() {
     image: image,
   }
 
-  // Create, Read, Update/Write functions 
-  const updateUser = async(e: any) => {
+  const updateUser = async(e: any) => { // update user in database with 'completeData' object
     console.log('Session from dashboard page:', session)
     // Part one
     const newData = removeBlankData(completeData)
@@ -131,32 +119,46 @@ function Dashboard() {
     signOut()
   };
 
-  
-
-  const updateImage = async (e: any) => {
-    // Part one
-    // TODO: CONVERT IMAGE TO BASE64 BYTES AND ADD formData VARIABLE
-    console.log("This was the user's image", );
-    // Part two
+  const uploadImage = async (e: any) => { // update user in database with 'image' file/blob;
+    const formData = new FormData();
+    formData.append('file', image);
     e.preventDefault()
-    const response = await fetch('/api/image', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-        body: JSON.stringify('')
-    })
-    const imageRes = await response.json();
-    console.log(imageRes)
+    if (!image) { return }
+    // try uploading
+    console.log(`NEWIMAGEDATA\n\n\n`, formData)
+    try {
+      console.log(image)
+      const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+      })
+    // catch error
+    console.log(res)
+    if (!res.ok) throw new Error(await res.text())
+  } catch (e: any) {
+    console.error(e)
+  } 
     console.log("Update the user's image from 'Your Photo'")
-    signOut()
-    return null
+    //signOut() // signout user to update token on login
   }
+
+  function deleteImage() {// Delete user's image input
+    setImage(undefined); // set image to null
+    DashboardImage(); // rerender DashboardImage component
+    console.log("Reset image to none")
+  }
+
+  function handleRefresh() {// Refresh page onClick of 'Cancel' buttons
+    console.log("Force refresh the 'Dashboard' page")
+    Router.reload()
+  }
+ 
+
+
 
   
   return (
       <section id='dashboard'>
-        <DashboardImage />
         <div className="mx-auto max-w-screen-2xl p-4">
           <div className="mx-auto max-w-2/3">
             <div className="mb-6 flex flex-col gap-4">
@@ -245,7 +247,7 @@ function Dashboard() {
                     </h3>
                   </div>
                   <div className="px-7 py-5">
-                    <form action="#" method="POST" onSubmit={updateImage}>
+                    <form action="#" method="POST" onSubmit={uploadImage}>
                       <div className="gap-4">
                           <div className="flex mb-2 -mt-2">
                               <span className="flex h-20 w-20 max-h-20 max-w-20 rounded-full border border-stroke bg-indigo-100">
@@ -279,7 +281,7 @@ function Dashboard() {
                     </div>
 
                       <div className="flex justify-end gap-4">
-                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-semibold text-black" onClick={() => handleRefresh()}>
+                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-semibold text-black" type='button' onClick={handleRefresh}>
                           Cancel
                         </button>
                         <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-semibold text-white hover:bg-opacity-90" type='submit' id='saveImage'>
@@ -296,20 +298,5 @@ function Dashboard() {
       </section>
   );
 }
-
-function convertToBase64(file: Blob) {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      resolve(fileReader.result);
-    }; 
-    fileReader.onerror = (error) => {
-      reject(error);
-    };
-  })
-}
-
 
 export default Dashboard;
