@@ -6,20 +6,23 @@ import { useState } from 'react';
 import Router from 'next/router';
 // Import custom functions/instances
 import removeBlankData from './removeBlankData';
-import { getImage } from './getInfo';
-// Next components
-import Image from 'next/image';
+// Next component imports
+import Image, { StaticImageData } from 'next/image';
+import logo from '../../public/shrunk-car-logo.png';
+// SVG styles come from 'styles' folder in root
+import arrow from '../styles/svg.module.scss';
 
 function Dashboard() {
   // Handle entered information
+  const [image, setImage]: any = useState(null);
   const [data, setData] = useState({
       fullName: "",
       phoneNumber: "",
       name: "",
       email: "",
       bio: "",
-      image: ""
   });
+  
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -28,15 +31,69 @@ function Dashboard() {
       [name]: value
     }))
   };
-  // Assign instances
-  const { data: session, update } = useSession() as any;
-  // Placeholder's values with 'session' data
-  const placeholderName = session?.user?.name as string;
-  const placeholderFullName = session?.user?.fullName as string;
-  const placeholderEmail = session?.user?.email as string;
-  const placeholderBio = session?.user?.biography;
-  const placeholderImage = getImage(session?.user?.image);
-  
+
+  const handleFileInput = (e: any) => {
+  // handle validations
+    setImage(e.target.files[0]);
+    console.log('Image ', image);
+    DashboardImage();
+  }
+
+  // Get userData as 'session' from useSession()
+  const { data: session } = useSession() as any;
+
+  // Assign placeholders variables with 'session' values
+  const placeholderName = session?.user?.name as string; // required for register/login
+  const placeholderEmail = session?.user?.email as string; // required for register/login
+
+  // Check if user.fullName returns empty
+  const checkFullName = session?.user?.fullName as string;
+  if (checkFullName === null || checkFullName === '' || checkFullName === undefined ) {
+    var placeholderFullName = `Your Full Name`;
+  } else { var placeholderFullName = session?.user?.fullName as string}
+
+  // Check if user.biography returns empty
+  const checkBio = session?.user?.biography; 
+  if (checkBio === null ||checkBio === '' || checkBio === undefined ) {
+    var placeholderBio = `Tell us about yourself... \nMy favorite type of car is the Ford F-150 Truck`;
+  } else { var placeholderBio = session?.user?.biography as string}
+  // Check if user.image returns empty
+  const checkImage = session?.user?.image; 
+  if (checkImage === null || checkImage === '' || checkImage === undefined ) {
+    var placeholderImage = logo as StaticImageData;
+  } else { var placeholderImage = session?.user?.image as StaticImageData}
+
+  const DashboardImage = () => {
+    console.log(image);
+
+    if (image === null || image === undefined || image === '') 
+      { return (
+      /* Returns 'logo' if user has not given new 'image' input */
+      <>
+        <Image src={placeholderImage} alt='' style={{objectFit:"fill"}} className='py-4 px-1 w-auto h-auto' />
+      </>
+      )
+  } 
+  else { 
+    let imageSource = URL.createObjectURL(image);
+    return (
+    <>
+      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"contain", width:'auto', height:'auto', borderRadius: '100%'}} className='w-auto h-auto' />
+    </>
+  )}
+    
+  }
+
+  const deleteImage = () => {
+    setImage(null);
+    DashboardImage();
+    console.log("Reset image to none")
+  }
+
+  function handleRefresh() {
+    console.log("Force refresh the 'Dashboard' page")
+    Router.reload()
+  };
   // Update User with Complete Data
   const completeData = { 
     name: data.name, 
@@ -44,9 +101,8 @@ function Dashboard() {
     biography: data.bio,
     phoneNumber: data.phoneNumber,
     email: data.email,  
-    image: data.image,
+    image: image,
   }
-  //[data.fullName, data.name, data.bio, data.phoneNumber, data.email]
 
   // Create, Read, Update/Write functions 
   const updateUser = async(e: any) => {
@@ -70,37 +126,29 @@ function Dashboard() {
     signOut()
   };
 
-  function handleRefresh() {
-    console.log("Force refresh the 'Dashboard' page")
-    Router.reload()
-  };
+  
 
   const updateImage = async (e: any) => {
-    console.log('Session from dashboard page:', session)
     // Part one
     const res = '';
     // Part two
-    e.preventDefault()
-    const response = await fetch('/api/update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(res)
-    })
-    console.log(response)
-    console.log("Delete the user's image from 'Your Photo'")
-    signOut()
+    // e.preventDefault()
+    // const response = await fetch('/api/image', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(res)
+    // })
+    // console.log(response)
+    // console.log("Delete the user's image from 'Your Photo'")
+    // signOut()
+    return null
   }
-
-  const deleteImage = () => {
-    
-    console.log("Update the user's image from 'Your Photo'")
-  }
-
 
   return (
       <section id='dashboard'>
+        <DashboardImage />
         <div className="mx-auto max-w-screen-2xl p-4">
           <div className="mx-auto max-w-2/3">
             <div className="mb-6 flex flex-col gap-4">
@@ -128,19 +176,19 @@ function Dashboard() {
                       Personal Information
                     </h3>
                   </div>
-                  <div className="bg-slate-100 p-7">
-                    <form action="#" method="POST" onSubmit={updateUser}>
-                      <div className="mb-6 flex flex-col gap-5 sm:flex-row">
+                  <div className='bg-slate-100 p-7'>
+                    <form action="#" method="POST" className={`${arrow.arrow}`} onSubmit={updateUser}>
+                      <div className={`relative mb-6 flex flex-col gap-5 sm:flex-row`}>
                         <div className="w-full sm:w-1/2">
                           <label className="mb-3 block text-sm font-medium text-black" htmlFor="fullName">Full Name</label>
-                          <div className="relative">
+                          <div className='relative'>
                             <input className="w-full rounded border border-stroke bg-gray py-3 pl-4 pr-{4.5} font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="fullName" id="fullName" placeholder={placeholderFullName} value={data.fullName} onChange={handleInputChange}/>
                           </div>
                         </div>
 
                         <div className="w-full sm:w-1/2">
                           <label className="mb-3 block text-sm font-medium text-black" htmlFor="phoneNumber">Phone Number</label>
-                          <input className="w-full pl-4 rounded border border-stroke bg-gray py-3 px-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="phoneNumber" id="phoneNumber" placeholder="+990 3343 7865" value={data.phoneNumber} onChange={handleInputChange}/>
+                          <input className="w-full pl-4 rounded border border-stroke bg-gray py-3 px-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="phoneNumber" id="phoneNumber" placeholder={`+(800) 1234 6799`} value={data.phoneNumber} onChange={handleInputChange}/>
                         </div>
                       </div>
                       
@@ -164,7 +212,7 @@ function Dashboard() {
                           BIO <p className='inline-block font-light'>(helps us determine the best cars for you)</p>
                         </label>
                         <div className="relative">
-                          <textarea className="flex items-center w-full rounded border border-stroke bg-gray py-4 pl-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none line-clamp-2" name="bio" id="bio"placeholder={placeholderBio} value={data.bio} onChange={handleInputChange}>
+                          <textarea className="flex items-center w-full rounded border border-stroke bg-gray py-4 pl-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none line-clamp-2" name="bio" id="bio" placeholder={placeholderBio} value={data.bio} onChange={handleInputChange}>
                           </textarea>
                         </div>
                       </div>
@@ -173,7 +221,7 @@ function Dashboard() {
                         <button className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-sm" type="submit" onSubmit={() => handleRefresh()}>
                           Cancel
                         </button>
-                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-medium text-slate-100 hover:bg-opacity-90" type="submit" onSubmit={() => handleRefresh()}>
+                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-medium text-slate-100 hover:bg-opacity-90" id='saveInfo' type="submit" onSubmit={() => handleRefresh()}>
                           Save
                         </button>
                       </div>
@@ -192,24 +240,25 @@ function Dashboard() {
                     <form action="#" method="POST" onSubmit={updateImage}>
                       <div className="gap-4">
                           <div className="flex mb-2 -mt-2">
-                              <span className="flex h-20 w-20 rounded-full border border-stroke bg-indigo-100">
-                                  <Image src={placeholderImage} alt='' objectFit='cover' className='py-4 px-1' />
+                              <span className="flex h-20 w-20 max-h-20 max-w-20 rounded-full border border-stroke bg-indigo-100 items-center">
+                                  {/* Returns 'logo' if user has not given new 'image' input */}
+                                  <DashboardImage />
                               </span>
                               <div className="pl-3 font-medium text-orange-500 mt-2">
-                                  <p className='text-black'>Edit your photo</p>
+                                  <label className='text-black'>Edit your photo</label>
                                 <div className='space-x-3'>
-                                  <button className="indent-1.5 text-sm font-medium" onSubmit={() => deleteImage()}>
+                                  <button className="indent-1.5 text-sm font-medium" onClick={() => deleteImage()}>
                                       Delete
                                   </button>
-                                  <button className="text-sm font-medium" onSubmit={() => updateImage}>
+                                  <button className="text-sm font-medium" onClick={() => null}>
                                       Update
                                   </button>
                                 </div>
                               </div>
                           </div>
 
-                      <div id="FileUpload" className="relative mb-6 w-full cursor-pointer appearance-none rounded border-2 border-dashed border-orange-500 py-4 px-4">
-                        <input type="file" accept="image/*" className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none" />
+                      <div className="relative mb-6 w-full cursor-pointer appearance-none rounded border-2 border-dashed border-orange-500 py-4 px-4">
+                        <input id="FileUpload" type="file" accept="image/*" className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none" onChange={handleFileInput} />
                         <div className="flex flex-col flex-1 items-center justify-center space-y-3 h-36 text-black">
                           <span className="flex text-sm font-medium indent-1">
                             <p className='text-orange-600'>Click to upload</p>or drag and drop
@@ -222,13 +271,13 @@ function Dashboard() {
                           </p>
                         </div>
                       </div>
-                  </div>
+                    </div>
 
                       <div className="flex justify-end gap-4">
                         <button className="flex justify-center rounded border border-stroke py-2 px-6 font-semibold text-black" onClick={() => handleRefresh()}>
                           Cancel
                         </button>
-                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-semibold text-white hover:bg-opacity-90" type='submit'>
+                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-semibold text-white hover:bg-opacity-90" type='submit' id='saveImage'>
                           Save
                         </button>
                       </div>
