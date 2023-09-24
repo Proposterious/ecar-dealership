@@ -1,27 +1,25 @@
-
-
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model Account {
-  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String  @db.ObjectId
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.String
-  access_token       String?  @db.String
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.String
-  session_state      String?
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -37,16 +35,22 @@ model Session {
 }
 
 model User {
-  id                String      @id @default(auto()) @map("_id") @db.ObjectId
-  name              String?
-  fullName          String?
-  email             String?     @unique
-  hashedPassword    String?
-  emailVerified     DateTime?   
-  image             Bytes?
-  biography         String?
-  accounts          Account[]
-  sessions          Session[]
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  fullName       String?
+  email          String?   @unique
+  hashedPassword String?
+  emailVerified  DateTime?
+  image          String?
+  biography      String?
+  avatar         Avatar[]
+  accounts       Account[]
+  sessions       Session[]
+}
+
+model Avatar {
+    author      User   @relation(fields: [authorId], references: [id])
+    authorId    String @id @map("_id") @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
 }
 
 model VerificationToken {

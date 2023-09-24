@@ -89,6 +89,8 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user, account }: any) {
+      // Redefine user.image for running check
+
       if (user) { // assigns 'token' info from 'user' in database
         token.id = user.id;
         token.fullName = user.fullName;
@@ -98,14 +100,13 @@ export const authOptions: NextAuthOptions = {
       if (account) { // allows 'token' access to third party 'account'
         token.accessToken = account.access_token;
       }
-
       return token;
     },
     async session({ session, token }: any) {
-      session.user.id = token.id; // session does not usually contain id
+    //session.user.id = token.id was purposefully omitted
+      session.user.fullName = token.fullName;
       session.user.biography = token.bio;
       session.user.image = token.image;
-      session.user.fullName = token.fullName;
       return session;
     }
   },

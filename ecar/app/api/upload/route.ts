@@ -1,36 +1,45 @@
 // Specify as experimental feature
 export const config = { runtime: 'experimental-edge' }
 import { PrismaClient } from '@prisma/client' // connect to database
-import pako from 'pako'
 
-import { join } from 'path'
-import { writeFile } from 'fs/promises' // write new file with builtin function
-import { NextResponse, NextRequest } from 'next/server' // JSON response with builtin function
+import fs from 'fs'; // file conversion tool
+import { getToken } from 'next-auth/jwt' // get user's session/token
+import { NextResponse } from 'next/server' // JSON response with builtin function
+import { NextRequestWithAuth } from 'next-auth/middleware'
 
-export async function POST(request: NextRequest) {
+// MAKE THIS FUNCTION UPDATE DATABASE WITH ENTERED INFORMATION
+const secret = process.env.NEXTAUTH_SECRET;
+
+export async function POST(req: NextRequestWithAuth) { 
     console.log('running post')
     // Get file from request
-    const data = await request.formData()
-    const file = data.get('file') as Blob | File;
-
-    if (!file) {
-        console.log('failed')
-        console.log(file)
-        return NextResponse.json({ success: false })
-    }
+    const file = await req.json() as unknown as string;
     // Initialize instances
-    const prisma = new PrismaClient()
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-
-    // With the file data in the buffer, you can do whatever you want with it.
-    // For this, we'll just write it to the filesystem in a new location
-    prisma.$disconnect();
-    const path = join('/', 'from_host', file.name);
-    await writeFile(path, buffer);
-    console.log(`open ${path} to see the uploaded file`);
-    console.log(`File object\n`, file);
-    console.log(`Bytes \n`, bytes);
-    console.log(`Buffer of bytes \n`, buffer);
-    return NextResponse.json({ success: true })
+    const prisma = new PrismaClient();
+    const session = await getToken({ req, secret }); // returns dictionary
+    console.log(session)
+    const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
+    
+    // Search for user in database
+    const user = await prisma.user.findUnique({
+        where: {
+            id: checkId,
+        }
+    });
+    // Quit the function if user not found
+    if (!user) { 
+        console.log('Session Failed');
+        prisma.$disconnect(); return null;
+    }
+    // Update user once verified
+    console.log('THIS ACCORDINGLY IS THE FILE SENT BY POST\n',file)
+    await prisma.user.update({
+        where: { id: checkId },
+        data: {
+            image: file,
+        },
+    })
+    
+    prisma.$disconnect(); // close prisma's connection
+    return NextResponse.json({ success: true }) // return 'res.ok(200)'
 }

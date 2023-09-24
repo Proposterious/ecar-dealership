@@ -1,25 +1,13 @@
-'use client'
+"use client"
 
-function Test() {
-    const data = {
-        name: 'name', 
-        fullName: 'fullname', 
-        bio: 'bio',
-        phoneNumber: 'phonenumber',
-        email: 'email',  
-    }
-    const newData = Object.values(data);
-    return (
-        <div className='flex justify-around items-center min-h-screen bg-black w-full'>
-            <div className='loader'></div>
-            <div className='text-white text-2xl'>{...newData}</div>
-            <div className="grid grid-cols-3 divide-x">
-                <div>01</div>
-                <div>02</div>
-                <div>03</div>
-            </div>
+import Image from "next/image";
+
+export default function SignIn() {
+  return <div className="dropdown dropdown-end">
+    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+      <div className="w-10 rounded-full">
+        <Image src={"/car-logo.png"} alt={'Menu'} width={100} height={100}/>
       </div>
-    )
+    </label>
+  </div>
 }
-
-export default Test;

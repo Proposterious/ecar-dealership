@@ -8,6 +8,8 @@ import Router from 'next/router';
 import removeBlankData from './removeBlankData';
 // Next component imports
 import Image, { StaticImageData } from 'next/image';
+import dynamic from 'next/dynamic'
+// Custom image for placeholderImage from 'public'
 import logo from '../../public/shrunk-car-logo.png';
 // SVG styles come from 'styles' folder in root
 import arrow from '../styles/svg.module.scss';
@@ -21,7 +23,7 @@ function Dashboard() {
   // Assign placeholders variables with 'session' values
   const placeholderName = session?.user?.name as string; // required for register/login
   const placeholderEmail = session?.user?.email as string; // required for register/login
-
+  var placeholderImage: StaticImageData;
   // Check if user.fullName returns empty
   const checkFullName = session?.user?.fullName as string;
   if (checkFullName === null || checkFullName === '' || checkFullName === undefined) {
@@ -35,10 +37,11 @@ function Dashboard() {
   } else { var placeholderBio = session?.user?.biography as string}
 
   // Check if user.image returns empty
-  const checkImage = session?.user?.image; 
-  if (checkImage === null || checkImage === '' || checkImage === undefined) {
-    var placeholderImage = logo as StaticImageData;
-  } else { var placeholderImage = session?.user?.image as StaticImageData}
+  if (session.user.image != undefined && session.user.image != null) {
+    placeholderImage = session.user.image;
+  } else {
+    placeholderImage = logo;
+  }
 
   // Handle entered information
   const [image, setImage] = useState() as any;
@@ -70,7 +73,6 @@ function Dashboard() {
 
   const DashboardImage = () => {// return logo as placeholderImage or user.image
     console.log(image);
-
     if (image === null || image === undefined) 
       { return (
       /* Returns 'logo' if user has not given new 'image' input */
@@ -81,9 +83,11 @@ function Dashboard() {
   } 
   else { 
     let imageSource = URL.createObjectURL(image);
+    console.log(image)
+    console.log(image.name)
     return (
     <>
-      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"contain", width:'auto', height:'auto',borderRadius:'45%', alignSelf:'center'}} />
+      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"cover", width:'auto', height:'100%', alignSelf:'center'}} />
     </>
     )}
   }
@@ -119,27 +123,104 @@ function Dashboard() {
     signOut()
   };
 
+  const getBase64 = async (file: Blob) => {
+    return new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function() {
+          resolve(reader.result as string)
+        }; 
+        reader.onerror = function(error) {
+            reject(error)
+        };
+        reader.readAsDataURL(file);
+      });
+  }
+
+  async function reduceSize(base64Str: any, MAX_WIDTH = 30, MAX_HEIGHT = 30) {
+    let resized_base64 = await new Promise((resolve) => {
+        const img = require('./createImage')
+        img.src = base64Str
+        img.onload = () => {
+          let canvas = document.createElement('canvas')
+          let width = img.width
+          let height = img.height
+
+          if (width > height) {
+              if (width > MAX_WIDTH) {
+                  height *= MAX_WIDTH / width
+                  width = MAX_WIDTH
+              }
+          } else {
+              if (height > MAX_HEIGHT) {
+                  width *= MAX_HEIGHT / height
+                  height = MAX_HEIGHT
+              }
+          }
+          canvas.width = width
+          canvas.height = height
+          let ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+          ctx.drawImage(img, 0, 0, width, height)
+          console.log('URL ACCORDING TO reduceSize FUNCTION\n', canvas.toDataURL());
+          resolve(canvas.toDataURL()) // this will return base64 image results after resize
+      }
+    });
+
+    return resized_base64;
+  }
+
+  function calcSize(image: any) {
+    let y = 1;
+    if (image.endsWith('==')) {
+        y = 2
+    }
+    const x_size = (image.length * (3 / 4)) - y
+    return Math.round(x_size / 1024)
+  }
+
+  async function processImage(file: any, min_image_size = 50) {
+    const res = await getBase64(file);
+    if (res) {
+        const old_size = calcSize(res);
+        if (old_size > min_image_size) {
+            const resized = await reduceSize(res);
+            const new_size = calcSize(resized)
+            console.log('new_size=> ', new_size, 'KB');
+            console.log('old_size=> ', old_size, 'KB');
+            return resized;
+        } else {
+            console.log('image already small enough')
+            return res;
+        }
+
+    } else {
+        console.log('return err')
+        return null;
+    }
+  }
+
   const uploadImage = async (e: any) => { // update user in database with 'image' file/blob;
-    const formData = new FormData();
-    formData.append('file', image);
     e.preventDefault()
     if (!image) { return }
     // try uploading
-    console.log(`NEWIMAGEDATA\n\n\n`, formData)
     try {
       console.log(image)
+      const encodedImage = await processImage(image) as string;
+      console.log(encodedImage)
       const res = await fetch('/api/upload', {
           method: 'POST',
-          body: formData,
+          headers: {
+            'Content-Type': 'x-www-form-urlencoded'
+          },
+          body: JSON.stringify(encodedImage),
       })
     // catch error
     console.log(res)
-    if (!res.ok) throw new Error(await res.text())
+    if (!res.ok) throw new Error(await res.text());
   } catch (e: any) {
-    console.error(e)
-  } 
+    console.error(e);
+  }
     console.log("Update the user's image from 'Your Photo'")
-    //signOut() // signout user to update token on login
+    signOut() // signout user to update token on login
   }
 
   function deleteImage() {// Delete user's image input
@@ -152,25 +233,31 @@ function Dashboard() {
     console.log("Force refresh the 'Dashboard' page")
     Router.reload()
   }
- 
-
-
-
   
   return (
       <section id='dashboard'>
         <div className="mx-auto max-w-screen-2xl p-4">
           <div className="mx-auto max-w-2/3">
             <div className="mb-6 flex flex-col gap-4">
-
-              <h2 className="text-2xl font-bold text-black">
-                Settings Page
+              <h2 className="text-2xl font-bold text-orange-600 underline">
+                {placeholderName} Settings
               </h2>
+
               <nav>
                 <ol className="flex items-center gap-2">
                   <li>
-                      <p className="font-semibold">
+                      <p className="font-semibold text-orange-600">
                           Dashboard
+                      </p>
+                  </li>
+                  <li>
+                      <p className="-indent-1 font-semibold">
+                          /
+                      </p>
+                  </li>
+                  <li>
+                      <p className="-indent-1 font-semibold text-slate-700">
+                          Settings
                       </p>
                   </li>
                 </ol>
@@ -250,7 +337,7 @@ function Dashboard() {
                     <form action="#" method="POST" onSubmit={uploadImage}>
                       <div className="gap-4">
                           <div className="flex mb-2 -mt-2">
-                              <span className="flex h-20 w-20 max-h-20 max-w-20 rounded-full border border-stroke bg-indigo-100">
+                              <span className="flex h-20 w-20 max-h-20 max-w-20 rounded-full overflow-hidden border border-stroke bg-indigo-100">
                                   {/* Returns 'logo' if user has not given new 'image' input */}
                                   <DashboardImage />
                               </span>
