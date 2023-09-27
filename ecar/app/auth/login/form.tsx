@@ -1,8 +1,7 @@
 'use client'
 // Function Imports
-import { useSession, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
-import { redirect } from 'next/navigation';
 // Component Imports
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,36 +19,16 @@ function LoginForm() {
           [name]: value
         }));
     };
-    // Login User
+    // Login user
     const loginUser = async (e: any) => {
-        awaitLogin();
         // Handle 'signIn()' request
         e.preventDefault()
         signIn('credentials', {
             ...data
         })
     }
-    // Provide loading screen
-    const awaitLogin = () => {
-        return (
-            <div className='flex absolute justify-center items-center min-h-screen bg-black w-full'> 
-                <div className='loader'></div> 
-            </div> 
-        )
-    }
+   
 
-    // Assign 'useSession'
-    const { status } = useSession()
-
-    if (status === "authenticated") {redirect('/dashboard')} // redirect user to dashboard when authenticated
-    else if (status === 'loading') { // display loading animation while waiting for status
-        return (
-            <div className='flex justify-center items-center min-h-screen bg-black w-full'> 
-                <div className='loader'></div> 
-            </div> 
-        )
-    }
-    
     return (
         <section className='h-full w-1/3 mx-auto py-12'>
             <div className="flex min-h-full flex-1 flex-col justify-center items-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">

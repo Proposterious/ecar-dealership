@@ -1,3 +1,3 @@
 let img = new Image();
 
-module.exports = img;
+exports.img = img;

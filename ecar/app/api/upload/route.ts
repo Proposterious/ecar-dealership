@@ -2,7 +2,6 @@
 export const config = { runtime: 'experimental-edge' }
 import { PrismaClient } from '@prisma/client' // connect to database
 
-import fs from 'fs'; // file conversion tool
 import { getToken } from 'next-auth/jwt' // get user's session/token
 import { NextResponse } from 'next/server' // JSON response with builtin function
 import { NextRequestWithAuth } from 'next-auth/middleware'

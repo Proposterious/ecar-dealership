@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-import removeBlankData from '../../app/dashboard/removeBlankData';
+import removeBlankData from '../../app/dashboard/functions/removeBlankData';
 
 export default async function updateUser(e: any, data: any) {
     const completeData = removeBlankData(data);

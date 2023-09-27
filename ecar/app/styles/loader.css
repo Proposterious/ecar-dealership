@@ -14,13 +14,13 @@
     margin: -8px 0 0 -8px;
     width: 16px;
     aspect-ratio: 1;
-    background: #f18b2b;
+    background: #db710e;
     animation:
       l1-1 2s  infinite,
       l1-2 .5s infinite;
 }
 .loader:after {
-    background:#ffffff;
+    background:#24f0ff;
     animation-delay: -1s,0s;
 }
 

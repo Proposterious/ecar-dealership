@@ -1,60 +1,27 @@
 'use client'
-// React, Next, Next-auth functions/instances
-import { useSession } from 'next-auth/react';
-import { signOut } from 'next-auth/react';
+// React imports
+import React from 'react';
 import { useState } from 'react';
-import Router from 'next/router';
-// Import custom functions/instances
-import removeBlankData from './removeBlankData';
-// Next component imports
-import Image, { StaticImageData } from 'next/image';
-import dynamic from 'next/dynamic'
-// Custom image for placeholderImage from 'public'
-import logo from '../../public/shrunk-car-logo.png';
-// SVG styles come from 'styles' folder in root
-import arrow from '../styles/svg.module.scss';
+// NextAuth imports
+import { useSession } from 'next-auth/react';
+import removeBlankData from './functions/removeBlankData';
+// Component imports
+import Loader from '../loading';
+// Image imports
+import Image from 'next/image'; // builtin nextjs component
+import logo from '../../public/shrunk-car-logo.png' // website logo from 'public'
+import arrow from '../styles/svg.module.scss'; // custom svg from 'styles' 
+
 
 function Dashboard() {
-  
-  // Get userData as 'session' from useSession()
-  const { data: session } = useSession() as any;
-  console.log(session)
-
-  // Assign placeholders variables with 'session' values
-  const placeholderName = session?.user?.name as string; // required for register/login
-  const placeholderEmail = session?.user?.email as string; // required for register/login
-  var placeholderImage: StaticImageData;
-  // Check if user.fullName returns empty
-  const checkFullName = session?.user?.fullName as string;
-  if (checkFullName === null || checkFullName === '' || checkFullName === undefined) {
-    var placeholderFullName = `Your Full Name`;
-  } else { var placeholderFullName = session?.user?.fullName as string}
-
-  // Check if user.biography returns empty
-  const checkBio = session?.user?.biography; 
-  if (checkBio === null ||checkBio === '' || checkBio === undefined) {
-    var placeholderBio = `Tell us about yourself... \nMy favorite type of car is the Ford F-150 Truck`;
-  } else { var placeholderBio = session?.user?.biography as string}
-
-  // Check if user.image returns empty
-  if (session.user.image != undefined && session.user.image != null) {
-    placeholderImage = session.user.image;
-  } else {
-    placeholderImage = logo;
-  }
-
-  // Handle entered information
-  const [image, setImage] = useState() as any;
-  const [data, setData] = useState({
+    // Handle typed inputs
+    const [data, setData] = useState({
       fullName: "",
       phoneNumber: "",
       name: "",
       email: "",
       bio: "",
   });
-  
-  
-  // Handle input changes
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setData((prevProps) => ({
@@ -63,6 +30,8 @@ function Dashboard() {
     }))
   };
 
+  // Handle image inputs
+  const [image, setImage] = useState() as any;
   const handleFileInput = (e: any) => {
   // Handle file validations
     console.log('handleFileInput triggered')
@@ -71,27 +40,66 @@ function Dashboard() {
     DashboardImage();
   }
 
-  const DashboardImage = () => {// return logo as placeholderImage or user.image
-    console.log(image);
-    if (image === null || image === undefined) 
-      { return (
-      /* Returns 'logo' if user has not given new 'image' input */
-      <>
-        <Image src={placeholderImage} alt='' style={{objectFit:"fill"}} className='py-4 px-1 w-auto h-auto' />
-      </>
-      )
-  } 
-  else { 
-    let imageSource = URL.createObjectURL(image);
-    console.log(image)
-    console.log(image.name)
-    return (
-    <>
-      <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"cover", width:'auto', height:'100%', alignSelf:'center'}} />
-    </>
-    )}
+  // Get userData as 'session' from useSession()
+  const { data: session, update } = useSession() as any;
+  const { status } = useSession({ required: true })
+  while (status === 'loading') {
+    return ( <Loader />)
   }
   
+
+  // Assign placeholders variables with 'session' values
+  const placeholderName = session.user?.name as string; // required for register/login
+  const placeholderEmail = session.user?.email as string; // required for register/login
+
+  // Check if user.fullName returns empty
+  const checkFullName = session.user?.fullName as string;
+  if (checkFullName === null || checkFullName === '' || checkFullName === undefined) {
+    var placeholderFullName = `Your Full Name`;
+  } else { var placeholderFullName = session?.user?.fullName as string}
+
+  // Check if user.biography returns empty
+  const checkBio = session.user?.biography as string; 
+  if (checkBio === null ||checkBio === '' || checkBio === undefined) {
+    var placeholderBio = `Tell us about yourself... \nMy favorite type of car is the Ford F-150 Truck`;
+  } else { var placeholderBio = session?.user?.biography as string}
+
+  // Check if user.phoneNumber returns empty
+  const checkNumber = session.user?.phoneNumber as string; 
+  if (checkNumber === null ||checkNumber === '' || checkNumber === undefined) {
+    var placeholderNumber = `Example: +(800)-255-7324`;
+  } else { var placeholderNumber = session.user?.phoneNumber as string}  
+  
+
+  function DashboardImage() {// return logo as placeholderImage or user.image 
+    const userImage = 'none' as unknown as string;
+    if (session.user?.image === 'CHANGE THIS BACK TO "true"') {
+      console.log(session.user?.image)
+      return (
+      /* Returns 'logo' if user has not given new 'image' input */
+      <>
+        <Image src={userImage} alt='' style={{objectFit:"contain"}} />
+      </>
+      )
+    }
+    if (image === null || image === undefined)  {
+      return (
+        <>
+          <Image src={logo} alt='' width={0} height={0} className='px-2 py-5' style={{objectFit:"fill"}} />
+        </>
+      )
+    }
+    else { 
+      let imageSource = URL.createObjectURL(image);
+      console.log(image)
+      console.log(image.name)
+      return (
+      <>
+        <Image src={imageSource} alt='' width={0} height={0} style={{objectFit:"cover", width:'auto', height:'100%', alignSelf:'center'}} />
+      </>
+      )
+    }
+  }
 // Create, Read, Update, Write main functions 
   const completeData = { // dictionary of 'data' vars
     name: data.name, 
@@ -120,107 +128,124 @@ function Dashboard() {
     console.log(completeData)
     console.log(userInfo)
     console.log("Update the user's information from 'form'")
-    signOut()
+    update()
   };
 
-  const getBase64 = async (file: Blob) => {
-    return new Promise(function(resolve, reject) {
-        var reader = new FileReader();
-        reader.onload = function() {
-          resolve(reader.result as string)
-        }; 
-        reader.onerror = function(error) {
-            reject(error)
-        };
-        reader.readAsDataURL(file);
-      });
-  }
+  // const getBase64 = async (file: Blob) => {
+  //   return new Promise(function(resolve, reject) {
+  //       var reader = new FileReader();
+  //       reader.onload = function() {
+  //         resolve(reader.result as string)
+  //       }; 
+  //       reader.onerror = function(error) {
+  //           reject(error)
+  //       };
+  //       reader.readAsDataURL(file);
+  //     });
+  // }
 
-  async function reduceSize(base64Str: any, MAX_WIDTH = 30, MAX_HEIGHT = 30) {
-    let resized_base64 = await new Promise((resolve) => {
-        const img = require('./createImage')
-        img.src = base64Str
-        img.onload = () => {
-          let canvas = document.createElement('canvas')
-          let width = img.width
-          let height = img.height
+  // async function reduceSize(base64Str: any, MAX_WIDTH = 30, MAX_HEIGHT = 30) {
+  //   let resized_base64 = await new Promise((resolve) => {
+  //       const img = require('./createImage')
+  //       img.src = base64Str
+  //       img.onload = () => {
+  //         let canvas = document.createElement('canvas')
+  //         let width = img.width
+  //         let height = img.height
 
-          if (width > height) {
-              if (width > MAX_WIDTH) {
-                  height *= MAX_WIDTH / width
-                  width = MAX_WIDTH
-              }
-          } else {
-              if (height > MAX_HEIGHT) {
-                  width *= MAX_HEIGHT / height
-                  height = MAX_HEIGHT
-              }
-          }
-          canvas.width = width
-          canvas.height = height
-          let ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-          ctx.drawImage(img, 0, 0, width, height)
-          console.log('URL ACCORDING TO reduceSize FUNCTION\n', canvas.toDataURL());
-          resolve(canvas.toDataURL()) // this will return base64 image results after resize
-      }
-    });
+  //         if (width > height) {
+  //             if (width > MAX_WIDTH) {
+  //                 height *= MAX_WIDTH / width
+  //                 width = MAX_WIDTH
+  //             }
+  //         } else {
+  //             if (height > MAX_HEIGHT) {
+  //                 width *= MAX_HEIGHT / height
+  //                 height = MAX_HEIGHT
+  //             }
+  //         }
+  //         canvas.width = width
+  //         canvas.height = height
+  //         let ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+  //         ctx.drawImage(img, 0, 0, width, height)
+  //         console.log('URL ACCORDING TO reduceSize FUNCTION\n', canvas.toDataURL());
+  //         resolve(canvas.toDataURL()) // this will return base64 image results after resize
+  //     }
+  //   });
 
-    return resized_base64;
-  }
+  //   return resized_base64;
+  // }
 
-  function calcSize(image: any) {
-    let y = 1;
-    if (image.endsWith('==')) {
-        y = 2
-    }
-    const x_size = (image.length * (3 / 4)) - y
-    return Math.round(x_size / 1024)
-  }
+  // function calcSize(image: any) {
+  //   let y = 1;
+  //   if (image.endsWith('==')) {
+  //       y = 2
+  //   }
+  //   const x_size = (image.length * (3 / 4)) - y
+  //   return Math.round(x_size / 1024)
+  // }
 
-  async function processImage(file: any, min_image_size = 50) {
-    const res = await getBase64(file);
-    if (res) {
-        const old_size = calcSize(res);
-        if (old_size > min_image_size) {
-            const resized = await reduceSize(res);
-            const new_size = calcSize(resized)
-            console.log('new_size=> ', new_size, 'KB');
-            console.log('old_size=> ', old_size, 'KB');
-            return resized;
-        } else {
-            console.log('image already small enough')
-            return res;
-        }
+  // async function processImage(file: any, min_image_size = 50) {
+  //   const res = await getBase64(file);
+  //   if (res) {
+  //       const old_size = calcSize(res);
+  //       if (old_size > min_image_size) {
+  //           const resized = await reduceSize(res);
+  //           const new_size = calcSize(resized)
+  //           console.log('new_size=> ', new_size, 'KB');
+  //           console.log('old_size=> ', old_size, 'KB');
+  //           return resized;
+  //       } else {
+  //           console.log('image already small enough')
+  //           return res;
+  //       }
 
-    } else {
-        console.log('return err')
-        return null;
-    }
-  }
+  //   } else {
+  //       console.log('return err')
+  //       return null;
+  //   }
+  // }
 
-  const uploadImage = async (e: any) => { // update user in database with 'image' file/blob;
+  async function uploadImage(e: any) { // update user in database with 'image' file/blob;
     e.preventDefault()
+    console.log(image)
     if (!image) { return }
     // try uploading
-    try {
-      console.log(image)
-      const encodedImage = await processImage(image) as string;
-      console.log(encodedImage)
-      const res = await fetch('/api/upload', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'x-www-form-urlencoded'
-          },
-          body: JSON.stringify(encodedImage),
-      })
-    // catch error
-    console.log(res)
-    if (!res.ok) throw new Error(await res.text());
-  } catch (e: any) {
-    console.error(e);
+  //   try {
+  //     console.log(image)
+  //     const encodedImage = await processImage(image) as string;
+  //     console.log(encodedImage)
+  //     const res = await fetch('/api/upload', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'x-www-form-urlencoded'
+  //         },
+  //         body: JSON.stringify(encodedImage),
+  //     })
+  //   // catch error
+  //   console.log(res)
+  //   if (!res.ok) throw new Error(await res.text());
+  // } catch (e: any) {
+  //   console.error(e);
+  // }
+  //   console.log("Update the user's image from 'Your Photo'")
+  //   signOut() // signout user to update token on login
   }
-    console.log("Update the user's image from 'Your Photo'")
-    signOut() // signout user to update token on login
+  
+  function displayAlert() {
+    const element = document.getElementById('body') as HTMLElement
+    const parent = document.createElement('button')
+    parent.id = 'replacement'
+    parent.textContent = "The 'Save' feature for images currently does not work."
+    parent.className = 'alert'
+    const child = document.createElement('span')
+    child.className = 'closebtn justify-center items-center'
+    child.innerHTML = '&times;'
+    parent.onclick = function() {
+        document.getElementById('replacement')?.replaceWith(element)
+      }
+    parent.appendChild(child)
+    element?.replaceWith(parent)
   }
 
   function deleteImage() {// Delete user's image input
@@ -229,11 +254,6 @@ function Dashboard() {
     console.log("Reset image to none")
   }
 
-  function handleRefresh() {// Refresh page onClick of 'Cancel' buttons
-    console.log("Force refresh the 'Dashboard' page")
-    Router.reload()
-  }
-  
   return (
       <section id='dashboard'>
         <div className="mx-auto max-w-screen-2xl p-4">
@@ -265,7 +285,7 @@ function Dashboard() {
 
             </div>
 
-            <div className="grid grid-cols-5 gap-8">
+            <div id='body' className="grid grid-cols-5 gap-8">
               <div className="col-span-5 xl:col-span-3">
                 <div className="rounded-sm border border-stroke bg-white shadow-md shadow-slate-400/50">
                   <div className=" bg-orange-600 border-b-2 border-black py-4 px-7">
@@ -285,10 +305,10 @@ function Dashboard() {
 
                         <div className="w-full sm:w-1/2">
                           <label className="mb-3 block text-sm font-medium text-black" htmlFor="phoneNumber">Phone Number</label>
-                          <input className="w-full pl-4 rounded border border-stroke bg-gray py-3 px-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="phoneNumber" id="phoneNumber" placeholder='Currently Empty' value={data.phoneNumber} onChange={handleInputChange}/>
+                          <input className="w-full pl-4 rounded border border-stroke bg-gray py-3 px-4 font-medium text-black focus:border-orange-600 focus-visible:outline-none" type="text" name="phoneNumber" id="phoneNumber" placeholder={placeholderNumber} value={data.phoneNumber} onChange={handleInputChange}/>
                         </div>
                       </div>
-                      
+
                       <div className="mb-6">
                         <label className="mb-3 block text-sm font-medium text-black" htmlFor="email">Email Address</label>
                         <div className="relative">
@@ -315,10 +335,10 @@ function Dashboard() {
                       </div>
 
                       <div className="flex justify-end gap-4">
-                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-sm" type="submit" onSubmit={() => handleRefresh()}>
+                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-sm" type="submit">
                           Cancel
                         </button>
-                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-medium text-slate-100 hover:bg-opacity-90" id='saveInfo' type="submit" onSubmit={() => handleRefresh()}>
+                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-medium text-slate-100 hover:bg-opacity-90" id='saveInfo' type="submit">
                           Save
                         </button>
                       </div>
@@ -368,10 +388,10 @@ function Dashboard() {
                     </div>
 
                       <div className="flex justify-end gap-4">
-                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-semibold text-black" type='button' onClick={handleRefresh}>
+                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-semibold text-black" type='button' onClick={() => deleteImage()}>
                           Cancel
                         </button>
-                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-semibold text-white hover:bg-opacity-90" type='submit' id='saveImage'>
+                        <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-semibold text-white hover:bg-opacity-90" type='button' onClick={() => displayAlert()} id='saveImage'>
                           Save
                         </button>
                       </div>

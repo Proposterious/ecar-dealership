@@ -6,6 +6,8 @@ import { Inter } from 'next/font/google'
 import Provider from '@/components/provider/Provider'
 import Navbar from '../components/content/header/navbar'
 import Information from '../components/content/footer/information' 
+import { Suspense } from 'react'
+import Loader from './loading'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -47,13 +49,11 @@ export default async function RootLayout({
       </head>
       <Provider>
         <body className={inter.className}>
-          <header>
+          <Suspense fallback={<Loader />}>
             <Navbar />
-          </header>  
-          {children}
-          <footer>
+            {children}
             <Information />
-          </footer>
+          </Suspense>
         </body>
       </Provider>
     </html>

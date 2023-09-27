@@ -95,7 +95,8 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.fullName = user.fullName;
         token.bio = user.biography;
-        token.image = user.image;
+        token.image = 'yes';
+        token.phoneNumber = user.phoneNumber;
       }
       if (account) { // allows 'token' access to third party 'account'
         token.accessToken = account.access_token;
@@ -106,7 +107,9 @@ export const authOptions: NextAuthOptions = {
     //session.user.id = token.id was purposefully omitted
       session.user.fullName = token.fullName;
       session.user.biography = token.bio;
-      session.user.image = token.image;
+      if (token.image != null && token.image != undefined) {
+        session.user.image = 'true';
+      }
       return session;
     }
   },
