@@ -7,22 +7,14 @@
     background-position: 10px 1rem;
 
     &:not([value=""]) {
-        background-image: url('../../public/svg/check.svg')
-    }
-}
+        background-image: url('../../public/svg/check.svg');
+    };
+};
 
-/* .left-inner-addon {
-    position: relative;
-    width: 200px;
+.mail {
+    background-image: url('../../public/svg/credit-card.svg'); 
+    background-size: contain;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: center;
 }
-.left-inner-addon input {
-    padding-left: 24px;
-    width: 170px; /* 200px - 30px
-}
-.left-inner-addon img {
-    position: absolute;
-    left: 0px;
-    padding: 10px 12px;
-    pointer-events: none;
-    top: 1rem;
-} */
