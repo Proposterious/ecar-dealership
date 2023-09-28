@@ -1,13 +1,19 @@
-"use client"
 
-import Image from "next/image";
+'use client'
+import menu from './navIcon.css';
 
-export default function SignIn() {
-  return <div className="dropdown dropdown-end">
-    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-      <div className="w-10 rounded-full">
-        <Image src={"/car-logo.png"} alt={'Menu'} width={100} height={100}/>
+export default function Test() {
+  function open() {
+    const icon = document.getElementById('navIcon') as HTMLElement;
+    icon.classList.toggle("open");
+  }
+  return (
+    <article>
+      <div id={menu.navIcon} onClick={() => open()}>
+        <span>hi</span>
+        <span>hi</span>
+        <span>hi</span>
       </div>
-    </label>
-  </div>
+    </article>
+  )
 }
