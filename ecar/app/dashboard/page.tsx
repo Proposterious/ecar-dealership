@@ -285,7 +285,7 @@ function Dashboard() {
 
             </div>
 
-            <div id='body' className="grid grid-cols-5 gap-8">
+            <div id='body' className="grid grid-cols-5 gap-8 pb-16">
               <div className="col-span-5 xl:col-span-3">
                 <div className="rounded-sm border border-stroke bg-white shadow-md shadow-slate-400/50">
                   <div className=" bg-orange-600 border-b-2 border-black py-4 px-7">
