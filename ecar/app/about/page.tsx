@@ -17,7 +17,7 @@ function About() {
                 </p>
                 <p className='w-3/5'>
                     <br/>
-                    As they worked more consistently with what began as a small team, it was only natural that they would expand with time and becoming one of the largest chains of car dealerships in [insert country]! In the table below, you may find members such as [insert role 1] and [insert role 2] who currently hold important roles in the company to ensure service quality or handle the company's finances. Other members who might not impact our dealerships directly include [insert developer] (aka Maddox Harper) who is in charge of maintaining the website you are viewing this text on right now! Learn more about each of these incredible people by interacting with the image of each of our board and/or staff members!
+                    As they worked more consistently with what began as a small team, it was only natural that they would expand with time and becoming one of the largest chains of car dealerships in [insert country]! In the table below, you may find members such as [insert role 1] and [insert role 2] who currently hold important roles in the company to ensure service quality or handle the company's finances. Other members who might not impact our dealerships directly include [insert developer] who is in charge of maintaining the website you are viewing this text on right now! Learn more about each of these incredible people by interacting with the image of each of our board and/or staff members!
                 </p>
             </div>
             <Table />
