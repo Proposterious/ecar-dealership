@@ -8,8 +8,8 @@ import receptionist from '@/public/img/stock-photos/happy-receptionist.png';
 
 function Contact() {
     const style = {
-        h2: 'xs:text-lg sm:text-xl md:text-3xl',
-        p: 'xs:text-sm sm:text-md md:text-lg',
+        h2: 'xs:text-lg sm:text-xl md:text-3xl pb-2.5',
+        p: 'xs:text-sm sm:text-md md:text-lg mb-4',
 
     }
     return ( 
@@ -37,33 +37,39 @@ function Contact() {
                 </div>
             </article>
             {/* Contacts */}
-            <article className='items-center justify-around relative | bg-slate-200 | flex flex-col xs:flex-col sm:flex-row'>
+            <article className='py-4 xs:px-4 sm:px-2 justify-around relative | bg-slate-200 | flex flex-col xs:flex-col sm:flex-row'>
                 <div id='mail' className='xs:w-full sm:w-1/4 | xs:py-2 xs:divide-y-reverse xs:divide-y-2 sm:divide-x-reverse sm:divide-x-2 sm:divide-y-0 divide-orange-600'>
                     <div className='font-semibold text-orange-600'>
-                        <div className={`${svg.mail} w-fit p-8 bg-orange-600`}/>
+                        <div className={`${svg.mail} w-fit mb-2 p-8 bg-orange-600`}/>
                         <h2 className={`${style.h2}`}>By Mail</h2>
                     </div>
-                    <p className={`${style.p} | text-slate-900`}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis mollitia quia itaque veniam, ex provident! In repudiandae est eveniet iure.
-                    </p>
+                    <div className={`${style.p} | pr-4 | text-slate-900`}>
+                        For questions about a specific location: <p className='font-semibold underline'>examplemail@domain.com</p>
+                        If you have a complaint about our staff: <p className='font-semibold underline'>examplemail@domain.com</p>
+                        Any suggestions or compliments about a location: <p className='font-semibold underline'>examplemail@domain.com</p>
+                    </div>
                 </div>
                 <div id='call' className='xs:w-full sm:w-1/4 | xs:py-2 | xs:divide-y-reverse xs:divide-y-2 sm:divide-x-reverse sm:divide-x-2 sm:divide-y-0 divide-orange-600 '>
                     <div className='font-semibold text-orange-600'>
-                        <div className={`${svg.mail} w-fit p-8 bg-orange-600`}/>
+                        <div className={`${svg.mail} w-fit mb-2 p-8 bg-orange-600`}/>
                         <h2 className={`${style.h2}`}>By Call</h2>
                     </div>
-                    <p className={`${style.p} | text-slate-900`}>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos ea autem repellendus blanditiis. Exercitationem accusamus distinctio ullam quia voluptatibus necessitatibus?
-                    </p>
+                    <div className={`${style.p} | pr-4 | text-slate-900`}>
+                        For questions about a specific location: <p className='font-semibold underline'>Call (720-1234-567)</p>
+                        If you have a complaint about our staff: <p className='font-semibold underline'>Call (346-1234-567)</p>
+                        Any suggestions or compliments about a location: <p className='font-semibold underline'>Call (832-1234-567)</p>
+                    </div>
                 </div>
                 <div id='number' className='xs:w-full sm:w-1/4 | xs:divide-y-reverse xs:divide-y-1 sm:divide-x-reverse sm:divide-x-2 sm:divide-y-0 divide-orange-600'>
                     <div className={`font-semibold text-orange-600`}>
-                        <div className={`${svg.mail} w-fit p-8 bg-orange-600`}/>
+                        <div className={`${svg.mail} w-fit mb-2 p-8 bg-orange-600`}/>
                         <h2 className={`${style.h2}`}>By Text Message</h2>
                     </div>
-                    <p className={`${style.p} | text-slate-900`}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga maxime delectus distinctio quaerat sapiente beatae veniam corporis enim obcaecati!
-                    </p>
+                    <div className={`${style.p} | pr-4 | text-slate-900`}>
+                        For questions about a specific location: <p className='font-semibold underline'>Text at (40083)</p>
+                        If you have a complaint about our staff: <p className='font-semibold underline'>Text at (11786)</p>
+                        Any suggestions or compliments about a location: <p className='font-semibold underline indent-1'>Text at (13463)</p>
+                    </div>
                 </div>
             </article>
         </section>
