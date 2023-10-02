@@ -32,9 +32,6 @@ function Navbar() {
                 <li className="hover:text-orange-600">
                     <Link href='/employment'>Employment</Link>
                 </li>
-                <li className="hover:text-orange-600">
-                    <Link href='/contact'>Contact</Link>
-                </li>
                 <li className="font-semibold hover:text-orange-600 ">
                     <Link href='/support'>Support</Link>
                 </li>
