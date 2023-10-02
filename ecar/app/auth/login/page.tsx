@@ -7,7 +7,7 @@ import LoginForm from './form';
 
 async function Login() {
 
-    const session = getServerSession()
+    const session = await getServerSession()
     //redirect user to dashboard if logged in
     if (session != null) { 
         redirect('/dashboard') 
