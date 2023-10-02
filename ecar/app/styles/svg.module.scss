@@ -12,9 +12,25 @@
 };
 
 .mail {
-    background-image: url('../../public/svg/credit-card.svg'); 
+    background-image: url('../../public/svg/envelope.svg'); 
     background-size: contain;
-    background-color: white;
+    background-color: inherit;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.call {
+    background-image: url('../../public/svg/incoming-call.svg'); 
+    background-size: contain;
+    background-color: inherit;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.message {
+    background-image: url('../../public/svg/message-bubble.svg'); 
+    background-size: contain;
+    background-color: inherit;
     background-repeat: no-repeat;
     background-position: center;
 }

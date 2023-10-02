@@ -40,7 +40,7 @@ export function Contact() {
                 </div>
             </article>
             {/* Contacts */}
-            <article id="contacts" className='pt-4 xs:px-4 sm:px-2 md:px-0 justify-evenly  | bg-slate-200 | flex flex-col xs:flex-col sm:flex-row'>
+            <article id="contacts" className='py-5 my-auto xs:px-4 sm:px-2 md:px-0 justify-evenly  | bg-slate-200 | flex flex-col xs:flex-col sm:flex-row'>
                 <Mail style={style} svg={svg}/>
                 <Call style={style} svg={svg}/>
                 <Text style={style} svg={svg}/>
