@@ -1,5 +1,4 @@
 // Nextjs Imports
-import Link from 'next/link'
 import Image from 'next/image'
 // Hero Icon Imports
 import Popout from '../../../public/svg/popout.svg'
@@ -17,19 +16,19 @@ const li_link = 'https://www.linkedin.com/';
 
 function Information() {
     return (  
-        /* Profile Links */
+        /* Profile as */
         <nav className="border-t-2 border-amber-600 bottom-full w-full  divide-y-2 divide-gray-400/60">
             <ul id='footer_social' className="list-none flex flex-wrap justify-center items-center space-x-16 p-3 h-30 bg-slate-100 text-orange-400">
                 <li>
-                    <Link href={yt_link}>
+                    <a target="_blank" rel="noopener noreferrer" href={yt_link}>
                         <Image src={Youtube}
                         height={70}
                         width={150}
                         alt='Youtube Profile' />
-                    </Link>
+                    </a>
                 </li>
                 <li className='ml-6'>
-                    <Link href={github_link}>
+                    <a target="_blank" rel="noopener noreferrer" href={github_link}>
                         <Image src={GithubCircle} 
                         height={70}
                         width={70}
@@ -38,32 +37,32 @@ function Information() {
                         height={70}
                         width={70}
                         alt='Github Profile' />
-                    </Link>
+                    </a>
                 </li>
                 <li>
-                    <Link href={li_link}>
+                    <a target="_blank" rel="noopener noreferrer" href={li_link}>
                         <Image src={LinkedIn}
                         height={70}
                         width={150}
-                        alt='LinkedIn Profile' />
-                    </Link>
+                        alt='aedIn Profile' />
+                    </a>
                 </li>
             </ul>
             <ul id='footer_notices' className="h-14 list-none flex flex-wrap justify-center items-center space-x-10 bg-gray-300">
                 <li className="inline-flex text-orange-600">
-                    <Link href='/'>Terms of Use</Link>
+                    <a href='/'>Terms of Use</a>
                     <a href='/'><Image src={Popout} alt='' /></a> 
                 </li>    
                 <li className="inline-flex text-orange-600">
-                    <Link href='/'>Privacy Policy</Link>
+                    <a href='/'>Privacy Policy</a>
                     <a href='/'><Image src={Popout} alt='' /></a> 
                 </li>
                 <li className="inline-flex text-amber-900">
-                    <Link href='/'>Cookie Policy</Link>
+                    <a href='/'>Cookie Policy</a>
                     <a href='/'><Image src={Popout} alt='' /></a> 
                 </li>
                 <li className="inline-flex text-blue-600/90">
-                    <Link href='/'>Privacy Choices</Link>
+                    <a href='/'>Privacy Choices</a>
                     <a href='/'><Image src={Check} alt='' /></a> 
                 </li>
                 <li className="text-gray-400">&copy;2023 Proposterious</li>
