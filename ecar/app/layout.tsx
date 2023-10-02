@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 // Component imports
 import Provider from '@/components/provider/Provider'
-import Navbar from '../components/content/header/navbar'
+import Navbar from '../components/content/header/Navbar'
 import Information from '../components/content/footer/information' 
 import { Suspense } from 'react'
 import Loader from './loading'
