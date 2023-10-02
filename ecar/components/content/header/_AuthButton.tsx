@@ -12,7 +12,7 @@ function AuthButton() {
                 <li className="font-semibold hover:text-orange-600 | border-l pl-6 border-black">
                     <Link href='/dashboard'>Dashboard</Link>
                 </li>
-                <li className="text-center border-2 rounded-3xl border-black bg-orange-600 px-6 py-3 font-medium text-white">
+                <li className="text-center border-2 rounded-3xl border-black bg-orange-600 px-3 n-md:px-6 py-3 font-medium text-white">
                     <p className='inline-block'>Greetings:</p>
                     <Link href='/dashboard' className='indent-1 inline-block underline decoration-inherit hover:text-indigo-600'>
                         {token.user?.name}
