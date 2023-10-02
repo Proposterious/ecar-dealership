@@ -9,11 +9,11 @@ import receptionist from '@/public/img/stock-photos/happy-receptionist.png';
 function Contact() {
     const style = {
         h2: 'xs:text-lg sm:text-xl md:text-3xl pb-2.5',
-        p: 'xs:text-sm sm:text-md md:text-lg mb-4',
-
+        p: 'n-xs:text-sm n-xs:pb-6 n-md:text-md n-lg:text-lg mb-4',
+        img: 'mx-auto | sm:w-3/4 xs:py-4 md:p-0 lg:min-w-fit'
     }
     return ( 
-        <section id='contact' className='bg-orange-600/95'>
+        <section id='contact' className='overscroll-auto overflow-x-scroll | bg-orange-600/95'>
             {/* Introduction */}
             <article className='max-w-full | divide-y-2 divide-slate-100'>
                 <div className='items-center justify-evenly | grid xs:grid-flow-row lg:grid-flow-col'>
@@ -27,11 +27,11 @@ function Contact() {
                         </p>
                     </div> 
 
-                    <div className='mx-auto xs:w-full | xs:py-4 sm:p-0 md:min-w-fit'>
-                        <Image src={receptionist} alt='' className='-scale-x-100' objectFit='fill' />
+                    <div className='mx-auto | sm:w-3/4 xs:py-4 sm:p-0 lg:min-w-fit'>
+                        <Image src={receptionist} alt='' className='-scale-x-100' objectFit='contain' />
                     </div> 
-                    <div className='mx-auto xs:w-full | xs:pb-4 sm:p-0 md:min-w-fit'>
-                        <Image src={service} alt='' objectFit='fill' />   
+                    <div className='mx-auto | sm:w-3/4 xs:pb-4 sm:p-0 lg:min-w-fit'>
+                        <Image src={service} alt='' objectFit='contain' />   
                     </div>
                     
                 </div>
