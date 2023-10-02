@@ -26,6 +26,6 @@ export async function POST(req: NextRequestWithAuth) {
     else{ console.log('Not found') }
         
 
-    prisma.$disconnect()
+    await prisma.$disconnect()
     return NextResponse.json('User found');
 }

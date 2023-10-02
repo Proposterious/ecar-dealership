@@ -31,6 +31,6 @@ export async function DELETE(req: NextRequestWithAuth) {
     })
     
     console.log('Completed User Delete Image')
-    prisma.$disconnect()
+    await prisma.$disconnect()
     return NextResponse.json('Completed action');
 }

@@ -19,7 +19,7 @@ export async function GET(req: NextRequestWithAuth) {
     if (!image) {
         return NextResponse.json('Failed to Fetch Image')
     }
-    prisma.$disconnect()
+    await prisma.$disconnect()
     console.log(image)
     return NextResponse.json(image);
 }

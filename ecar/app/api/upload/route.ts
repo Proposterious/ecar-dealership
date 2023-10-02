@@ -28,7 +28,7 @@ export async function POST(req: NextRequestWithAuth) {
     // Quit the function if user not found
     if (!user) { 
         console.log('Session Failed');
-        prisma.$disconnect(); return null;
+        await prisma.$disconnect(); return null;
     }
     // Update user once verified
     console.log('THIS ACCORDINGLY IS THE FILE SENT BY POST\n',file)
@@ -39,6 +39,6 @@ export async function POST(req: NextRequestWithAuth) {
         },
     })
     
-    prisma.$disconnect(); // close prisma's connection
+    await prisma.$disconnect(); // close prisma's connection
     return NextResponse.json({ success: true }) // return 'res.ok(200)'
 }
