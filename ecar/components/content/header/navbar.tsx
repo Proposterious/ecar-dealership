@@ -12,7 +12,7 @@ function Navbar() {
     // lg:space-x-8 md:space-x-4 sm:list-style
      return ( 
         <header>
-            <nav className="n-md:flex flex-wrap list-none | h-28 border-b-2 border-amber-600 | items-center justify-center | n-xs:hidden n-sm:space-x-3 child:n-sm:text-md n-md:space-x-4 n-lg:space-x-6 n-xl:space-x-8 | text-black bg-slate-200">
+            <nav className="n-md:flex list-none | overflow-auto overscroll-x-auto | h-28 border-b-2 border-amber-600 | items-center justify-center | n-xs:hidden n-sm:space-x-3 child:n-sm:text-md n-md:space-x-4 n-lg:space-x-6 n-xl:space-x-8 | text-black bg-slate-200">
                 <Image 
                 src={Logo}
                 height={50}
