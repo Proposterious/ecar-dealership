@@ -18,7 +18,7 @@ function NavButton() {
             icon?.classList.remove(menu.open) // if open, close
             container?.classList.remove('min-h-screen'); // remove styles
             container?.classList.remove('bg-orange-600'); // remove
-            block?.classList.remove('bg-black'); // remove
+            block?.classList.remove('bg-slate-100'); // remove
             content?.classList.add('hidden') // hide list
             return
         } 
@@ -27,7 +27,7 @@ function NavButton() {
             icon?.classList.add(menu.open)  // if closed, open
             container?.classList.add('min-h-screen'); // add styles
             container?.classList.add('bg-orange-600'); // add
-            block?.classList.add('bg-black'); // add
+            block?.classList.add('bg-slate-100'); // add
             content?.classList.remove('hidden') // show list
             return 
         }
@@ -60,9 +60,6 @@ function NavButton() {
                     </span>   
                     <span className="hover:text-black">
                         <Link href='/employment'>Employment</Link>
-                    </span>
-                    <span className="hover:text-black">
-                        <Link href='/contact'>Contact</Link>
                     </span>
                     <span className="font-semibold hover:text-black ">
                         <Link href='/support'>Support</Link>
