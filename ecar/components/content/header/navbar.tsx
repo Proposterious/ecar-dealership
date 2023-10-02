@@ -1,20 +1,18 @@
 // Nextjs Imports
 import Link from 'next/link';
 import Image from 'next/image';
-// Stylesheet
-import menu from './nav-icon.module.css';
 // Main Logo Import
 import Logo from '../../../public/shrunk-car-logo.png';
 // Component Import
-import AuthButton from './AuthButton';
-import NavButton from './NavButton';
+import AuthButton from './_AuthButton';
+import NavButton from './_NavButton';
 function Navbar() {
     // Toggle Icon onClick
 
     // lg:space-x-8 md:space-x-4 sm:list-style
      return ( 
         <header>
-            <nav className="n-sm:flex flex-wrap list-none | h-28 border-b-2 border-amber-600 | items-center justify-center | n-xs:hidden n-sm:space-x-3 child:n-sm:text-md n-md:space-x-4 n-xl:space-x-8 | text-black bg-slate-200">
+            <nav className="n-md:flex flex-wrap list-none | h-28 border-b-2 border-amber-600 | items-center justify-center | n-xs:hidden n-sm:space-x-3 child:n-sm:text-md n-md:space-x-4 n-lg:space-x-6 n-xl:space-x-8 | text-black bg-slate-200">
                 <Image 
                 src={Logo}
                 height={50}
