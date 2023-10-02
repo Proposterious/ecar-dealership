@@ -1,5 +1,6 @@
 @import './styles/loader.css';
 @import './styles/alert.css';
+@import './styles/grid.css';
 
 @tailwind base;
 @tailwind components;
