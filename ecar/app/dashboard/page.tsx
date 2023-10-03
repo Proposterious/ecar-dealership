@@ -22,12 +22,25 @@ function Dashboard() {
       email: "",
       bio: "",
   });
+
+  const initialState = {
+    fullName: "",
+    phoneNumber: "",
+    name: "",
+    email: "",
+    bio: "",
+  }
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setData((prevProps) => ({
       ...prevProps,
       [name]: value
     }))
+  };
+
+  const handleCancel = (e: any) => {
+    setData(initialState);
   };
 
   // Handle image inputs
@@ -335,7 +348,7 @@ function Dashboard() {
                       </div>
 
                       <div className="flex justify-end gap-4">
-                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-sm" type="submit">
+                        <button className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-sm" type="button" onClick={handleCancel}>
                           Cancel
                         </button>
                         <button className="flex justify-center rounded bg-orange-600 py-2 px-6 font-medium text-slate-100 hover:bg-opacity-90" id='saveInfo' type="submit">
