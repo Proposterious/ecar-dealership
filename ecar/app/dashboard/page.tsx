@@ -56,7 +56,7 @@ function Dashboard() {
   // Get userData as 'session' from useSession()
   const { data: session, update } = useSession() as any;
   const { status } = useSession({ required: true })
-  while (status === 'loading') {
+  while (status != 'authenticated') {
     return ( <Loader /> )
   }
   
