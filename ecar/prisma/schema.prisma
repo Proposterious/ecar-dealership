@@ -43,6 +43,7 @@ model User {
   emailVerified  DateTime?
   image          String?
   biography      String?
+  phoneNumber    String?   
   avatar         Avatar[]
   accounts       Account[]
   sessions       Session[]

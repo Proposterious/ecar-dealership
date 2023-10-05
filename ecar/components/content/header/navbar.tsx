@@ -18,21 +18,21 @@ function Navbar() {
                 height={50}
                 width={120}
                 alt='' /> 
-                <li className='font-bold text-white hover:text-black'>
+                <li className='font-bold text-white duration-500 hover:text-black'>
                     <Link href='/' className="border-2 border-black rounded-2xl px-6 py-3 bg-orange-600">
                         Home
                     </Link>
                 </li>
-                <li className="hover:text-orange-600">
+                <li className="duration-300 hover:text-orange-600">
                     <Link href='/about'>About</Link>
                 </li>
-                <li className="hover:text-orange-600">
+                <li className="duration-300 hover:text-orange-600">
                     <Link href='/service'>Service</Link>
                 </li>   
-                <li className="hover:text-orange-600">
+                <li className="duration-300 hover:text-orange-600">
                     <Link href='/employment'>Employment</Link>
                 </li>
-                <li className="font-semibold hover:text-orange-600 ">
+                <li className="font-semibold duration-300 hover:text-orange-600 ">
                     <Link href='/support'>Support</Link>
                 </li>
                     <AuthButton />

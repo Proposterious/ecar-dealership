@@ -1,10 +1,2 @@
-.homeImages {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    }
-    
-.homeImage1 { grid-area: 1 / 1 / 4 / 4; }
-.homeImage2 { grid-area: 3 / 3 / 6 / 6; }
+@import './_carsGrid.css';
+@import './_customersGrid.css';

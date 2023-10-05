@@ -17,7 +17,7 @@ const li_link = 'https://www.linkedin.com/';
 function Information() {
     return (  
         /* Profile as */
-        <nav className="border-t-2 border-amber-600 bottom-full w-full  divide-y-2 divide-gray-400/60">
+        <nav className="border-t-8 border-amber-600 bottom-full w-full divide-y-4 divide-gray-400/60">
             <ul id='footer_social' className="list-none flex flex-wrap justify-center items-center space-x-16 p-3 h-30 bg-slate-100 text-orange-400">
                 <li>
                     <a target="_blank" rel="noopener noreferrer" href={yt_link}>

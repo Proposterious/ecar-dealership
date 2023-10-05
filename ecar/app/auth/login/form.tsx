@@ -30,7 +30,7 @@ function LoginForm() {
    
 
     return (
-        <section className='h-full w-1/3 mx-auto py-12'>
+        <section className='mx-auto n-xs:h-screen n-xs:w-full n-md:py-12 n-md:h-full n-md:w-2/3 n-lg:w-3/4 n-xl:w-1/2'>
             <div className="flex min-h-full flex-1 flex-col justify-center items-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">
                 {/* Card Header */}
                 <div className="max-w-sm">
@@ -39,7 +39,7 @@ function LoginForm() {
                         src={"/car-logo.png"}
                         alt={"eCar Dealership"}
                     />
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight underline text-orange-500">
+                    <h2 className="n-xs:mt-4 n-md:mt-10 text-center n-xs:text-2xl n-lg:text-4xl font-bold leading-9 tracking-tight underline text-orange-500">
                         Login to Your Account
                     </h2>
                 </div>
@@ -62,7 +62,7 @@ function LoginForm() {
                                 value={data.email}
                                 onChange={handleInputChange}
                                 placeholder="johndoe01@email.com"
-                                className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+                                className="n-xs:text-sm n-md:text-md | block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
@@ -88,7 +88,7 @@ function LoginForm() {
                             value={data.password}
                             onChange={handleInputChange}
                             placeholder="***************"
-                            className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+                            className="n-xs:text-sm n-md:text-md | block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                         </div>

@@ -48,7 +48,7 @@ export default async function RootLayout({
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       </head>
       <Provider>
-        <body className={inter.className}>
+        <body id="app" className={inter.className}>
           <Suspense fallback={<Loader />}>
             <Navbar />
             {children}

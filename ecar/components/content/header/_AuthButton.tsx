@@ -9,16 +9,16 @@ function AuthButton() {
     if (token) {
         return ( 
             <>
-                <li className="font-semibold hover:text-orange-600 | border-l pl-6 border-black">
+                <li className="n-xs:invisible n-md:visible font-semibold duration-300 hover:text-orange-600 | border-l pl-6 border-black">
                     <Link href='/dashboard'>Dashboard</Link>
                 </li>
                 <li className="flex-none | text-center border-2 rounded-3xl border-black bg-orange-600 px-3 n-md:px-6 py-3 font-medium text-white">
                     <p className='inline-block'>Greetings:</p>
-                    <Link href='/dashboard' className='indent-1 inline-block underline decoration-inherit hover:text-indigo-600'>
+                    <Link href='/dashboard' className='indent-1 inline-block underline decoration-inherit duration-1000 hover:text-indigo-600'>
                         {token.user?.name}
                     </Link> !
                     <br />
-                    <button className='font-bold hover:text-black' onClick={() => signOut({callbackUrl: '/' })}>
+                    <button className='font-bold duration-300 hover:text-black' onClick={() => signOut({callbackUrl: '/' })}>
                         Logout
                     </button>
                 </li>
@@ -28,7 +28,7 @@ function AuthButton() {
         return(
             <li className = 'border-l pl-6 border-black'>
                 <Link href='/auth/login'>
-                    <button className='text-white font-bold hover:text-slate-200/80 | border-2 rounded-3xl border-black bg-orange-600 px-6 py-3' >
+                    <button className='text-white font-bold duration-700 hover:text-slate-200/80 | border-2 rounded-3xl border-black bg-orange-600 px-6 py-3' >
                         Login
                     </button>
                 </Link>

@@ -57,7 +57,7 @@ function Dashboard() {
   const { data: session, update } = useSession() as any;
   const { status } = useSession({ required: true })
   while (status === 'loading') {
-    return ( <Loader />)
+    return ( <Loader /> )
   }
   
 
