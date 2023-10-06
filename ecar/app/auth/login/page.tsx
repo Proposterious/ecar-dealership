@@ -13,7 +13,7 @@ async function Login() {
     } 
     
     return ( 
-        <div id="loginPage" className='w-full h-full bg-orange-300'>
+        <div className='w-full h-full bg-orange-300'>
             <LoginForm />
         </div>
     );

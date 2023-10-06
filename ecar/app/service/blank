@@ -1,0 +1,804 @@
+{
+  "data": [
+    {
+      "id": 6292,
+      "make_model_trim_id": 6292,
+      "type": "Sedan",
+      "doors": 4,
+      "length": "182.2",
+      "width": "70.6",
+      "seats": 5,
+      "height": "55.6",
+      "wheel_base": "105.1",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "5.3",
+      "cargo_capacity": "12.4",
+      "max_cargo_capacity": null,
+      "curb_weight": 3095,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6292,
+        "make_model_id": 97,
+        "year": 2020,
+        "name": "Base",
+        "description": "4dr Sedan (2.4L 4cyl 8AM)",
+        "msrp": 25900,
+        "invoice": 24617,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 97,
+          "make_id": 1,
+          "name": "ILX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6293,
+      "make_model_trim_id": 6293,
+      "type": "Sedan",
+      "doors": 4,
+      "length": "182.2",
+      "width": "70.6",
+      "seats": 5,
+      "height": "55.6",
+      "wheel_base": "105.1",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "5.3",
+      "cargo_capacity": "12.4",
+      "max_cargo_capacity": null,
+      "curb_weight": 3122,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6293,
+        "make_model_id": 97,
+        "year": 2020,
+        "name": "Premium Package",
+        "description": "Premium Package 4dr Sedan (2.4L 4cyl 8AM)",
+        "msrp": 27750,
+        "invoice": 26370,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 97,
+          "make_id": 1,
+          "name": "ILX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6294,
+      "make_model_trim_id": 6294,
+      "type": "Sedan",
+      "doors": 4,
+      "length": "182.2",
+      "width": "70.6",
+      "seats": 5,
+      "height": "55.6",
+      "wheel_base": "105.1",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "5.3",
+      "cargo_capacity": "12.4",
+      "max_cargo_capacity": null,
+      "curb_weight": 3124,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6294,
+        "make_model_id": 97,
+        "year": 2020,
+        "name": "Technology Package",
+        "description": "Technology Package 4dr Sedan (2.4L 4cyl 8AM)",
+        "msrp": 29650,
+        "invoice": 28169,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 97,
+          "make_id": 1,
+          "name": "ILX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6295,
+      "make_model_trim_id": 6295,
+      "type": "Sedan",
+      "doors": 4,
+      "length": "182.2",
+      "width": "70.6",
+      "seats": 5,
+      "height": "55.6",
+      "wheel_base": "105.1",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "5.3",
+      "cargo_capacity": "12.4",
+      "max_cargo_capacity": null,
+      "curb_weight": 3144,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6295,
+        "make_model_id": 97,
+        "year": 2020,
+        "name": "Premium and A-SPEC Packages",
+        "description": "Premium and A-SPEC Packages 4dr Sedan (2.4L 4cyl 8AM)",
+        "msrp": 29750,
+        "invoice": 28264,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 97,
+          "make_id": 1,
+          "name": "ILX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6296,
+      "make_model_trim_id": 6296,
+      "type": "Sedan",
+      "doors": 4,
+      "length": "182.2",
+      "width": "70.6",
+      "seats": 5,
+      "height": "55.6",
+      "wheel_base": "105.1",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "5.3",
+      "cargo_capacity": "12.4",
+      "max_cargo_capacity": null,
+      "curb_weight": 3148,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6296,
+        "make_model_id": 97,
+        "year": 2020,
+        "name": "Technology and A-SPEC Packages",
+        "description": "Technology and A-SPEC Packages 4dr Sedan (2.4L 4cyl 8AM)",
+        "msrp": 31650,
+        "invoice": 30064,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 97,
+          "make_id": 1,
+          "name": "ILX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6297,
+      "make_model_trim_id": 6297,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 7,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4032,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 3500,
+      "make_model_trim": {
+        "id": 6297,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "Base",
+        "description": "4dr SUV (3.5L 6cyl 9A)",
+        "msrp": 44500,
+        "invoice": 41774,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6298,
+      "make_model_trim_id": 6298,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 7,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4054,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 3500,
+      "make_model_trim": {
+        "id": 6298,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "Base",
+        "description": "4dr SUV w/Technology Package (3.5L 6cyl 9A)",
+        "msrp": 49500,
+        "invoice": 46459,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6299,
+      "make_model_trim_id": 6299,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 6,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4090,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 3500,
+      "make_model_trim": {
+        "id": 6299,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "Base",
+        "description": "4dr SUV w/Advance Package (3.5L 6cyl 9A)",
+        "msrp": 56250,
+        "invoice": 52783,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6300,
+      "make_model_trim_id": 6300,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 7,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4239,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 5000,
+      "make_model_trim": {
+        "id": 6300,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "SH-AWD",
+        "description": "SH-AWD 4dr SUV AWD (3.5L 6cyl 9A)",
+        "msrp": 46500,
+        "invoice": 43648,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6301,
+      "make_model_trim_id": 6301,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 7,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4264,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 5000,
+      "make_model_trim": {
+        "id": 6301,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "SH-AWD",
+        "description": "SH-AWD 4dr SUV AWD w/Technology Package (3.5L 6cyl 9A)",
+        "msrp": 51500,
+        "invoice": 48332,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6302,
+      "make_model_trim_id": 6302,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 6,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4266,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 5000,
+      "make_model_trim": {
+        "id": 6302,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "SH-AWD",
+        "description": "SH-AWD 4dr SUV AWD w/Technology and Entertainment Packages (3.5L 6cyl 9A)",
+        "msrp": 53500,
+        "invoice": 50206,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6303,
+      "make_model_trim_id": 6303,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 6,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4303,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 5000,
+      "make_model_trim": {
+        "id": 6303,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "SH-AWD",
+        "description": "SH-AWD 4dr SUV AWD w/Advance Package (3.5L 6cyl 9A)",
+        "msrp": 58250,
+        "invoice": 54656,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6304,
+      "make_model_trim_id": 6304,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 7,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4350,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 5000,
+      "make_model_trim": {
+        "id": 6304,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "SH-AWD",
+        "description": "SH-AWD 4dr SUV AWD w/Advance and Entertainment Packages (3.5L 6cyl 9A)",
+        "msrp": 60250,
+        "invoice": 56530,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6305,
+      "make_model_trim_id": 6305,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 7,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4275,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 5000,
+      "make_model_trim": {
+        "id": 6305,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "SH-AWD A-Spec",
+        "description": "SH-AWD A-Spec 4dr SUV AWD (3.5L 6cyl 9A)",
+        "msrp": 55000,
+        "invoice": 51612,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6306,
+      "make_model_trim_id": 6306,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 7,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4471,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6306,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "Sport Hybrid SH-AWD",
+        "description": "Sport Hybrid SH-AWD 4dr SUV AWD w/Technology Package (3.0L 6cyl gas/electric hybrid 7AM)",
+        "msrp": 53000,
+        "invoice": 49738,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6307,
+      "make_model_trim_id": 6307,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 6,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": 4486,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6307,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "Sport Hybrid SH-AWD",
+        "description": "Sport Hybrid SH-AWD 4dr SUV AWD w/Advance Package (3.0L 6cyl gas/electric hybrid 7AM)",
+        "msrp": 59750,
+        "invoice": 56062,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6308,
+      "make_model_trim_id": 6308,
+      "type": "SUV",
+      "doors": 5,
+      "length": "196.2",
+      "width": "77.7",
+      "seats": 6,
+      "height": "67.4",
+      "wheel_base": "111.0",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "7.3",
+      "cargo_capacity": "15.0",
+      "max_cargo_capacity": "68.4",
+      "curb_weight": null,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 5000,
+      "make_model_trim": {
+        "id": 6308,
+        "make_model_id": 2,
+        "year": 2020,
+        "name": "SH-AWD PMC Edition",
+        "description": "SH-AWD PMC Edition 4dr SUV AWD (3.5L 6cyl 9A)",
+        "msrp": 61750,
+        "invoice": 57936,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 2,
+          "make_id": 1,
+          "name": "MDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6309,
+      "make_model_trim_id": 6309,
+      "type": "Coupe",
+      "doors": 2,
+      "length": "176.0",
+      "width": "73.3",
+      "seats": 2,
+      "height": "47.8",
+      "wheel_base": "103.5",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": "3.7",
+      "cargo_capacity": "4.4",
+      "max_cargo_capacity": "4.4",
+      "curb_weight": 3878,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": null,
+      "make_model_trim": {
+        "id": 6309,
+        "make_model_id": 98,
+        "year": 2020,
+        "name": "Base",
+        "description": "2dr Coupe AWD (3.5L 6cyl Turbo gas/electric hybrid 9AM)",
+        "msrp": 157500,
+        "invoice": 146251,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 98,
+          "make_id": 1,
+          "name": "NSX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6310,
+      "make_model_trim_id": 6310,
+      "type": "SUV",
+      "doors": 5,
+      "length": "186.7",
+      "width": "74.8",
+      "seats": 5,
+      "height": "65.7",
+      "wheel_base": "108.3",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": null,
+      "cargo_capacity": "31.1",
+      "max_cargo_capacity": "79.8",
+      "curb_weight": 3783,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 1500,
+      "make_model_trim": {
+        "id": 6310,
+        "make_model_id": 99,
+        "year": 2020,
+        "name": "Base",
+        "description": "4dr SUV (2.0L 4cyl Turbo 10A)",
+        "msrp": 37800,
+        "invoice": 35890,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 99,
+          "make_id": 1,
+          "name": "RDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    },
+    {
+      "id": 6311,
+      "make_model_trim_id": 6311,
+      "type": "SUV",
+      "doors": 5,
+      "length": "186.7",
+      "width": "74.8",
+      "seats": 5,
+      "height": "65.7",
+      "wheel_base": "108.3",
+      "front_track": null,
+      "rear_track": null,
+      "ground_clearance": null,
+      "cargo_capacity": "31.1",
+      "max_cargo_capacity": "79.8",
+      "curb_weight": 3790,
+      "gross_weight": null,
+      "max_payload": null,
+      "max_towing_capacity": 1500,
+      "make_model_trim": {
+        "id": 6311,
+        "make_model_id": 99,
+        "year": 2020,
+        "name": "Base",
+        "description": "4dr SUV w/Technology Package (2.0L 4cyl Turbo 10A)",
+        "msrp": 41000,
+        "invoice": 38921,
+        "created": "2023-06-29T20:59:59-04:00",
+        "modified": "2023-06-29T20:59:59-04:00",
+        "make_model": {
+          "id": 99,
+          "make_id": 1,
+          "name": "RDX",
+          "make": {
+            "id": 1,
+            "name": "Acura"
+          }
+        }
+      }
+    }
+  ]
+}

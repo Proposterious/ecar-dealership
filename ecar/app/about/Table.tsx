@@ -86,20 +86,20 @@ function Table() {
                 { persons.map((person) => { return (
                     <div className='mx-auto | text-xl font-semibold'>
                         
-                        <ul key={person.id} className='space-y-1 text-center'>
-                            <li className='w-48 h-48 mx-auto'>
+                        <ul key="id" className='space-y-1 text-center'>
+                            <li key="person" className='w-48 h-48 mx-auto'>
                                 <Image src={person.image} alt={person.name}
                                 className='bg-black' 
                                 style={{objectFit: 'fill'}} />
                             </li>  
-                            <li className='text-black font-semibold text-2xl'>Name: {person.name}</li>
-                            <li className='text-orange-600 font-bold text-2xl'>
+                            <li key="name" className='text-black font-semibold text-2xl'>Name: {person.name}</li>
+                            <li key="position" className='text-orange-600 font-bold text-2xl'>
                                 Position: {person.position}
                             </li>
-                            <li className='text-slate-800'>
+                            <li key="description" className='text-slate-800'>
                                 {person.description}
                             </li>
-                            <li className='text-slate-700'>
+                            <li key="joinedIn" className='text-slate-700'>
                                 Since {person.joinedIn}
                             </li>
                         </ul>
