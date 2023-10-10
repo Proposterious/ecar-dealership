@@ -7,31 +7,43 @@ function Service() {
 
     async function displayPage() {
         // Fetch data from 'carapi'
-        var response = await getCars() as any;
-        const cars = response;
+        var carArray = await getCars() as any;
+        console.log(carArray)
         
         // Update data 'useState'
-        setData(cars);
+        setData(carArray);
 
     }
 
-    
-
     return (
-        <main className="flex flex-flow-row gap-10">
-            {data && 
-            data.map(car =>
-                <ul key={car.id} className='space-y-1 inline-block'>
-                            <li key="name" className='text-black font-semibold text-2xl'>Name: {car.make.name + ' ' + car.name}</li>
-                            <li key="position" className='text-orange-600 font-bold text-2xl'>
-                                Type: {car.type}
-                            </li>
-                            <li key="description" className='text-slate-800'>
-                                {car.make_model_trim}
-                            </li>
-                        </ul>
-                )
-            }
+        <main className="min-h-screen w-full bg-slate-100 py-4 px-12">
+            <section className="max-w-screen mt-12 grid grid-flow-row grid-cols-4">
+                {data && data.map(car =>
+                    <ul key={car.id} className='w-fit font-semibold text-lg space-y-1 mb-12'>
+
+                        <li key="name" className='text-black font-bold'>
+                            Name: {car.make_model.make.name + ' ' + car.make_model.name}
+                        </li>
+                        
+                        <li key="id">
+                            Car #{car.id}
+                        </li>
+
+                        <li key="type">
+                            <span className="type peer">Type: {car.name}</span>
+                            <span className="type tooltip peer-[.type]:hover:invisible |rounded shadow-lg p-1 bg-orange-600 text-slate-100">
+                                Make: {car.description}
+                            </span>
+                        </li>
+                        
+                        
+
+
+                    </ul>
+                    )
+                }
+            </section>
+ 
             <button onClick={displayPage}>
                 Click Here
             </button>
