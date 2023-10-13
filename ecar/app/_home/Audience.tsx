@@ -10,7 +10,7 @@ const support = './support/'
 function Audience() {
     return (
         <article id="audience" className="min-h-fit max-h-fit w-full n-xs:flex n-xs:flex-col n-md:flex-row | n-xs:min-w-full n-md:min-w-0 | n-xs:gap-6 n-md:gap-0 | bg-slate-200 n-xs:py-6 n-md:py-6 n-md:px-12 border-collapse">
-            <section className="n-xs:mt-4 n-md:my-auto n-xs:text-center child:n-xs:mx-auto child:n-xs:px-6 | n-md:text-left child:n-md:pl-0 child:n-md:pr-4 | n-xs:w-full n-md:w-1/2 n-xl:w-1/3">
+            <section className="n-xs:mt-4 n-md:my-auto n-xs:text-center child:n-xs:mx-auto child:n-xs:px-6 | n-md:text-left child:n-md:pl-0 child:n-md:pr-4 | n-xs:w-full n-md:w-1/2 n-xl:pr-32">
                 <h1 className="font-extrabold n-xs:text-2xl n-md:text-3xl n-lg:text-4xl text-orange-600 mb-3">
                     Designed for People Like You!
                 </h1>
@@ -23,7 +23,7 @@ function Audience() {
                     </Link>
                 </div>
             </section>
-            <section className="customerImages | child:child:rounded-lg | n-xs:my-12 n-xs:mx-auto n-md:mt-8 child:n-md:mx-0 | child:-my-8 | max-h-full max-w-xl">
+            <section className="customerImages | child:child:rounded-lg | n-xs:my-12 n-xs:mx-auto n-md:mt-8 n-xl:-ml-12 child:n-md:mx-0 | child:-my-8 | max-h-full max-w-xl">
                 <div className="customerImage1">
                     <Image className='n-xs:max-w-1/4 n-md:max-w-xs n-lg:max-w-md rounded-lg shadow-md shadow-orange-400' src={manOutside} objectFit='contain' alt='' />
                 </div>
