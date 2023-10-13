@@ -44,7 +44,7 @@ function Information() {
                         <Image src={LinkedIn}
                         height={70}
                         width={150}
-                        alt='aedIn Profile' />
+                        alt='LinkedIn Profile' />
                     </a>
                 </li>
             </ul>
