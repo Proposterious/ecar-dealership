@@ -12,12 +12,6 @@ function CarList() {
     const [data, setData] = useState(null) as any;
     const [bool, setBool] = useState(null) as any;
 
-    function removeAlert() {
-        const alert = document.getElementById("service-alert") as unknown as HTMLElement;
-        console.log("Removing alert...", alert);
-        alert.className = 'hidden';
-    }
-
     async function displayPage() {
         // Fetch data from 'carapi'
         var carArray = await getCars() as any;
@@ -25,11 +19,15 @@ function CarList() {
         
         // Update data 'useState'
         setData(carArray);
-        return;
+        return true;
     }
 
-    async function displayImage(array: any) {
-        console.log('Should be the data as an array', array);
+    async function displayImage() {
+        // Fetch data from 'carapi'
+        var array = await getCars() as any;
+       
+
+        console.log('Should be the data as an array', array); // log prior to 'data' mutations
 
         for (let i = 0; i < array.length-1; i++) {
             let str = array[i].description;
@@ -47,31 +45,30 @@ function CarList() {
                 console.log("type undefined or base")
             }
         }
+
         setData(array);
         console.log("new array", array);
         console.log("data after change", data);
+
         setBool(true);
+
         return;
     }
 
-
     return (
-        <main className="min-h-screen w-full border-4 border-orange-700 bg-orange-500 pb-4">
-            <section id="service-alert" className="w-full min-w-screen h-fit py-8 fixed bottom-0 bg-orange-600">
-                <div className="flex flex-row justify-evenly text-lg">
-                    <div className='text-white text-center'>
-                        This is an alert that pops up every time you enter this page. The content on this page will not appear unless you are signed in. We recommend you view this on a desktop or a larger screen.
-                    </div>
-                    <button onClick={removeAlert} className="my-auto px-6 closebtn">&times;</button>
-                </div>
-            </section>
-            <section className='px-12'>
-                <div className="max-w-screen grid grid-flow-row n-xs:grid-cols-1 n-md:grid-cols-2 n-lg:grid-cols-4">
+            <section id="sell-cars" className='pt-6 pb-4 bg-orange-500'>
+            {/* Display Cars */}
+                <button className="mx-auto text-white text-lg font-semibold | rounded-sm border-2 border-black  bg-orange-600 p-3 block" onClick={displayImage}>
+                    Display Images
+                </button>
+
+            {/* Cars-List/Grid */}
+                <div id="car-list" className="min-h-screen w-full max-w-screen  bg-orange-500 | grid grid-flow-row n-xs:grid-cols-1 n-md:grid-cols-2 n-lg:grid-cols-4 px-12">  
                     {bool && data.map(car =>
                         <button className="bg-slate-100 | font-semibold text-center text-lg space-y-1 | shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg | m-4 px-2 pt-6 pb-4 hover:cursor-default">  
                             <ul key={car.id} className='list-none'>  
                                                         
-                                <li key="img" className="w-fit">
+                                <li key="img" className="w-fit mx-auto">
                                     <Image src={car.img} alt={car.name}
                                     className="bg-inherit"
                                     style={{objectFit:"contain", maxHeight:"238px"}} />
@@ -95,22 +92,9 @@ function CarList() {
                             
                             </ul>
                         </button>
-                        )
-                    }
+                    )}
                 </div>
-                
-                <div className="max-w-screen mt-12 grid grid-flow-row grid-cols-4">
-                    {/* {bool && } */}
-                </div>
-
-                <button onClick={displayPage}>
-                    Click Here
-                </button>
-                <button className="block" onClick={() => displayImage(data)}>
-                    Display Images
-                </button>
             </section>
-        </main>
     )
    
 }
