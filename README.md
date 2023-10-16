@@ -34,7 +34,7 @@
 
 ## What are your plans for the future? 📆
 
- I hope finishing this project will offer myself an advantage when applying to Engineering Schools at colleges and universities in the near future. My goal is to obtain a degree in Computer Science, although which branch I shall go down is not yet known. I have genuinely enjoyed each part of this project no matter how many issues I might have encountered along the way and at no point did I feel incapable of achieving my goal. This was the first major project I have had since my days coding terminal-only Python jeopardy games, and this most certaintly won't be the last. 
+ I hope finishing this project will offer myself an advantage when applying to Engineering Schools at colleges and universities in the near future. My goal is to obtain a degree in Computer Science, although which branch I shall go down is currently `undefined`. I have genuinely enjoyed each part of this project no matter how many issues I might have encountered along the way and at no point did I feel incapable of achieving my goal. This was the first major project I have had since my days coding terminal-only Python jeopardy games, and this most certaintly won't be the last. 
  
  ***To the future! 🥂***
  
