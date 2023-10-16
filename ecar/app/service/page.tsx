@@ -1,6 +1,12 @@
 "use client"
+// functions
 import { useState } from 'react';
-import { getCars, getImages } from "./fetchCars";
+import { getCars } from "./handleCars";
+
+// components
+import CarList from './components/CarList';
+import SortBy from './components/SortBy';
+import SearchBar from './components/SearchBar';
 
 function Service() {
     const [data, setData] = useState(null) as any;
@@ -20,47 +26,18 @@ function Service() {
     }
 
     return (
-        <main className="min-h-screen w-full bg-slate-100 py-4 px-12">
-
-            <section>
-                <div className="max-w-screen mt-12 grid grid-flow-row grid-cols-4">
-                    {data && data.map(car =>
-                        <ul key={car.id} className='w-fit font-semibold text-lg space-y-1 mb-12'>
-
-                            <li key="name" className='text-black font-bold'>
-                                Name: {car.make_model.make.name + ' ' + car.make_model.name}
-                            </li>
-                            
-                            <li key="id">
-                                Car #{car.id}
-                            </li>
-
-                            <li key="type">
-                                Type: {car.name}
-                            </li>
-
-                            <li key="make">
-                                Make: {car.description}
-                            </li>
-                            
-                            
-
-
-                        </ul>
-                        )
-                    }
-                </div>
-
-                <button onClick={displayPage}>
-                    Click Here
-                </button>
+        <main id="service">
+        {/* Focus/Content of Page */}
+            <section id="car-grid">
+                <CarList />
             </section>
 
-            <section>
-                <button onClick={displayPage}>
-                    Image testing
-                </button>
+        {/* Bottom Navigation */}
+            <section id="car-settings">
+                <SortBy />
+                <SearchBar />
             </section>
+
         </main>
     )
    
