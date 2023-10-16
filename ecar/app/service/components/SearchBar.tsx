@@ -25,7 +25,7 @@ function SearchBar() {
 
 //  Algorithm to sort #s as HTMLElement
     var numList:[] = [];
-    var nums:any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    var nums:any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
     nums.forEach((num: number, index: number) => {
         numList.push(<button key={index} className="text-slate-600"
@@ -38,7 +38,7 @@ function SearchBar() {
     return ( 
         <nav id="search-nav" className='w-fit mx-auto | border-orange-300 border-r-2'>
 
-            <section className="flex flex-row | text-sm child:px-1.5 child:py-1 child:border-l-2 child:border-orange-300">
+            <section className="flex flex-row | text-lg child:px-3 child:py-1 child:border-l-2 child:border-orange-300">
                 <span className='text-slate-600'>
                     Pages:
                 </span>
