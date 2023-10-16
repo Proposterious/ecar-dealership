@@ -7,6 +7,7 @@ import { getCars } from "./handleCars";
 import CarList from './components/CarList';
 import SortBy from './components/SortBy';
 import SearchBar from './components/SearchBar';
+import ServiceAlert from './components/ServiceAlert';
 
 function Service() {
     const [data, setData] = useState(null) as any;
@@ -26,19 +27,16 @@ function Service() {
     }
 
     return (
-        <main id="service">
-        {/* Focus/Content of Page */}
-            <section id="car-grid">
+        <>
+            <ServiceAlert />
+            <main id="service" className="min-h-screen max-h-full border-2 border-orange-700">
+            {/* Focus/Content of Page */}
                 <CarList />
-            </section>
-
-        {/* Bottom Navigation */}
-            <section id="car-settings">
+            {/* Bottom Navigation */}
                 <SortBy />
                 <SearchBar />
-            </section>
-
-        </main>
+            </main>
+        </>
     )
    
 }
