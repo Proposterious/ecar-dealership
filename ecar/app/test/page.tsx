@@ -1,15 +1,12 @@
 'use client'
 
-import Link from "next/link";
-import { useCallback } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import SearchBar from "./SearchBar";
-import ExampleParams from "./ExampleParams";
+import SearchBar from "../service/components/SearchBar";
+import SortBy from "../service/components/SortBy";
 
 export default function Test() {
     return (
     <>
-        <ExampleParams />
+        <SortBy />
 
         <span className='my-6'/>
 
