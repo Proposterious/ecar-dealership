@@ -58,12 +58,7 @@ function CarList() {
     }, []);
   
     return (
-            <section id="sell-cars" className='pb-4 bg-orange-500'>
-            {/* Display Cars */}
-                <nav className="mx-auto text-center text-white text-lg font-semibold | rounded-sm border-2 border-black  bg-orange-600 p-2 block">
-                    (Make this nav-bar)
-                </nav>
-
+            <section id="sell-cars" className='pt-2 pb-4 bg-orange-500'>
             {/* Cars-List/Grid */}
                 <div id="car-list" className="min-h-screen w-full max-w-screen  bg-orange-500 | grid grid-flow-row n-xs:grid-cols-1 n-md:grid-cols-2 n-lg:grid-cols-4 px-12">  
                     {bool && data.map(car =>
