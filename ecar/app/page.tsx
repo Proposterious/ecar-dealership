@@ -5,12 +5,10 @@ import royce from '../public/img/car-models/2024-rolls-royce-phantom.jpg'
 import porsche from '../public/img/car-models/2017-porsche-911-turbo-s.jpg'
 import Audience from './_home/Audience'
 
-const support = './support/'
-
 export default function Home() {
   return (
     <main className='overflow-hidden divide-y-reverse divide-y-2 divide-orange-600'>
-      <article id="opener" className=" w-full flex bg-cover bg-center bg-[url('../public/img/red-luxury-sedan-road.jpg')] | n-xs:py-24 lg:py-60">
+      <article id="opener" className="w-full flex bg-cover bg-center bg-[url('../public/img/red-luxury-sedan-road.jpg')] | n-xs:py-24 lg:py-60">
         <section className='mx-auto w-full py-16 bg-black bg-opacity-70'>
           <h1 className='n-xs:text-4xl n-md:text-6xl text-center font-semibold text-orange-500 mb-6'>
             Low on Cash, But Need A Ride? 
@@ -61,7 +59,7 @@ export default function Home() {
                 We work with over <i>[insert number]</i> car manufacturers worldwide and closely with the <i>[hypothetically government]</i> to make sure you can drive in any of our cars without having to worry about conflicts with the city&#39;s jurisdiction. No matter what state drivers&#39; license you possess or which car you choose to take home, we guarantee your safety!
               </p>
             <div>
-              <Link href={support} className='n-md:text-lg font-semibold text-black rounded-2xl w-fit h-fit px-5 py-3 bg-sky-300 hover:bg-sky-400/80'>
+              <Link href="/service" className='n-md:text-lg font-semibold text-black rounded-2xl w-fit h-fit px-5 py-3 bg-sky-300 hover:bg-sky-400/80'>
                 View Vehicles
               </Link>
             </div>

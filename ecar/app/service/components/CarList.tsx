@@ -65,8 +65,8 @@ function CarList() {
             {/* Cars-List/Grid */}
                 <div id="car-list" className="min-h-screen w-full max-w-screen  bg-orange-500 | grid grid-flow-row n-xs:grid-cols-1 n-md:grid-cols-2 n-lg:grid-cols-4 px-12">  
                     {bool && data.map(car =>
-                        <button className="bg-slate-100 | font-semibold text-center text-lg space-y-1 | shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg | m-4 px-2 pt-6 pb-4 hover:cursor-default">  
-                            <ul key={car.id} className='list-none'>  
+                        
+                            <ul key={car.id} className='bg-slate-100 | font-semibold text-center text-lg space-y-1 | shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg | m-4 px-2 pt-6 pb-4 hover:cursor-default'>  
                                                         
                                 <li key="img" className="w-fit mx-auto">
                                     <Image src={car.img} alt={car.name}
@@ -89,9 +89,14 @@ function CarList() {
                                 <li key="make" className="text-sm">
                                     Make: {car.description}
                                 </li>
-                            
+
+                                <li key="learn-more" className='mx-auto'>
+                                    <button className="mt-2 bg-orange-500 rounded-lg p-3">  
+                                        Learn More
+                                    </button>
+                                </li>
                             </ul>
-                        </button>
+                       
                     )}
                 </div>
             </section>

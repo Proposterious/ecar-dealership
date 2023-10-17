@@ -5,8 +5,6 @@ import manOutside from '@/public/img/stock-photos/man-happy-buy-car.jpg';
 import manInside from '@/public/img/stock-photos/happy-man-in-car-thumbs-up.jpg';
 import womanInside from '@/public/img/stock-photos/girl-in-car.jpg';
 
-const support = './support/'
-
 function Audience() {
     return (
         <article id="audience" className="min-h-fit max-h-fit w-full n-xs:flex n-xs:flex-col n-md:flex-row | n-xs:min-w-full n-md:min-w-0 | n-xs:gap-6 n-md:gap-0 | bg-slate-200 n-xs:py-6 n-md:py-6 n-md:px-12 border-collapse">
@@ -18,20 +16,23 @@ function Audience() {
                     Hard workers should not have to worry about whether or not they <i>can</i> pay for a car. Nor should anybody have to make sacrifices just to make owning one affordable, and that is where [insert company name] comes in. We make owning a car affordable and enjoyable for <span className='font-semibold'>everybody</span>.
                 </p>
                 <div>
-                    <Link href={support} className='n-md:text-lg font-semibold text-slate-100 rounded-2xl w-fit h-fit px-5 py-3 bg-orange-500 hover:bg-orange-700/90'>
+                    <Link href="/service" className='n-md:text-lg font-semibold text-slate-100 rounded-2xl w-fit h-fit px-5 py-3 bg-orange-500 hover:bg-orange-700/90'>
                         View Vehicles
                     </Link>
                 </div>
             </section>
             <section className="customerImages | child:child:rounded-lg | n-xs:my-12 n-xs:mx-auto n-md:mt-8 n-xl:-ml-12 child:n-md:mx-0 | child:-my-8 | max-h-full max-w-xl">
                 <div className="customerImage1">
-                    <Image className='n-xs:max-w-1/4 n-md:max-w-xs n-lg:max-w-md rounded-lg shadow-md shadow-orange-400' src={manOutside} objectFit='contain' alt='' />
+                    <Image className='n-xs:max-w-1/4 n-md:max-w-xs n-lg:max-w-md rounded-lg shadow-md shadow-orange-400' src={manOutside} objectFit='contain' 
+                    placeholder="blur" alt='' />
                 </div>
                 <div className="customerImage2">
-                    <Image className='n-xs:max-w-1/4 n-md:max-w-xs n-lg:max-w-2xl | -scale-x-100 | rounded-lg shadow-md shadow-orange-400' src={womanInside} objectFit='contain' alt='' />
+                    <Image className='n-xs:max-w-1/4 n-md:max-w-xs n-lg:max-w-2xl | -scale-x-100 | rounded-lg shadow-md shadow-orange-400' src={womanInside} objectFit='contain' alt='' 
+                    placeholder="blur"/>
                 </div>
                 <div className="customerImage3">
-                    <Image className='n-xs:max-w-1/4 n-md:max-w-xs n-lg:max-w-md rounded-lg shadow-md shadow-orange-400' src={manInside} objectFit='contain' alt='' />
+                    <Image className='n-xs:max-w-1/4 n-md:max-w-xs n-lg:max-w-md rounded-lg shadow-md shadow-orange-400' src={manInside} objectFit='contain'
+                    placeholder="blur" alt='' />
                 </div>
             </section>
             
