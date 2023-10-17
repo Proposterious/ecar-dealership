@@ -17,6 +17,7 @@ export async function getCars() {
         // await fetch, assign variable
         const response = await fetch(url, options);
         const responseJSON = await response.json();
+        console.log("Fetched data")
 
         const carData = [...responseJSON.data];
         console.log(carData)
@@ -29,7 +30,8 @@ export async function getCars() {
             carDict[car.id] = car;
             }
         )
-
+        
+        NextResponse.json({ success: 200 })
         return carData; // return function
 
     } catch (error) {
