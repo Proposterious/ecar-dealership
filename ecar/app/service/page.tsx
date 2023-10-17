@@ -5,8 +5,8 @@ import { getCars } from "./handleCars";
 
 // components
 import CarList from './components/CarList';
-import SortBy from './components/SortBy';
-import SearchBar from './components/SearchBar';
+import SortBy from './components/SortByOrder';
+import SearchBar from './components/SortbyPage';
 import ServiceAlert from './components/ServiceAlert';
 
 function Service() {
