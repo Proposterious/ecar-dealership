@@ -1,8 +1,8 @@
 "use client"
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { getCars, getImages } from "../handleCars";
+import { getCars } from "../handleCars";
 
 import logo from "@/public/car-logo.png"
 import suvImage from "@/public/img/car-models/sketch_suv.jpg";
@@ -12,30 +12,27 @@ function CarList() {
     const [data, setData] = useState(null) as any;
     const [bool, setBool] = useState(null) as any;
 
-    async function displayPage() {
-        // Fetch data from 'carapi'
-        var carArray = await getCars() as any;
-        console.log(carArray)
-        
-        // Update data 'useState'
-        setData(carArray);
-        return true;
-    }
-
     async function displayImage() {
         // Fetch data from 'carapi'
         var array = await getCars() as any;
-       
+        var checkCars = [] as any; // define empty array
+
 
         console.log('Should be the data as an array', array); // log prior to 'data' mutations
 
-        for (let i = 0; i < array.length-1; i++) {
+        for (let i = 0; i < array.length; i++) {
+            // define str, strList from Car's description
             let str = array[i].description;
             let strList = str.split(' ');
-            if (strList.includes("Sedan")) {
+
+            if (checkCars.includes(array[i].name)) { // if already exists
+                console.log(`${array[i].name} already exists`) 
+            } else if (strList.includes("Sedan")) {
                 array[i]["img"] = sedanImage;
                 console.log("was img atr", array[i].img)
                 console.log("has sedan", str); 
+                // Check if car in array
+                array[i]
             } else if (strList.includes("SUV")) {
                 array[i]["img"] = suvImage;
                 console.log("was img atr", array[i].img)
@@ -55,48 +52,52 @@ function CarList() {
         return;
     }
 
+    // display cars onload
+    useEffect(() => {
+        displayImage();
+    }, []);
+  
     return (
-            <section id="sell-cars" className='pt-6 pb-4 bg-orange-500'>
+            <section id="sell-cars" className='pb-4 bg-orange-500'>
             {/* Display Cars */}
-                <button className="mx-auto text-white text-lg font-semibold | rounded-sm border-2 border-black  bg-orange-600 p-3 block" onClick={displayImage}>
-                    Display Images
-                </button>
+                <nav className="mx-auto text-center text-white text-lg font-semibold | rounded-sm border-2 border-black  bg-orange-600 p-2 block">
+                    (Make this nav-bar)
+                </nav>
 
             {/* Cars-List/Grid */}
                 <div id="car-list" className="min-h-screen w-full max-w-screen  bg-orange-500 | grid grid-flow-row n-xs:grid-cols-1 n-md:grid-cols-2 n-lg:grid-cols-4 px-12">  
                     {bool && data.map(car =>
                         
-                            <ul key={car.id} className='bg-slate-100 | font-semibold text-center text-lg space-y-1 | shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg | m-4 px-2 pt-6 pb-4 hover:cursor-default'>  
-                                                        
-                                <li key="img" className="w-fit mx-auto">
-                                    <Image src={car.img} alt={car.name}
-                                    className="bg-inherit"
-                                    style={{objectFit:"contain", maxHeight:"238px"}} />
-                                </li>
+                        <ul key={car.id} className='bg-slate-100 | font-semibold text-center text-lg space-y-1 | shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg | m-4 px-2 pt-6 pb-4 hover:cursor-default'>  
+                                                    
+                            <li key="img" className="w-fit mx-auto">
+                                <Image src={car.img} alt={car.name}
+                                className="bg-inherit"
+                                style={{objectFit:"contain", maxHeight:"238px"}} />
+                            </li>
 
-                                <li key="name" className='text-black font-bold'>
-                                    Name: {car.make_model.make.name + ' ' + car.make_model.name}
-                                </li>
-                                
-                                <li key="id">
-                                    Car #{car.id}
-                                </li>
+                            <li key="name" className='text-black font-bold'>
+                                Name: {car.make_model.make.name + ' ' + car.make_model.name}
+                            </li>
+                            
+                            <li key="id">
+                                Car #{car.id}
+                            </li>
 
-                                <li key="type">
-                                    Type: {car.name}
-                                </li>
+                            <li key="type" className="text-sm">
+                                Type: {car.name}
+                            </li>
 
-                                <li key="make" className="text-sm">
-                                    Make: {car.description}
-                                </li>
-
-                                <li key="learn-more" className='mx-auto'>
-                                    <button className="mt-2 bg-orange-500 rounded-lg p-3">  
+                            <li key="make" className="text-sm">
+                                Make: {car.description}
+                            </li>
+                            <li key="learn-more" className="pt-3">
+                                <button     className="bg-orange-500 rounded-lg p-3 hover:text-white">  
                                         Learn More
-                                    </button>
-                                </li>
-                            </ul>
-                       
+                                </button>
+                            </li>
+                        </ul>
+                        
                     )}
                 </div>
             </section>
