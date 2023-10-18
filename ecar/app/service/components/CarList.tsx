@@ -76,7 +76,7 @@ function CarList() {
                             </li>
                             
                             <li key="id">
-                                Car #{car.id}
+                                Car #{car.make_model.id}
                             </li>
 
                             <li key="type" className="text-sm">
@@ -87,7 +87,7 @@ function CarList() {
                                 Make: {car.description}
                             </li>
                             <li key="learn-more" className="pt-3">
-                                <button     className="bg-orange-500 rounded-lg p-3 hover:text-white">  
+                                <button className="bg-orange-500 rounded-lg p-3 hover:text-white">
                                         Learn More
                                 </button>
                             </li>
