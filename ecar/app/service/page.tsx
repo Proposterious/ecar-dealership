@@ -1,40 +1,22 @@
 "use client"
-// functions
-import { useState } from 'react';
-import { getCars } from "./handleCars";
-
-// components
+// custom components
 import CarList from './components/CarList';
-import SortBy from './components/SortByOrder';
-import SearchBar from './components/SortbyPage';
+import SortByOrder from './components/SortByOrder';
+import SortByPage from './components/SortByPage';
+import SearchCarId from './components/SearchCar';
 import ServiceAlert from './components/ServiceAlert';
 
 function Service() {
-    const [data, setData] = useState(null) as any;
-
-    async function displayPage() {
-        // Fetch data from 'carapi'
-        var carArray = await getCars() as any;
-        console.log(carArray)
-        
-        // Update data 'useState'
-        setData(carArray);
-
-    }
-
-    async function displayImage() {
-        
-    }
-
     return (
         <>
             <ServiceAlert />
             <main id="service" className="min-h-screen max-h-full border-2 border-orange-700">
             {/* Focus/Content of Page */}
+                <SearchCarId />
                 <CarList />
             {/* Bottom Navigation */}
-                <SortBy />
-                <SearchBar />
+                <SortByOrder />
+                <SortByPage />
             </main>
         </>
     )
