@@ -10,6 +10,7 @@ export async function POST(req: Request) {
     console.log(data)
 
     if (!name || !email || !password) {
+        await prisma.$disconnect()
         return new NextResponse('Missing name, email, or password...', { status: 400 })
     }
 
@@ -18,6 +19,7 @@ export async function POST(req: Request) {
     });
     console.log({ isValue })
     if (isValue != null) {
+        await prisma.$disconnect()
         return new NextResponse("User already exists", { status: 405 })
     }
 

@@ -1,11 +1,7 @@
 import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
-import { NextRequestWithAuth } from 'next-auth/middleware';
 import { PrismaClient } from '@prisma/client';
-import { Dictionary } from '@prisma/client/runtime/library';
 
 // MAKE THIS FUNCTION UPDATE DATABASE WITH ENTERED INFORMATION
-const secret = process.env.NEXTAUTH_SECRET;
 const prisma = new PrismaClient();
 
 export async function GET() {
@@ -22,9 +18,12 @@ export async function GET() {
         const response = await fetch(url, options);
         const responseJSON = await response.json();
         const data = await responseJSON.data;
+
+        await prisma.$disconnect()
         NextResponse.json({ success: 200 });
         return NextResponse.json(data)
     } catch (error) {
+        await prisma.$disconnect()
         console.error(error);
         return NextResponse.json({ failure: error})
     }

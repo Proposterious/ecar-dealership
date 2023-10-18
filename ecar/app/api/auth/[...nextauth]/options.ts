@@ -5,7 +5,7 @@ import type { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt'; // encrypt, decrypt passwords
 
 // List of OAuth providers
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -60,12 +60,13 @@ export const authOptions: NextAuthOptions = {
         })
 
       // Return null if false
-        if (!user) {return null;}
+        if (!user) { await prisma.$disconnect(); return null;}
       // Check if password matches db 
         const passwordsMatch = await bcrypt.compare(credentials.password, user.hashedPassword)
-        if (!passwordsMatch) { return null }
+        if (!passwordsMatch) { await prisma.$disconnect(); return null }
 
       // Return user if no errors
+        await prisma.$disconnect();
         return user;
       }
     }),
