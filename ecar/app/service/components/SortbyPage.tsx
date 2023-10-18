@@ -1,11 +1,10 @@
 'use client'
 
-import Link from "next/link";
 import { useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 
-function SearchBar() {
+function SortByPage() {
     // Defines import variables
     const router = useRouter()
     const pathname = usePathname()
@@ -49,4 +48,4 @@ function SearchBar() {
      );
 }
 
-export default SearchBar;
+export default SortByPage;
