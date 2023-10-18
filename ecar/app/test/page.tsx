@@ -1,6 +1,6 @@
 'use client'
 
-import SearchBar from "../service/components/SortbyPage";
+import SearchBar from "../service/components/SortByPage";
 import SortBy from "../service/components/SortByOrder";
 
 export default function Test() {
