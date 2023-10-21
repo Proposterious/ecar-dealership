@@ -3,14 +3,16 @@ import { NextResponse } from 'next/server';
 
 export async function getCars() {
 
-    const url = 'https://car-api2.p.rapidapi.com/api/trims?limit=36&direction=asc&sort=id&year=2020&verbose=yes';
+    const url = 'https://car-api2.p.rapidapi.com/api/trims?limit=120&direction=asc&sort=id&year=2020&verbose=yes';
 
+    const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
             'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        }
+        },
+        cache,
     };
 
     try {
