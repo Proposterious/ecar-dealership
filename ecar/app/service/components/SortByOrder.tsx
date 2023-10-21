@@ -22,12 +22,12 @@ export default function SortByOrder() {
   )
   
   return (
-    <section className='w-full border-b-2 border-b-slate-500'>
+    <nav className='w-full border-b-2 border-b-slate-500'>
       
-      <div className="w-fit flex flex-row mx-auto | text-lg text-slate-800 border-orange-300 border-r-2 child:border-inherit child:border-l-2 child:px-1 child:py-1.5">
+      <section className="w-fit flex flex-row mx-auto | text-lg text-slate-800 border-orange-300 border-r-2 child:border-inherit child:border-l-2 child:px-3 child:py-1.5">
         {/* Determined useRouter() is better */}
-          <span className='border-l-2 '>
-              Sort By: {' '}
+          <span className='font-semibold text-slate-600'>
+              By Order: {' '}
           </span>
           {/* Ascend */}
           <button
@@ -48,8 +48,8 @@ export default function SortByOrder() {
           >
             Descend
           </button>
-      </div>
-  </section>
+      </section>
+  </nav>
   
   )
 }

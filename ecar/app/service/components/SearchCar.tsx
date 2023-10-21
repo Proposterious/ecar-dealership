@@ -1,3 +1,4 @@
+"use client"
 // function imports
 import { useState } from "react"; // react
 import { getCarById } from "../handleCars"; // custom
@@ -19,7 +20,7 @@ function SearchCarId() {
 
     return ( 
         
-        <section id="search-car" className="pt-4 bg-orange-500">
+        <section id="search-car" className="py-3 bg-sky-100">
             <form className="w-fit flex flex-row mx-auto py-2 | rounded-sm border-2 border-white bg-orange-600 | font-semibold text-slate-100" action="#" onSubmit={() => getCarById(str)}>
             {/* ENTER AN EMAIL */}
             
@@ -48,8 +49,8 @@ function SearchCarId() {
                     <div id="search-name" className="-ml-4 border-r-2">
                         <button type="button" className="flex flex-row h-fit"/*onClick(() => displayNames(makes))*/><span className={`px-3 py-2`}/>
                             Name 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" className="h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
                     </div>
@@ -58,7 +59,7 @@ function SearchCarId() {
                     <button type="button" className="flex flex-row h-fit"/*onClick(() => displayNames(makes))*/><span className={`px-3 py-2`}/>
                             Type 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" className="h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
                     </div>
@@ -67,7 +68,7 @@ function SearchCarId() {
                     <button type="button" className="-ml-4 flex flex-row h-fit"/*onClick(() => displayNames(makes))*/><span className={`px-3 py-2`}/>
                             Make 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" className="h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
                     </div>
