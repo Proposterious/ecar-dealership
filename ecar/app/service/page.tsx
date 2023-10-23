@@ -14,8 +14,10 @@ function Service() {
                 <SearchCarId />
                 <CarList />
             {/* Bottom Navigation */}
-                <SortByOrder />
-                <SortByPage />
+                <section className="bg-slate-700/80">
+                    <SortByOrder />
+                    <SortByPage />
+                </section> 
             </main>
         </>
     )

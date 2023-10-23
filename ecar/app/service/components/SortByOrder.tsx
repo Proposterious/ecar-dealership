@@ -24,31 +24,33 @@ export default function SortByOrder() {
   return (
     <nav className='w-full border-b-2 border-b-slate-500'>
       
-      <section className="w-fit flex flex-row mx-auto | text-lg text-slate-800 border-orange-300 border-r-2 child:border-inherit child:border-l-2 child:px-3 child:py-1.5">
+      <div className="w-fit flex flex-row mx-auto | font-semibold text-lg border-orange-300 border-r-2 child:border-inherit child:border-l-2 child:px-3 child:py-1.5">
         {/* Determined useRouter() is better */}
-          <span className='font-semibold text-slate-600'>
+          <span className='font-semibold text-slate-100'>
               By Order: {' '}
           </span>
           {/* Ascend */}
-          <button
+          <button className="text-orange-600 duration-300 hover:text-slate-100"
           onClick={() => {
               // <pathname>?sort=asc
-              router.push(pathname + '?' + createQueryString('sort', 'asc'))
+              router.push(pathname + '?' + createQueryString('sort', 'asc'));
+              router.refresh();
           }}
           >
             Ascend
           </button>
   
           {/* Descend */}
-          <button
+          <button className="text-orange-600 duration-300 hover:text-slate-100"
           onClick={() => {
               // <pathname>?sort=asc
               router.push(pathname + '?' + createQueryString('sort', 'desc'))
+              router.refresh();
           }}
           >
             Descend
           </button>
-      </section>
+      </div>
   </nav>
   
   )

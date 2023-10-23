@@ -27,9 +27,11 @@ function SortByPage() {
     var nums: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
     nums.forEach((num: number, index: number) => {
-        numList.push(<button key={index} className="text-slate-600"
-        onClick={() =>
-            router.push(pathname + '?' + createQueryString('page', `${num}`))}>
+        numList.push(<button key={index} className="text-orange-600 duration-200 hover:text-slate-100"
+        onClick={() => {
+            router.push(pathname + '?' + createQueryString('page', `${num}`));
+            router.refresh();
+        }}>
                 {num}
             </button>);
       });
@@ -37,12 +39,12 @@ function SortByPage() {
     return ( 
         <nav id="search-nav" className='w-fit mx-auto | border-r-orange-300 border-r-2'>
 
-            <section className="flex flex-row | text-lg child:px-3 child:py-1 child:border-l-2 child:border-orange-300">
-                <span className='font-semibold text-slate-600'>
+            <div className="flex flex-row | text-lg child:px-3 child:py-1 child:border-l-2 child:border-orange-300">
+                <span className='font-semibold text-slate-100'>
                     By Page #:
                 </span>
                 {numList}
-            </section>
+            </div>
 
         </nav>
      );
