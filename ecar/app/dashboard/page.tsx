@@ -14,13 +14,13 @@ import arrow from '../styles/svg.module.scss'; // custom svg from 'styles'
 
 
 function Dashboard() {
-    // Handle typed inputs
-    const [data, setData] = useState({
-      fullName: "",
-      phoneNumber: "",
-      name: "",
-      email: "",
-      bio: "",
+  // Handle typed inputs
+  const [data, setData] = useState({
+    fullName: "",
+    phoneNumber: "",
+    name: "",
+    email: "",
+    bio: "",
   });
 
   const initialState = {
