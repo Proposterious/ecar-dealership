@@ -108,7 +108,7 @@ function CarList() {
 
     return (
     <>
-      <section className="flex flex-row | first:invisible hover:first:visible | fixed right-8 top-48">
+      <section className="flex flex-row | first:invisible hover:first:visible | fixed right-8 n-xs:top-12 n-md:top-32 n-lg:top-48 z-50">
         <div id="carList-tooltip" className="bg-slate-200/90 p-1 -mr-10 -mt-8 h-fit | font-semibold text-sm text-slate-600 | hidden">
             <span id="explanation" className="border-b-2 border-orange-600">
                 Click "?" to toggle between "Compact" and "Expand" formats
@@ -180,8 +180,6 @@ function CarList() {
           {/* display compacted form of carList */}
             {format == "compact" && (
               <div key={dict[0].id} className="space-y-4">
-
-                
 
                 <ul key={dict[0].id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg m-4 p-4 pb-4 hover:cursor-default">
 

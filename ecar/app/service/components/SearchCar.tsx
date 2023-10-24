@@ -1,8 +1,9 @@
 "use client"
 // function imports
-import { useState, useCallback } from "react"; // react
+import { useState, useEffect, useCallback } from "react"; // react
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { getCarById, getCarByName, getCarByMake, getCarByType } from "../handleCars"; // custom
+import { readCarAttr, writeCarAttr } from "../function/handleJSON";
 
 // typescript declaration
 type StringDictionary = {
@@ -13,13 +14,13 @@ type StringDictionary = {
 };
 
 function SearchCar() {
+    const [currentList, setAttr] = useState<any>(undefined);
     const [data, setData] = useState({
         id: "",
         name: "",
         make: "",
         type: "",
     });
-
 
     const router = useRouter()
     const pathname = usePathname()
@@ -38,9 +39,6 @@ function SearchCar() {
       )
 
     // replace these with dynamic arrays later
-    const types = ['SUV', 'Sedan', 'Base'];
-    const names = ['Acura', 'Alfa', 'Audi'];
-    const makes = ['Acura', 'Alfa', 'Audi'];
 
     const handleInputChange = (e: any) => {
         const { name, value } = e.target;
@@ -83,6 +81,10 @@ function SearchCar() {
         } else { console.log("search failed"); /* search failed */ }
     }
 
+    useEffect(() => {{
+        readCarAttr().then((currentList) => {
+        setAttr(currentList);
+    })}}, []);
     return ( 
         
         <section id="search-car" className="py-3 bg-sky-100">
@@ -111,7 +113,7 @@ function SearchCar() {
                         </div>
                     </div>
 
-                    <div id="search-name" className="-ml-4 border-r-2">
+                    <div id="search-name" className="-ml-4 border-r-2 child:z-50">
                         <button type="button" onClick={() => hideList("car-names")}className="flex flex-row h-fit">
                             <span className={`px-3 py-2`}/>
                             Name 
@@ -121,7 +123,7 @@ function SearchCar() {
                         </button>
                         
                         <ul id='car-names' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-2 | list-none absolute flex flex-col flex-wrap | invisible">
-                            {names.map((name:string) => 
+                            {currentList && currentList.carNames.map((name:string) => 
                             <li className="duration-500 hover:font-semibold hover:text-orange-600" key={name}>
                                 <button onClick={() => {
                                 router.push(pathname + '?' + createQueryString('name', `${name}`));
@@ -133,7 +135,7 @@ function SearchCar() {
                         </ul>
                     </div>
 
-                    <div id="search-type" className="-ml-4 border-r-2">
+                    <div id="search-type" className="-ml-4 border-r-2 child:z-50">
                         <button type="button" className="flex flex-row h-fit" onClick={() => hideList("car-types")}>
                             <span className={`px-3 py-2`}/>
                             Type 
@@ -143,7 +145,7 @@ function SearchCar() {
                         </button>
                         
                         <ul id='car-types' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-2 | list-none absolute flex flex-col flex-wrap | invisible">
-                            {types.map((type:string) => 
+                            {currentList && currentList.carTypes.map((type:string) => 
                             <li className="duration-500 hover:font-semibold hover:text-orange-600" key={type}>
                                 <button onClick={() => {
                                 router.push(pathname + '?' + createQueryString('type', `${type}`));
@@ -156,7 +158,7 @@ function SearchCar() {
 
                     </div>
 
-                    <div id="search-make" className="-mr-1">
+                    <div id="search-make" className="-mr-1 child:z-50">
                         <button type="button" className="flex flex-row h-fit | ml-2 pr-1" onClick={() => hideList("car-makes")}>
                             Make 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" className="h-6">
@@ -165,7 +167,7 @@ function SearchCar() {
                         </button>
 
                         <ul id='car-makes' className="w-fit p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-2 | list-none absolute flex flex-col flex-wrap | invisible">
-                            {makes.map((make:string) => 
+                            {currentList && currentList.carMakes.map((make:string) => 
                             <li className="duration-500 hover:font-semibold hover:text-orange-600" key={make}>
                                 <button>{make}</button>
                             </li>
