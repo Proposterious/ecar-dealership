@@ -44,14 +44,15 @@ model User {
   image          String?
   biography      String?
   phoneNumber    String?   
-  avatar         Avatar[]
   accounts       Account[]
+  cars           Cars[]
   sessions       Session[]
 }
 
-model Avatar {
+model Cars {
     author      User   @relation(fields: [authorId], references: [id])
     authorId    String @id @map("_id") @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
+    carId       String
 }
 
 model VerificationToken {
