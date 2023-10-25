@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image';
-import svg from '../styles/svg.module.scss';
+import svg from '../styles/svg-icons.css';
 import service from '@/public/img/stock-photos/seamless-customer-experience.webp';
 import receptionist from '@/public/img/stock-photos/happy-receptionist.png';
 

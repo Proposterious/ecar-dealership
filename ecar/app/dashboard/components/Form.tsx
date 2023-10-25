@@ -1,5 +1,5 @@
 // SVG styles come from 'styles' folder in root
-import arrow from '../../styles/svg.module.scss';
+import arrow from '../../styles/svg.module.css';
 // Custom api function imports
 import { updateUser } from '../api/updateUser';
 // Custom function imports
