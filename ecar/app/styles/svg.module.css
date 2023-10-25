@@ -5,10 +5,10 @@
     background-size: 16px 16px;
     background-repeat: no-repeat;
     background-position: 10px 1rem;
+};
 
-    &:not([value=""]) {
-        background-image: url('../../public/svg/check.svg');
-    };
+.arrow:not([value=""]) {
+    background-image: url('../../public/svg/check.svg');
 };
 
 .mail {
