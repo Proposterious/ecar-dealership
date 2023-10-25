@@ -1,15 +1,18 @@
 // Default imports
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Nunito_Sans } from 'next/font/google'
 // Component imports
 import Provider from '@/components/provider/Provider'
 import Navbar from '../components/content/header/Navbar'
 import Information from '../components/content/footer/information' 
 import { Suspense } from 'react'
 import Loader from './loading'
-
-const inter = Inter({ subsets: ['latin'] })
+ 
+const myFont = Nunito_Sans({
+  weight: '400',
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   title: 'eCar Dealership',
@@ -48,7 +51,7 @@ export default async function RootLayout({
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       </head>
       <Provider>
-        <body id="app" className={inter.className}>
+        <body id="app" className={myFont.className}>
           <Suspense fallback={<Loader />}>
             <Navbar />
             {children}
