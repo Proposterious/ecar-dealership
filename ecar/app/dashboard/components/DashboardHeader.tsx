@@ -2,14 +2,15 @@
 import Link from "next/link";
 import Loader from "@/app/loading";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 function DashboardHeader() {
+    const router = useRouter();
     const path = usePathname();
     var pathname;
     console.log("path", path)
     if (path === "/dashboard") {
-        pathname = path;
+        pathname = 'Page';
     } else if (path === "/dashboard/settings") {
         pathname = "Settings"
     } else if (path === "/dashboard/saved-vehicles") {
@@ -28,14 +29,14 @@ function DashboardHeader() {
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
-            <h2 className="text-2xl font-bold text-orange-600 underline">
+            <h2 className="text-2xl font-extrabold text-orange-600 underline">
             { placeholderName } { pathname }
             </h2>
 
             <nav>
             <ol className="flex items-center gap-2">
                 <li>
-                    <button className="font-semibold text-orange-600 duration-200 hover:font-bold hover:text-orange-500">
+                    <button onClick={() => router.replace('/dashboard')} className="font-semibold text-orange-600 duration-200 hover:font-bold hover:text-orange-500">
                         Dashboard
                     </button>
                 </li>
