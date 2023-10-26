@@ -140,7 +140,7 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
                 </section>
 
                 <section className="n-xs:w-full n-md:w-2/5 p-4 bg-orange-300 rounded-md">
-                    <button className="flex justify-center items-center w-5/6 h-full mx-auto my-auto border-2 border-orange-600 shadow-inner shadow-amber-600 hover:shadow-xl transition delay-400 hover:-translate-y-1 hover:-translate-x-1 bg-orange-400 px-7 rounded-lg hover:cursor-default">
+                    <button className="flex justify-center items-center w-5/6 h-full mx-auto my-auto border-2 border-orange-600 shadow-inner shadow-amber-600 hover:shadow-2xl transition duration-1000 delay-400 hover:-translate-y-1 hover:-translate-x-1 bg-orange-400 px-7 rounded-lg hover:cursor-default">
                         <ul id="car-listed-info" key={car[index].id} className="list-none h-fit my-auto rounded-sm  text-white font-normal | child:w-fit child:my-16 child:mx-auto">
                             <li key="name" className="text-3xl font-bold text-slate-800 px-24 py-2 bg-zinc-100/90 rounded-md">
                             {car[index].make_model.make.name + ' ' + car[index].make_model.name}
