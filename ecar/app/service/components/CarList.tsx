@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 // custom shenanigans
-import { getCarById, getCarsByPage } from "../handleCars";
+import { getCarsByPage } from "../handleCars";
 import logo from "@/public/car-logo.png"
 import suvImage from "@/public/img/car-models/sketch_suv.jpg";
 import sedanImage from "@/public/img/car-models/sketch_sedan.jpg";
@@ -23,8 +23,7 @@ function CarList() {
     // initiating dynamic vars
     const [ data, setData ] = useState([]);
     const [ format, setFormat ] = useState("compact");
-    const [ select, carSelect ] = useState(false);
-
+    const [ currentUrl, setUrl ] = useState('');
     // fetch car data
     async function formCars() {
         // Fetch cars from 'carapi'
@@ -121,9 +120,10 @@ function CarList() {
     }
 
     useEffect(() => {
+        setUrl(pathname);
         formCars().then((car: any) => setData(car));
         console.log(data);
-    }, []);
+    }, [currentUrl]);
 
     return (
     <>
@@ -241,9 +241,9 @@ function CarList() {
 
                   <li key="learn-more" className="pt-3">
 
-                  <Link href={`/service/car/${dict[0].make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
-                    Learn More
-                  </Link>
+                    <Link href={`/service/car/${dict[0].make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
+                      Learn More
+                    </Link>
                   </li>
 
                 </ul>
