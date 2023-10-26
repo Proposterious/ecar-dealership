@@ -129,10 +129,10 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
                         </div>
                         
                         <div className="flex flex-row m-auto child:mx-4">
-                            <button value={`${imageIndex-1}`} className="border-slate-400 bg-slate-200 px-8 py-4 font-semibold leading-3 tracking-widest text-lg" onClick={changeImage}>
+                            <button value={`${imageIndex-1}`} className="border-2 border-slate-400 bg-slate-200 px-8 py-4 font-semibold leading-3 tracking-widest text-lg | transition duration-300 hover:ease-in-out" onClick={changeImage}>
                                 PREV
                             </button>
-                            <button value={`${imageIndex+1}`} className="border-slate-400 bg-slate-200 px-8 py-4 font-semibold leading-3 tracking-widest text-lg" onClick={changeImage}>
+                            <button value={`${imageIndex+1}`} className="border-2 border-slate-400 bg-slate-200 px-8 py-4 font-semibold leading-3 tracking-widest text-lg | transition duration-300 hover:ease-in-out" onClick={changeImage}>
                                 NEXT
                             </button>
                         </div>
@@ -140,7 +140,7 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
                 </section>
 
                 <section className="n-xs:w-full n-md:w-2/5 p-4 bg-orange-300 rounded-md">
-                    <button className="flex justify-center items-center w-5/6 h-full mx-auto my-auto border-2 border-orange-600 shadow-md shadow-current transition delay-150 ease-in-out hover:-translate-y-1 bg-orange-400 px-7 rounded-lg hover:cursor-default">
+                    <button className="flex justify-center items-center w-5/6 h-full mx-auto my-auto border-2 border-orange-600 shadow-inner shadow-amber-600 hover:shadow-xl transition delay-400 hover:-translate-y-1 hover:-translate-x-1 bg-orange-400 px-7 rounded-lg hover:cursor-default">
                         <ul id="car-listed-info" key={car[index].id} className="list-none h-fit my-auto rounded-sm  text-white font-normal | child:w-fit child:my-16 child:mx-auto">
                             <li key="name" className="text-3xl font-bold text-slate-800 px-24 py-2 bg-zinc-100/90 rounded-md">
                             {car[index].make_model.make.name + ' ' + car[index].make_model.name}
@@ -179,19 +179,18 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
 
             <section id="car-footer" className='w-full py-4 bg-slate-200 rounded-md | mt-4'>
                 <div id="replace-car" className="w-fit flex flex-row mx-auto space-x-4">
-                {/* Display Next Vehicle in carArray */}
-                    <button onClick={nextCar}
-                    className="px-3 py-2 bg-white text-orange font-semibold">
-                        Check Next Vehicle
-                    </button>
 
                 {/* Display Prev Vehicle in carArray */}
                     <button onClick={prevCar}
                     className="px-3 py-2 bg-white text-orange font-semibold">
                         Check Prev Vehicle 
                     </button>
+                {/* Display Next Vehicle in carArray */}
+                    <button onClick={nextCar}
+                    className="px-3 py-2 bg-white text-orange font-semibold">
+                        Check Next Vehicle
+                    </button>
                 </div>
-
                 <div className='w-fit mx-auto mt-2 | text-orange-600 text-center font-light'>
                     Currently at {index+1} / {car.length} 
                     <br/> of Cars with this Name
