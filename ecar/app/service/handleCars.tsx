@@ -22,7 +22,6 @@ export async function getCarsByPage(page: String) {
         console.log("Fetched data")
 
         const carData = [...responseJSON.data];
-        writeCarAttr(carData);
 
         NextResponse.json({ success: 200 })
         return carData; // return function
@@ -53,14 +52,13 @@ export async function getCarById(id: string) {
         const carData = responseJSON.data;
 
         if (carData === undefined) { 
-            console.log(carData);
+            console.log(carData, carData);
             NextResponse.json({ failure: 404, message: 'no id provided' }); // quit function
             return;
         }
 
-        console.log("car exists")
-        writeCarAttr(carData)
-
+        console.log("car exists", carData)
+        
         NextResponse.json({ success: 200 })
         return carData; // return function
 
@@ -97,7 +95,6 @@ export async function getCarByMake(make: string) {
         }
 
         console.log("car exists")
-        writeCarAttr(carData)
 
         NextResponse.json({ success: 200 })
         return carData; // return function
@@ -135,7 +132,6 @@ export async function getCarByType(type: string) {
         }
 
         console.log("car exists")
-        writeCarAttr(carData)
 
         NextResponse.json({ success: 200 })
         return carData; // return function
@@ -177,7 +173,6 @@ export async function getCarByName(name: string) {
         }
 
         console.log("car exists")
-        writeCarAttr(carData)
         
         NextResponse.json({ success: 200 })
         return carData; // return function
