@@ -1,19 +1,22 @@
 "use client"
+import Link from 'next/link';
 import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg'
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import Link from 'next/link';
-
 
 function redirectDashboard() {
     const router = useRouter();
     const { data: session } = useSession();
 
-    const placeholderName = session?.user?.name;
-    const placeholderFullName = session?.user?.fullName;
+    const placeholderName = session?.user?.name != undefined ? session.user?.name : "Not Currently Set";
+
+    const placeholderFullName = session?.user?.fullName != undefined ? session.user?.fullName : "Not Currently Set";
+
     const placeholderNumber = session?.user?.phoneNumber != undefined ? session.user?.phoneNumber : "Not Currently Set";
-    const placeholderEmail = session?.user?.email;
+
+    const placeholderEmail = session?.user?.email != undefined ? session.user?.email : "Not Currently Set";
+
     return ( 
         <div className=''>
             <h2 className='underline decoration-wavy | font-semibold text-lg text-orange-600'>
