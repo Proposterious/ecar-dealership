@@ -2,7 +2,7 @@
 
 ## What is the purpose of this repository? 🤔
 
- This repository contains a project that is constantly updated and/or maintained by the author ***Proposterious*** (Maddox H.) with the purpose of completing **Independent Study (CS)** coursework. THe project is a website that uses the Nextjs React framework with the new technologies and/or plugins: **Typescript, Tailwind CSS, Next-Auth (for Nextjs Backend)**, and *other dependencies*. 
+ This repository contains a project that is constantly updated and/or maintained by the author ***Proposterious*** (Maddox H.) with the purpose of completing **Independent Study (CS)** coursework. The project is a website that uses the Nextjs React framework with the new technologies and/or plugins: **Typescript, Tailwind CSS, Next-Auth (for Nextjs Backend)**, and *other dependencies*. 
 
 ## What is your project then? 📎
 
