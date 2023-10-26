@@ -11,7 +11,7 @@ export async function POST(req: NextRequestWithAuth) {
     const session = await getToken({ req, secret }); // returns dictionary
     const prisma = new PrismaClient();
     const car = await req.json();
-    const saveId = String(car.id) as string;
+    const saveId = String(car.make_model.id) as unknown as any;
     const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
 
     // Search for user in database
@@ -24,28 +24,44 @@ export async function POST(req: NextRequestWithAuth) {
     // Quit the function if user not found
     if (!user) { 
         console.log('Session Failed');
-        await prisma.$disconnect(); return null;
+        await prisma.$disconnect(); return NextResponse.json("User Not Found: Error 404");
     }
 
-    if (user.cars.includes(car.id)) {
-        console.log('Car Already Exists on User');
-        await prisma.$disconnect(); return null;
-    }
-
-    // Update user with 'req' data if user found
-    const newCar = await prisma.car.create({
-        data: {
-            id: checkId,
+    // Return car if exists on 'user'
+    const oldCar = await prisma.car.findFirst({
+        where: {
+            userId: checkId,
             carId: saveId,
-            user: {
-                connect: {
-                    id: checkId,
-                }
-            }
         }
     })
 
-    console.log("newCar", newCar)
+    if (oldCar) { // quit function if car exists
+        console.log('Car Already Exists on User', saveId);
+        await prisma.$disconnect(); return NextResponse.json("Car Exists: Error 202");
+    }
+
+    const newUser = await prisma.user.update({ // update user with car model in Cars[]
+        where: {
+            id: checkId,
+        },
+        data: {
+            cars: {
+                connect: { 
+                    id: checkId
+                },
+            },
+        },
+        include: {
+            cars: true,
+        }
+    })
+
+    const updatedUser = prisma.user.findUnique({
+        where: { id: checkId }
+    })
+
+    console.log("newUser", newUser)
+    console.log("updatedUser", updatedUser)
     
     console.log('Completed User Update')
     await prisma.$disconnect()
