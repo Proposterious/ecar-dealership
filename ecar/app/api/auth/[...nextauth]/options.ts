@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
     
   ],
   callbacks: {
-    async jwt({ token, user, account }: any) {
+    async jwt({ token, user, account }: any ) {
       // Redefine user.image for running check
 
       if (user) { // assigns 'token' info from 'user' in database
@@ -98,6 +98,9 @@ export const authOptions: NextAuthOptions = {
         token.bio = user.biography;
         token.image = 'yes';
         token.phoneNumber = user.phoneNumber;
+        token.cars = user.cars;
+        if (user.cars) { token.cars = [...user.cars]
+        } else { token.cars = [''] }
       }
       if (account) { // allows 'token' access to third party 'account'
         token.accessToken = account.access_token;
@@ -108,6 +111,7 @@ export const authOptions: NextAuthOptions = {
     //session.user.id = token.id was purposefully omitted
       session.user.fullName = token.fullName;
       session.user.biography = token.bio;
+      session.user.cars = [...token.cars];
       if (token.image != null && token.image != undefined) {
         session.user.image = 'true';
       }
