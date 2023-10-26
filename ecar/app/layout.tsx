@@ -1,7 +1,7 @@
 // Default imports
 import './globals.css'
 import type { Metadata } from 'next'
-import { Nunito_Sans } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 // Component imports
 import Provider from '@/components/provider/Provider'
 import Navbar from '../components/content/header/Navbar'
@@ -9,7 +9,7 @@ import Information from '../components/content/footer/information'
 import { Suspense } from 'react'
 import Loader from './loading'
  
-const myFont = Nunito_Sans({
+const myFont = Open_Sans({
   weight: '400',
   subsets: ['latin'],
 })
