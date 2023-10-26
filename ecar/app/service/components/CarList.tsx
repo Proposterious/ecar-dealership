@@ -5,11 +5,13 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 // custom shenanigans
-import { getCarsByPage } from "../handleCars";
+import { getCarById, getCarsByPage } from "../handleCars";
 import logo from "@/public/car-logo.png"
 import suvImage from "@/public/img/car-models/sketch_suv.jpg";
 import sedanImage from "@/public/img/car-models/sketch_sedan.jpg";
 import Loader from "@/app/loading";
+import { Car } from "./service";
+import Link from "next/link";
 
 
 function CarList() { 
@@ -20,7 +22,8 @@ function CarList() {
 
     // initiating dynamic vars
     const [ data, setData ] = useState([]);
-    const [ format, setFormat ] = useState("compact")
+    const [ format, setFormat ] = useState("compact");
+    const [ select, carSelect ] = useState(false);
 
     // fetch car data
     async function formCars() {
@@ -101,6 +104,22 @@ function CarList() {
         }
     }
 
+    async function uploadCar(car: Car) {
+      const elem = document.getElementById(String(car.make_model.id));
+      elem?.classList.remove("bg-sky-400");
+      elem?.classList.add("bg-black");
+      await fetch('/api/saveVehicle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(car)
+      });
+
+      console.log("Made request to add Vehicle")
+
+    }
+
     useEffect(() => {
         formCars().then((car: any) => setData(car));
         console.log(data);
@@ -108,7 +127,7 @@ function CarList() {
 
     return (
     <>
-      <section className="flex flex-row | first:invisible hover:first:visible | fixed right-8 n-xs:top-12 n-md:top-32 n-lg:top-48 z-50">
+      <section id="about-format" className="flex flex-row | first:invisible hover:first:visible | fixed right-8 n-xs:top-12 n-md:top-32 n-lg:top-48 z-50">
         <div id="carList-tooltip" className="bg-slate-200/90 p-1 -mr-10 -mt-8 h-fit | font-semibold text-sm text-slate-600 | hidden">
             <span id="explanation" className="border-b-2 border-orange-600">
                 Click "?" to toggle between "Compact" and "Expand" formats
@@ -149,6 +168,15 @@ function CarList() {
           {format == "expand" && dict.map((car: any) => (
             <div key={dict[0].id} className="space-y-4">
               <ul key={car.id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg hover:cursor-default m-4 p-3">
+                <li key="learn-more" className="relative">
+                    <button onClick={() => {
+                      uploadCar(car);
+                      }} className="w-fit bg-sky-400 rounded-md -m-2 p-1 absolute right-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill='rgb(255, 0, 0)' viewBox="0 0 24 24" strokeWidth="1.5" stroke="rgb(240, 110, 20)" className="w-8 h-8">
+                      <path strokeLinecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                    </button>
+                </li>
                 <li key="img" className="w-fit mx-auto">
                   <Image src={car.img} alt={car.name} className="bg-inherit" style={{ objectFit: "contain", maxHeight: "238px" }} />
                 </li>
@@ -169,9 +197,9 @@ function CarList() {
                   Make: {car.description}
                 </li>
                 <li key="learn-more" className="pt-3">
-                  <button className="bg-orange-500 rounded-lg p-3 hover:text-white">
+                  <Link href={`/service/car/${car.make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
                     Learn More
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -183,8 +211,8 @@ function CarList() {
 
                 <ul key={dict[0].id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg m-4 p-4 pb-4 hover:cursor-default">
 
-                <li className="relative">
-                    <button className="w-fit bg-sky-400 rounded-md -m-2 p-1 absolute right-0">
+                  <li className="relative">
+                    <button onClick={() => uploadCar(dict[0])} className="w-fit bg-sky-400 rounded-md -m-2 p-1 absolute right-0">
                       <svg xmlns="http://www.w3.org/2000/svg" fill='rgb(255, 0, 0)' viewBox="0 0 24 24" strokeWidth="1.5" stroke="rgb(240, 110, 20)" className="w-8 h-8">
                       <path strokeLinecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                       </svg>
@@ -212,9 +240,10 @@ function CarList() {
                   </li>
 
                   <li key="learn-more" className="pt-3">
-                    <button className="bg-orange-500 rounded-lg p-3 hover:text-white">
-                        Learn More
-                    </button>
+
+                  <Link href={`/service/car/${dict[0].make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
+                    Learn More
+                  </Link>
                   </li>
 
                 </ul>
@@ -222,6 +251,7 @@ function CarList() {
             )}
             </>
         ))}
+      
       </section>  
     </>
     );
