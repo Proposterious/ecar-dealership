@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 
-function SortByPage() {
+export default function SortByPage() {
     // Defines import variables
     const router = useRouter()
     const pathname = usePathname()
@@ -48,5 +48,3 @@ function SortByPage() {
         </nav>
      );
 }
-
-export default SortByPage;

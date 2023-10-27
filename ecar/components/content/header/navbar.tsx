@@ -1,4 +1,3 @@
-// Nextjs Imports
 import Link from 'next/link';
 import Image from 'next/image';
 // Main Logo Import
