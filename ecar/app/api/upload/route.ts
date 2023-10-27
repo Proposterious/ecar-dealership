@@ -1,5 +1,4 @@
 // Specify as experimental feature
-export const config = { runtime: 'experimental-edge' }
 import { PrismaClient } from '@prisma/client' // connect to database
 
 import { getToken } from 'next-auth/jwt' // get user's session/token
