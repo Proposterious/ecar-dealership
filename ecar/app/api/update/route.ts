@@ -41,7 +41,8 @@ export async function POST(req: NextRequestWithAuth) {
     // Quit the function if user not found
     if (!user) { 
         console.log('Session Failed');
-        await prisma.$disconnect(); return null;
+        await prisma.$disconnect(); 
+        return NextResponse.json({ status: 405, message: "Session Not Found" });
     }
 
     // Update user with 'req' data if user found
