@@ -1,6 +1,5 @@
 "use server"
 import { NextResponse } from 'next/server';
-import { writeCarAttr } from './function/handleJSON'
 
 export async function getCarsByPage(page: String) {
     const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&page=${page}&verbose=yes`;
