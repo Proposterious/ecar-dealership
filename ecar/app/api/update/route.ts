@@ -1,3 +1,4 @@
+import { NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getToken } from 'next-auth/jwt'
@@ -6,7 +7,7 @@ import { NextRequestWithAuth } from 'next-auth/middleware';
 // MAKE THIS FUNCTION UPDATE DATABASE WITH ENTERED INFORMATION
 const secret = process.env.NEXTAUTH_SECRET;
 
-export async function POST(req: NextRequestWithAuth) {
+export async function POST(req: NextRequestWithAuth, res: NextApiResponse) {
     // Initialize instances
     const prisma = new PrismaClient();
     const data = await req.json();
@@ -51,6 +52,6 @@ export async function POST(req: NextRequestWithAuth) {
     })
     
     console.log('Completed User Update')
-    await prisma.$disconnect()
-    return NextResponse.json('Completed action');
+    await prisma.$disconnect();
+    return res.json({ message: 'Completed action' });
 }
