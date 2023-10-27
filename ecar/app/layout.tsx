@@ -1,13 +1,13 @@
 // Default imports
-import './globals.css'
-import type { Metadata } from 'next'
-import { Nunito } from 'next/font/google'
+import './globals.css';
+import type { Metadata } from 'next';
+import { Nunito } from 'next/font/google';
 // Component imports
-import Provider from '@/components/provider/Provider'
-import Navbar from '../components/content/header/Navbar'
-import Information from '../components/content/footer/information' 
-import { Suspense } from 'react'
-import Loader from './loading'
+import Provider from '@/components/provider/Provider';
+import Navbar from '@/components/content/header/Navbar';
+import Information from '@/components/content/footer/information'; 
+import { Suspense } from 'react';
+import Loader from './loading';
  
 const myFont = Nunito({
   weight: ['400', '700'],
