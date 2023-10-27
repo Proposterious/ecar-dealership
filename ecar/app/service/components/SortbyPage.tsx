@@ -26,14 +26,15 @@ export default function SortByPage() {
     var nums: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
     nums.forEach((num: number, index: number) => {
-        numList.push(<button key={index} className="text-orange-600 duration-200 hover:text-slate-100"
+        numList.push(
+        <button key={index} className="text-orange-600 duration-200 hover:text-slate-100"
         onClick={() => {
             router.push(pathname + '?' + createQueryString('page', `${num}`));
             router.refresh();
         }}>
-                {num}
-            </button>);
-      });
+            {num}
+        </button>);
+    });
 
     return ( 
         <nav id="search-nav" className='w-fit mx-auto | border-r-orange-300 border-r-2'>
