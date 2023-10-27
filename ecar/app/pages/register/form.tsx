@@ -1,7 +1,4 @@
 'use client'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 import { redirect } from 'next/navigation'
 import { useState } from "react"
@@ -34,8 +31,8 @@ export const RegisterForm = () => {
     return (
         <form onSubmit={onSubmit} className='space-y-12 tracking-wide'>
             <div className='grid-w-full max-w-lg items-center gap-2'>
-                <Label className='text-md mb-2' htmlFor="email">Email</Label>
-                <Input 
+                <label className='text-md mb-2' htmlFor="email">Email</label>
+                <input 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     id="email" 
@@ -44,8 +41,8 @@ export const RegisterForm = () => {
                 />
             </div>
             <div className='grid-w-full max-w-lg items-center gap-2'>
-                <Label className='text-md mb-2' htmlFor="password">Password</Label>
-                <Input 
+                <label className='text-md mb-2' htmlFor="password">Password</label>
+                <input 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     id="password" 
@@ -54,7 +51,7 @@ export const RegisterForm = () => {
                 />
             </div>
             <div className='flex items-center space-x-2'>
-                <Button className='text-md w-full' variant="secondary">Register</Button>
+                <button className='text-md w-full'>Register</button>
             </div>
         </form>
     )
