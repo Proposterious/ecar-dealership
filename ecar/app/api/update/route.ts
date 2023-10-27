@@ -54,3 +54,4 @@ export async function POST(req: NextRequestWithAuth) {
     await prisma.$disconnect();
     // return NextResponse.json({ status: 200, message: "User Updated" });
     return null;
+}
