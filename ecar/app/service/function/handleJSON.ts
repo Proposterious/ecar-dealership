@@ -18,16 +18,13 @@ export async function writeCarAttr(cars: any[]) {
     
     cars.map((car:any) => {
         var carName = `${car.make_model.make.name} ${car.make_model.name}`
-        names.push(carName);
+        if (names.includes(carName) != true) { names.push(carName) };
         
 
         var carMake = car.make_model.make.name
-        makes.push(carMake);
+        if (makes.includes(car.make_model.make.name) != true) { makes.push(carMake) };
         
     })
-
-    names = [...new Set(names)];
-    makes = [...new Set(makes)]
     
     const content: CarAttributes = {
         carNames: [...names],
