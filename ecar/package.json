@@ -27,6 +27,7 @@
   "devDependencies": {
     "@nodelib/fs.walk": "^2.0.0",
     "@svgr/webpack": "^8.1.0",
+    "@types/bcrypt": "^5.0.1",
     "@types/node": "^20.7.0",
     "fs": "^0.0.1-security",
     "image-type": "^5.2.0",
