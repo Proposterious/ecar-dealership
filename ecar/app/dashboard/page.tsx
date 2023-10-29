@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg'
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Loader from '../loading';
 
 function redirectDashboard() {
     const router = useRouter();
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
 
     const placeholderName = session?.user?.name != undefined ? session.user?.name : "Not Currently Set";
 
@@ -17,6 +18,12 @@ function redirectDashboard() {
 
     const placeholderEmail = session?.user?.email != undefined ? session.user?.email : "Not Currently Set";
 
+    while (status == "loading") {
+        return (
+            <Loader />
+        )
+    }
+    
     return ( 
         <div className=''>
             <h2 className='underline decoration-wavy | font-semibold text-lg text-orange-600'>
