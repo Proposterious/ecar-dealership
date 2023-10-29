@@ -11,7 +11,7 @@ function ServiceAlert() {
     <section id="service-alert" className="w-full h-fit py-8 fixed bottom-0 z-50 bg-orange-600 n-xs:block n-lg:hidden">
         <div className="flex flex-col n-md:flex-row justify-evenly text-lg">
             <div className='font-semibold text-white text-center hover:cursor-default'>
-                This is an alert that pops up every time you enter this page. The content on this page will not appear unless you are signed in. We recommend you view this on a desktop or a larger screen.
+                This is an alert that pops up every time you enter this page. This button only appears on small screens. We recommend you view this on a desktop or a larger screen.
             </div>
             <button onClick={removeAlert} className="my-auto px-6 closebtn">&times;</button>
         </div>
