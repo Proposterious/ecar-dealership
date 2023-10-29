@@ -31,10 +31,10 @@ export function Contact() {
                     </div>
 
                     <div className='mx-auto | sm:w-full xs:pb-4 sm:pb-0 lg:min-w-fit'>
-                        <Image src={receptionist} alt='' className='-scale-x-100' objectFit='contain' />
+                        <Image src={receptionist} alt='' className='-scale-x-100' placeholder="blur" objectFit='contain' />
                     </div>
                     <div className='mx-auto | sm:w-full xs:pb-4 sm:pb-0 lg:min-w-fit'>
-                        <Image src={service} alt='' objectFit='contain' />
+                        <Image src={service} alt='' placeholder="blur" objectFit='contain' />
                     </div>
 
                 </div>
