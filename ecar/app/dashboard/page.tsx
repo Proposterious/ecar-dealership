@@ -17,12 +17,6 @@ function redirectDashboard() {
     const placeholderNumber = session?.user?.phoneNumber != undefined ? session.user?.phoneNumber : "Not Currently Set";
 
     const placeholderEmail = session?.user?.email != undefined ? session.user?.email : "Not Currently Set";
-
-    while (status == "loading") {
-        return (
-            <Loader />
-        )
-    }
     
     return ( 
         <div className=''>
