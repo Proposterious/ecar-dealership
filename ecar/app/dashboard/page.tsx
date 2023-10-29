@@ -4,11 +4,10 @@ import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg'
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import Loader from '../loading';
 
 function redirectDashboard() {
     const router = useRouter();
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
 
     const placeholderName = session?.user?.name != undefined ? session.user?.name : "Not Currently Set";
 
