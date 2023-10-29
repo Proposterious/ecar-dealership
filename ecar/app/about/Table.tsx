@@ -81,7 +81,7 @@ function Table() {
 
     return ( 
         <article className='my-8'>
-            <div id='headStaff' className='mx-auto | grid grid-cols-3 col-span-3 gap-y-12'>
+            <div id='headStaff' className='mx-auto | grid n-xs:grid-cols-1 n-xs:grid-col-span-1 n-xs:gap-y-6 child:n-xs:bg-orange-200 child:n-xs:p-3 child:n-xs:rounded-md | n-md:grid-cols-2 n-md:col-span-2 n-md:gap-y-12 child:n-md:bg-inherit child:n-md:p-0 | n-lg:grid-cols-3 n-lg:grid-col-span-3'>
 
                 { persons.map((person) => { return (
                     <div className='mx-auto | text-xl font-semibold'>
