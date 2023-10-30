@@ -26,9 +26,9 @@ function redirectDashboard() {
     const placeholderEmail = session?.user?.email != undefined ? session.user?.email : "Not Currently Set";
     
     useEffect(() => {
-        handleSession().then((session: any) => console.log("user", session) )
+        handleSession();
     })
-    
+
     return ( 
         <div className=''>
             <h2 className='underline decoration-wavy | font-semibold text-lg text-orange-600'>
