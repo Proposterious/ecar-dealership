@@ -17,7 +17,7 @@ function DashboardHeader() {
     } else { pathname = "Undetermined" }
 
     // Get userData as 'session' from useSession()
-    const { data: session, status } = useSession({ required: true })
+    const { data: session, status } = useSession();
     while (status != 'authenticated') {
       return ( <Loader /> )
     }
