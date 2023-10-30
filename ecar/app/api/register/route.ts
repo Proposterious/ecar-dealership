@@ -2,36 +2,36 @@ import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
+    const prisma = new PrismaClient();
     const data = await req.json()
     const name = data.name; const email = data.email; const password = data.password;
-    console.log(data)
 
     if (!name || !email || !password) {
         await prisma.$disconnect()
-        return new NextResponse('Missing name, email, or password...', { status: 400 })
+        return NextResponse.json({ success: false, error: "Missing email, name, or password"}, { status: 205 });
     }
 
-    const isValue: any = await prisma.user.findUnique({
+    const isValue = await prisma.user.findUnique({
         where: { email: email },
     });
-    console.log({ isValue })
-    if (isValue != null) {
+
+    if (isValue) {
         await prisma.$disconnect()
-        return new NextResponse("User already exists", { status: 405 })
+        return NextResponse.json({ success: false, error: "User already exists"}, { status: 202 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
     
-    const user = await prisma.user.create({
+    await prisma.user.create({
         data: {
             name,
             email,
             hashedPassword
         }
     });
+
     await prisma.$disconnect()
-    return NextResponse.json(user);
+    return NextResponse.json({ success: true, message: "User signed up" }, { status: 200 });
 }
