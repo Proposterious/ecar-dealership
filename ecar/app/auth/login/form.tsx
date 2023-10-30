@@ -5,13 +5,16 @@ import { useState } from 'react';
 // Component Imports
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function LoginForm() {
     // Handle 'useState' and 'onChange'
+    const router = useRouter();
+    const [error, setError] = useState("");
     const [data, setData] = useState({
         email: "",
         password: ""
-    })
+    });
     const handleInputChange = (e: any) => {
         const { name, value } = e.target;
         setData((prevProps) => ({
@@ -23,9 +26,14 @@ function LoginForm() {
     const loginUser = async (e: any) => {
         // Handle 'signIn()' request
         e.preventDefault()
-        signIn('credentials', {
-            ...data
+        const result = await signIn('credentials', {
+            ...data,
+            redirect: false
         })
+
+        if (result?.error) {
+            setError(result.error);
+        } else { router.replace('/dashboard'); }
     }
    
 

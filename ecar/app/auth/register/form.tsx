@@ -24,8 +24,6 @@ function RegisterForm() {
       };
 
     const registerUser = async (e: any) => {
-        // const newName = data.name; const newEmail = data.email; const newPass = data.password;
-        // const newData = {newName, newEmail, newPass}
         console.log({data})
         e.preventDefault()
         const response = await fetch('/api/register', {

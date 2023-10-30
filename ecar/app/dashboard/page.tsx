@@ -1,18 +1,21 @@
 "use client"
 import Link from 'next/link';
 import Image from 'next/image';
-import Popout from '@/public/svg/popout.svg'
+import Popout from '@/public/svg/popout.svg';
 import { useRouter } from "next/navigation";
 import { useSession } from 'next-auth/react';
-import Loader from '../loading';
+import { useState, useEffect } from "react";
+
 
 function redirectDashboard() {
     const router = useRouter();
-    const { data: session, status } = useSession();
+    const [session, setSession] = useState({}) as any;
+    const { data: info } = useSession();
 
-    if (status == "loading") { // loading skeleton while awaiting session
-        return <Loader />
-    }
+    function handleSession() { 
+        setSession(info);
+        return session;
+    } 
 
     const placeholderName = session?.user?.name != undefined ? session.user?.name : "No Username Set";
 
@@ -21,6 +24,10 @@ function redirectDashboard() {
     const placeholderNumber = session?.user?.phoneNumber != undefined ? session.user?.phoneNumber : "Not Currently Set";
 
     const placeholderEmail = session?.user?.email != undefined ? session.user?.email : "Not Currently Set";
+    
+    useEffect(() => {
+        handleSession().then((session: any) => console.log("user", session) )
+    })
     
     return ( 
         <div className=''>

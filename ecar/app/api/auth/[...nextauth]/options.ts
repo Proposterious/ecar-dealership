@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials: any) {
       // Check for missing credentials
         if (!credentials.email || !credentials.password ) {
-          return null;
+          throw new Error("Invalid email or password")
         }
 
       // Check if user exists in db
