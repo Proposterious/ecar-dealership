@@ -17,13 +17,10 @@ function DashboardHeader() {
     } else { pathname = "Undetermined" }
 
     // Get userData as 'session' from useSession()
-    const { data: session, status } = useSession();
-    while (status != 'authenticated') {
-      return ( <Loader /> )
-    }
+    const { data: session } = useSession();
     
     // Assign placeholders variables with 'session' values
-    const placeholderName = session.user?.name as string; // required for register/login
+    const placeholderName = session?.user?.name as string; // required for register/login
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
