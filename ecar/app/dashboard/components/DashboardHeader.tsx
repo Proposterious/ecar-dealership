@@ -9,7 +9,7 @@ function DashboardHeader() {
     var pathname;
     console.log("path", path)
     if (path === "/dashboard") {
-        pathname = 'Page';
+        pathname = '';
     } else if (path === "/dashboard/settings") {
         pathname = "Settings"
     } else if (path === "/dashboard/saved-vehicles") {
