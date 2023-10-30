@@ -39,7 +39,7 @@ function RegisterForm() {
         if (res?.error) {
             setError(res.error);
         } else { 
-            signIn('credentials', {
+            await signIn('credentials', {
             ...data,
             redirect: true,
             })

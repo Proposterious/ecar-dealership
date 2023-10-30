@@ -3,11 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg';
 import Loader from '../loading';
-import { useRouter } from "next/navigation";
 import { useSession } from 'next-auth/react';
 
 function redirectDashboard() {
-    const router = useRouter();
     const { data: session, status } = useSession();
 
     if (status == "loading") {
@@ -15,7 +13,7 @@ function redirectDashboard() {
     }
     const placeholderName = session?.user?.name != undefined ? session.user?.name : "No Username Set";
 
-    const placeholderFullName = session?.user?.fullName != undefined ? session.user?.fullName : "Name Not Specified";
+    const placeholderFullName = session?.user?.fullName != undefined ? session.user?.fullName : "Not Currently Set";
 
     const placeholderNumber = session?.user?.phoneNumber != undefined ? session.user?.phoneNumber : "Not Currently Set";
 
@@ -26,14 +24,15 @@ function redirectDashboard() {
             <h2 className='underline decoration-wavy | font-semibold text-lg text-orange-600'>
                 Welcome to Your Dashboard, {' '}
                 <span className="decoration-inherit underline-offset-1 ">
-                { session && placeholderFullName }!
+                { session?.user?.fullName && placeholderFullName}
+                { !session?.user?.fullName && placeholderEmail }!
                 </span>
             </h2>
 
             <div id="dashboard-differ" className="child:mx-auto grid grid-flow-row grid-cols-2 space-x-8">
                 <section className="bg-slate-100 m-8 mt-3 p-6">
                     <h3 className="underline text-lg text-slate-800 font-semibold">
-                        Dashboard Settings
+                        Dashboard
                     </h3>
 
                     <div className="p-2 mt-6 bg-orange-300 | font-semibold text-sky-800">
@@ -55,9 +54,11 @@ function redirectDashboard() {
                         </Link>
                     </div>
                     
-                    <button onClick={() => router.replace('/dashboard/settings')}className="py-2 px-3 mt-4 text-white bg-orange-600 rounded-lg font-extrabold">
-                        View Settings
-                    </button>
+                    <Link href='/dashboard/settings'>
+                        <button className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
+                            View Settings
+                        </button>
+                    </Link>
                 </section>
 
                 <section className="w-full bg-slate-100 m-8 mt-3 p-6">
@@ -82,10 +83,11 @@ function redirectDashboard() {
                         </span>
                     </Link>
                     </div>
-
-                    <button onClick={() => router.replace('/dashboard/saved-vehicles')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
-                        View Your Vehicles
-                    </button>
+                    <Link href='/dashboard/saved-vehicles'>
+                        <button className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
+                            View Your Vehicles
+                        </button>
+                    </Link>
                 </section>  
             </div>
         </div>
