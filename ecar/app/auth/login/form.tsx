@@ -31,7 +31,7 @@ function LoginForm() {
             redirect: false
         })
 
-        if (result?.error) {
+        if (result?.error) { 
             setError(result.error);
         } else { router.replace('/dashboard'); }
     }
@@ -50,8 +50,13 @@ function LoginForm() {
                     <h2 className="n-xs:mt-4 n-md:mt-10 text-center n-xs:text-2xl n-lg:text-4xl font-bold leading-9 tracking-tight underline text-orange-500">
                         Login to Your Account
                     </h2>
+                    <h3 className="w-fit h-fit mx-auto my-2 font-semibold text-red-500">
+                        {error}
+                    </h3>
                 </div>
                 
+                
+
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     {/* ENTER CREDENTIALS */}
                     <form className="space-y-4" action="#" onSubmit={loginUser}>

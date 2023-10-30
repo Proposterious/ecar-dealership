@@ -49,21 +49,29 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials: any) {
       // Check for missing credentials
         if (!credentials.email || !credentials.password ) {
-          throw new Error("Invalid email or password")
+          throw new Error("Field is missing")
         }
 
-      // Check if user exists in db
+      // Find user in db
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
           }
         })
 
-      // Return null if false
-        if (!user) { await prisma.$disconnect(); return null;}
+      // Check if user exists in db
+        if (!user) { 
+          await prisma.$disconnect(); 
+          throw new Error("Account does not exist");
+          return null;
+        }
       // Check if password matches db 
         const passwordsMatch = await bcrypt.compare(credentials.password, user.hashedPassword as string)
-        if (!passwordsMatch) { await prisma.$disconnect(); return null }
+        if (!passwordsMatch) { 
+          await prisma.$disconnect(); 
+          throw new Error("Invalid email or password"); 
+          return null;
+        }
 
       // Return user if no errors
         await prisma.$disconnect();
