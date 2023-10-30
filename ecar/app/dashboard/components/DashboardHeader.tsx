@@ -1,10 +1,10 @@
+"use client"
 import Link from "next/link";
 import Loader from "@/app/loading";
 import { useSession } from "next-auth/react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 ;
-function DashboardHeader({ prop }: any) {
-    const router = useRouter();
+function DashboardHeader() {
     const path = usePathname();
     var pathname;
     console.log("path", path)
@@ -17,13 +17,13 @@ function DashboardHeader({ prop }: any) {
     } else { pathname = "Undetermined" }
 
     // Get userData as 'session' from useSession()
-    const { status } = useSession({ required: true })
+    const { data: session, status } = useSession({ required: true })
     while (status != 'authenticated') {
       return ( <Loader /> )
     }
     
     // Assign placeholders variables with 'session' values
-    const placeholderName = prop.user?.name as string; // required for register/login
+    const placeholderName = session.user?.name as string; // required for register/login
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
@@ -34,9 +34,9 @@ function DashboardHeader({ prop }: any) {
             <nav>
             <ol className="flex items-center gap-2">
                 <li>
-                    <button onClick={() => router.replace('/dashboard')} className="font-semibold text-orange-600 duration-200 hover:font-bold hover:text-orange-500">
+                    <Link href="/dashboard" className="font-semibold text-orange-600 duration-200 hover:font-bold hover:text-orange-500">
                         Dashboard
-                    </button>
+                    </Link>
                 </li>
                 <li>
                     <p className="-indent-1 font-semibold">
