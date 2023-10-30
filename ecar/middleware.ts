@@ -4,6 +4,8 @@ import type { NextRequest } from 'next/server'
 export default async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith('/employment')) { // send to employment if employment
         return NextResponse.rewrite(new URL('/employment', request.url))
+    } else if (request.nextUrl.pathname.startsWith('/login')) {
+        return NextResponse.rewrite(new URL('/', request.url))
     } else if (request.nextUrl.pathname.startsWith('/dashboard')) { // send to dashboard if dashboard
         return NextResponse.rewrite(new URL('/dashboard', request.url))
     } else if (request.nextUrl.pathname.startsWith('/service')) { // send to home if /service
