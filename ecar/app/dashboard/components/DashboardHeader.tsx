@@ -17,7 +17,8 @@ function DashboardHeader() {
     } else { pathname = "Undetermined" }
 
     // Get userData as 'session' from useSession()
-    const { data: session } = useSession();
+    const { data: session, status } = useSession({ required: true });
+    if (status == "loading") { return <Loader /> }
     
     // Assign placeholders variables with 'session' values
     const placeholderName = session?.user?.name as string; // required for register/login
