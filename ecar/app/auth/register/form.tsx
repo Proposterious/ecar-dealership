@@ -1,14 +1,16 @@
 'use client'
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
 
 function RegisterForm() {
     // Assign 'useRouter()
     const router = useRouter()
     // Handle 'useState' and 'onChange'
+    const [error, setError] = useState("");
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -32,11 +34,16 @@ function RegisterForm() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
-        })
-
-        const userInfo = await response.json()
-        console.log(userInfo)
-        router.push('/auth/login')
+        });
+        const res = await response.json();
+        if (res?.error) {
+            setError(res.error);
+        } else { 
+            signIn('credentials', {
+            ...data,
+            redirect: true,
+            })
+        }
     }
 
     return ( 
@@ -52,6 +59,9 @@ function RegisterForm() {
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight decoration-dashed underline text-orange-500">
                         Create An Account
                     </h2>
+                    <h3 className="w-fit h-fit mx-auto my-2 font-semibold text-red-500">
+                        {error}
+                    </h3>
                 </div>
                 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

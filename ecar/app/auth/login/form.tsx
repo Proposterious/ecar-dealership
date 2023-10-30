@@ -86,9 +86,9 @@ function LoginForm() {
                             Password
                             </label>
                             <div className="text-sm">
-                            <a href="#" className="font-semibold text-orange-600 hover:text-orange-500">
+                            <Link href="/auth/register" className="font-semibold text-orange-600 hover:text-orange-500">
                                 Forgot password?
-                            </a>
+                            </Link>
                             </div>
                         </div>
                         <div className="mt-2">
