@@ -2,21 +2,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg';
+import Loader from '../loading';
 import { useRouter } from "next/navigation";
 import { useSession } from 'next-auth/react';
-import { useState, useEffect } from "react";
-
 
 function redirectDashboard() {
     const router = useRouter();
-    const [session, setSession] = useState({}) as any;
-    const { data: info } = useSession();
+    const { data: session, status } = useSession();
 
-    function handleSession() { 
-        setSession(info);
-        return session;
-    } 
-
+    if (status == "loading") {
+        return <Loader />
+    }
     const placeholderName = session?.user?.name != undefined ? session.user?.name : "No Username Set";
 
     const placeholderFullName = session?.user?.fullName != undefined ? session.user?.fullName : "Name Not Specified";
@@ -24,10 +20,6 @@ function redirectDashboard() {
     const placeholderNumber = session?.user?.phoneNumber != undefined ? session.user?.phoneNumber : "Not Currently Set";
 
     const placeholderEmail = session?.user?.email != undefined ? session.user?.email : "Not Currently Set";
-    
-    useEffect(() => {
-        handleSession();
-    })
 
     return ( 
         <div className=''>

@@ -113,6 +113,7 @@ export const authOptions: NextAuthOptions = {
       if (account) { // allows 'token' access to third party 'account'
         token.accessToken = account.access_token;
       }
+      await prisma.$disconnect();
       return token;
     },
     async session({ session, token }: any) {
@@ -123,6 +124,7 @@ export const authOptions: NextAuthOptions = {
       if (token.image != null && token.image != undefined) {
         session.user.image = 'true';
       }
+      await prisma.$disconnect();
       return session;
     }
   },
