@@ -48,7 +48,6 @@ export default async function RootLayout({
         <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
         <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
         <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
-        <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       </head>
       <Provider>
         <body id="app" className={myFont.className}>

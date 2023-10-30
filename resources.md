@@ -4,6 +4,7 @@
 
 ### Design  Related
 
+- [Favic-O-Matic](https://favicomatic.com/)
 - [Figma Web Design](https://www.figma.com/)
 - [Realtime Colors](https://realtimecolors.com/?colors=000000-ffffff-8fb3ff-ebf1ff-d41d6d)
 - [Heroicons](https://heroicons.com/)
