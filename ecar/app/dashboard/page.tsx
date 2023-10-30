@@ -4,9 +4,11 @@ import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg';
 import Loader from '../loading';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 function redirectDashboard() {
     const { data: session, status } = useSession();
+    const router = useRouter();
 
     if (status == "loading") {
         return <Loader />
@@ -54,11 +56,10 @@ function redirectDashboard() {
                         </Link>
                     </div>
                     
-                    <Link href='/dashboard/settings'>
-                        <button className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
-                            View Settings
-                        </button>
-                    </Link>
+                    <button onClick={() => router.push('/dashboard/settings')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
+                        View Settings
+                    </button>
+                
                 </section>
 
                 <section className="w-full bg-slate-100 m-8 mt-3 p-6">
@@ -83,11 +84,11 @@ function redirectDashboard() {
                         </span>
                     </Link>
                     </div>
-                    <Link href='/dashboard/saved-vehicles'>
-                        <button className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
-                            View Your Vehicles
-                        </button>
-                    </Link>
+                    
+                    <button onClick={() => router.push('/dashboard/saved-vehicles')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
+                        View Your Vehicles
+                    </button>
+
                 </section>  
             </div>
         </div>
