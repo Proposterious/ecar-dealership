@@ -6,10 +6,10 @@ import Loader from '../loading';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-function redirectDashboard() {
+function RedirectDashboard() {
     const { data: session, status } = useSession();
     const router = useRouter();
-
+   
     if (status == "loading") {
         return <Loader />
     }
@@ -56,7 +56,7 @@ function redirectDashboard() {
                         </Link>
                     </div>
                     
-                    <button onClick={() => router.push('/dashboard/settings')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
+                    <button onClick={() => router.replace('/dashboard/settings')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold transition duration-300 hover:text-slate-200/90">
                         View Settings
                     </button>
                 
@@ -85,7 +85,7 @@ function redirectDashboard() {
                     </Link>
                     </div>
                     
-                    <button onClick={() => router.push('/dashboard/saved-vehicles')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold">
+                    <button onClick={() => router.replace('/dashboard/saved-vehicles')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold transition duration-300 hover:text-slate-200/90">
                         View Your Vehicles
                     </button>
 
@@ -95,4 +95,4 @@ function redirectDashboard() {
     );
 }
 
-export default redirectDashboard;
+export default RedirectDashboard;
