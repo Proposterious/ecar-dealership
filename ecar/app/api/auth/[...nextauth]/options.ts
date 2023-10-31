@@ -16,7 +16,7 @@ import GoogleProvider from 'next-auth/providers/google';
 
 // NextAuthOptions configuration
 export const authOptions: NextAuthOptions = {
-  // Check 'resources.md' for information about custom pages:
+  // Check 'resources.md' for information about custom pages
   pages: {
     signIn: '/auth/login',
     signOut: '/auth/logout',
