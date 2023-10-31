@@ -26,6 +26,9 @@ function EmploymentAlert() {
                 <button className="rounded-lg mt-4 p-3 bg-sky-400 duration-500 hover:text-black" onClick={() => router.replace('/')}>
                     Go back to Home
                 </button>
+                <button className="rounded-lg mt-4 py-3 px-4 bg-sky-400 duration-500 hover:text-orange-600" onClick={() => router.replace('/auth/login')}>
+                    Sign In
+                </button>
             </div>
             
         </section>
