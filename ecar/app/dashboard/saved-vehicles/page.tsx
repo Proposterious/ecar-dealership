@@ -28,7 +28,6 @@ function SavedVehicles() {
             },
             cache: 'no-store'
         }) as any;
-        
         const data = await res.json();
         if (!data.res) { return ["false"] }
         const userCars = data.res as UserCar[];
@@ -37,7 +36,7 @@ function SavedVehicles() {
             await getCarById(userCars[i].carId as string).then(
                 (data: Car[]) => {
                     console.log("got data", data);
-                    array.push(...data);
+                    array = [...new Set(data)]
                 }
             )
         } // setCars once finished fetching
