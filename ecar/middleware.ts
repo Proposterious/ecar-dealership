@@ -1,14 +1,15 @@
-import { withAuth } from "next-auth/middleware";
+import { withAuth } from 'next-auth/middleware';
 
-export default withAuth(
-    function middleware(req) { // recognize req
-        console.log(req)
-  }, 
-  {
-  pages: {
-    signIn: "/auth/login",
-    signOut: "/auth/logout",
-    error: "/auth/error"
+export default withAuth({
+  callbacks: {
+    authorized: async ({ req, token }) => {
+      if (token) return true;
+      return false;
+    },
   },
-});
-export const config = { matcher: ["/dashboard","/dashboard/:path*"] };
+  pages: {
+    signIn: '/auth/login',
+    signOut: '/auth/logout',
+    error: '/auth/error',
+    },
+  });
