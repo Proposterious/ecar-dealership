@@ -1,31 +1,26 @@
 "use client"
 import Link from "next/link";
-import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 function DashboardHeader() {
     const path = usePathname();
     var placeholderName; var pathname;
-    
+    if (path === "/dashboard") {
+        pathname = '';
+    } else if (path === "/dashboard/settings") {
+        pathname = "Settings"
+    } else if (path === "/dashboard/saved-vehicles") {
+        pathname = "Saved Vehicles"
+    } else { pathname = "Undetermined" }
+
+    console.log("path", path)
     // Get userData as 'session' from useSession()
     const { data: session, status } = useSession({ required: true });
     if (status == "loading") { placeholderName = "Your" }
 
     // Assign placeholders variables with 'session' values
     placeholderName = session?.user?.name as string; // required for register/login
-
-    useEffect(() => {
-        if (path === "/dashboard") {
-            pathname = '';
-        } else if (path === "/dashboard/settings") {
-            pathname = "Settings"
-        } else if (path === "/dashboard/saved-vehicles") {
-            pathname = "Saved Vehicles"
-        } else { pathname = "Undetermined" }
-
-        console.log("path", path)
-    }, [path])
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
