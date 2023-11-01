@@ -46,7 +46,6 @@ export async function getCarById(id: string) {
         // await fetch, assign variable
         const response = await fetch(url, options);
         const responseJSON = await response.json();
-        console.log("Fetched data")
 
         const carData = responseJSON.data;
 
@@ -55,9 +54,7 @@ export async function getCarById(id: string) {
             NextResponse.json({ failure: 404, message: 'no id provided' }); // quit function
             return;
         }
-
-        console.log("car exists", carData)
-        
+        console.log("getCarById succeeded")
         NextResponse.json({ success: 200 })
         return carData; // return function
 
