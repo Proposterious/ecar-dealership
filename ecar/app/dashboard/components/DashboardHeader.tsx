@@ -1,6 +1,5 @@
 "use client"
 import Link from "next/link";
-import Loader from "@/app/loading";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 ;
@@ -18,8 +17,35 @@ function DashboardHeader() {
 
     // Get userData as 'session' from useSession()
     const { data: session, status } = useSession({ required: true });
-    if (status == "loading") { return <Loader /> }
-    
+    if (status == "loading") { // placeholderName 'Your' waiting for authentication
+        <div className="mb-6 flex flex-col gap-4">
+            <h2 className="text-2xl font-extrabold text-orange-600 underline">
+            Your Dashboard | { pathname }
+            </h2>
+
+            <nav>
+            <ol className="flex items-center gap-2">
+                <li>
+                    <Link href="/dashboard" className="font-semibold text-orange-600 duration-200 hover:font-bold hover:text-orange-500">
+                        Dashboard
+                    </Link>
+                </li>
+                <li>
+                    <p className="-indent-1 font-semibold">
+                        /
+                    </p>
+                </li>
+                <li>
+                    <Link href="path" className="-indent-1 font-semibold text-slate-700 duration-200 hover:font-bold hover:text-black">
+                        { pathname }
+                    </Link>
+                </li>
+            </ol>
+            </nav>
+
+        </div> 
+    }
+
     // Assign placeholders variables with 'session' values
     const placeholderName = session?.user?.name as string; // required for register/login
 
