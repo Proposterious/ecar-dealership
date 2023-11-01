@@ -1,9 +1,11 @@
 "use client"
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 function DashboardHeader() {
+    const router = useRouter();
+    
     const path = usePathname();
     var placeholderName; var pathname;
     if (path === "/dashboard") {
@@ -18,7 +20,8 @@ function DashboardHeader() {
     // Get userData as 'session' from useSession()
     const { data: session, status } = useSession({ required: true });
     if (status == "loading") { placeholderName = "Your" 
-    } else { placeholderName = session?.user?.name as string; }
+    } else if (status == "authenticated") { placeholderName = session?.user?.name as string; 
+    } else { router.replace("/auth/login") }
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
