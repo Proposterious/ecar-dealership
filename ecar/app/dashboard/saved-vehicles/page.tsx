@@ -16,6 +16,7 @@ function SavedVehicles() {
     const [ cars, setCars ] = useState<Car[] | [] | any[]>([]);
     const [ numCars, setNumCars ] = useState(0);
     const [ makesDict, setMakesDict ] = useState<any>({});
+    
     async function handleCars() {
         // copies logic from formCars() in service page
         var array: any[] = []; var carData:any = {};

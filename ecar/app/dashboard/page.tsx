@@ -11,8 +11,13 @@ function RedirectDashboard() {
     const router = useRouter();
    
     if (status == "loading") {
-        return <Loader />
+        return (
+            <div className="min-h-screen">
+                <Loader />
+            </div>
+        )
     }
+
     const placeholderName = session?.user?.name != undefined ? session.user?.name : "No Username Set";
 
     const placeholderFullName = session?.user?.fullName != undefined ? session.user?.fullName : "Not Currently Set";
