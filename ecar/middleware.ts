@@ -10,8 +10,5 @@ export default withAuth(
     signOut: "/auth/logout",
     error: "/auth/error"
   },
-  callbacks: {
-    authorized: ({ token }) => token?.role === "authorized",
-  },
 });
 export const config = { matcher: ["/dashboard","/dashboard/:path*"] };
