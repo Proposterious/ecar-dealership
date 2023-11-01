@@ -13,9 +13,9 @@ async function Login() {
     } 
     
     return ( 
-        <div className='w-full h-full bg-orange-300'>
+        <main id="login" className='w-full h-full bg-orange-300'>
             <LoginForm />
-        </div>
+        </main>
     );
 }
 
