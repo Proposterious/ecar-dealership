@@ -17,10 +17,8 @@ function DashboardHeader() {
     console.log("path", path)
     // Get userData as 'session' from useSession()
     const { data: session, status } = useSession({ required: true });
-    if (status == "loading") { placeholderName = "Your" }
-
-    // Assign placeholders variables with 'session' values
-    placeholderName = session?.user?.name as string; // required for register/login
+    if (status == "loading") { placeholderName = "Your" 
+    } else { placeholderName = session?.user?.name as string; }
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
