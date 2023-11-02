@@ -1,0 +1,53 @@
+// export async function handleCars() {
+//     // copies logic from formCars() in service page
+//     var array: any[] = []; var carData:any = {};
+//     const res = await fetch('/api/getVehicles', {
+//         method: 'GET',
+//         headers: {
+//             Accept: 'application.json',
+//             'Content-Type': 'application/json'
+//         },
+//         cache: 'no-store'
+//     }) as any;
+
+//     const data = await res.json();
+//     if (!data.res) { return ["false"] }
+//     const userCars = data.res as UserCar[];
+//     console.log("res", userCars);
+
+//     for (let i = 0; i < userCars.length - 1; i++) {
+//         await getCarById(userCars[i].carId as string).then(
+//             (data: Car[]) => {
+//                 console.log("got data", data);
+//                 array = [...new Set(data)]
+//             }
+//         )
+//     } // setCars once finished fetching
+    
+//     for (let i = 0; i < array.length; i++) {
+//         var currentCar = array[i];
+//         // filter car by its name(s)
+//         let carName = `${currentCar.make_model.make.name} ${currentCar.make_model.name}`;
+//         console.log(carName)
+
+//     // define str, strList from Car's description
+//         let str = currentCar.description as string;
+//         let strList = str.split(' ');
+//     // handles images
+//         if (strList.includes("Sedan")) {
+//             currentCar["img"] = sedanImage;
+//             console.log("was img atr", currentCar.img)
+//             console.log("has sedan", str); 
+
+//         } else if (strList.includes("SUV")) {
+//             currentCar["img"] = suvImage;
+//             console.log("was img atr", currentCar.img)
+//             console.log("has suv", str);
+
+//         } else { 
+//             currentCar["img"] = logo; 
+//             console.log("type undefined or base")
+//         }
+//     }
+//     return array;
+// }
