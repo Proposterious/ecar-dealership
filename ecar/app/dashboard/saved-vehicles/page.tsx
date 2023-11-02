@@ -11,8 +11,10 @@ import Loader from "@/app/loading"; // suspense
 import logo from "@/public/car-logo.png"
 import suvImage from "@/public/img/car-models/sketch_suv.jpg";
 import sedanImage from "@/public/img/car-models/sketch_sedan.jpg";
+import { usePathname } from "next/navigation";
 
 function SavedVehicles() {
+    const pathname = usePathname();
     const [ cars, setCars ] = useState<Car[] | [] | any[]>([]);
     const [ numCars, setNumCars ] = useState(0);
     const [ makesDict, setMakesDict ] = useState<any>({});
@@ -101,7 +103,7 @@ function SavedVehicles() {
                 return newCars;
             });
         });
-    }, [])
+    }, [pathname])
 
     return (
         <section id="saved-vehicles" className="flex n-xs:flex-col n-md:flex-row justify-evenly">
