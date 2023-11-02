@@ -202,7 +202,7 @@ export async function getCarBySpecId(id: string) {
     } catch (error) {
         console.error(error)
         NextResponse.json({ failure: error }, { status: 408 }); // quit function
-        return "false";
+        return null;
     }
     
 }
