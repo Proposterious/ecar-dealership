@@ -110,8 +110,11 @@ function CarList() {
     }
 
     useEffect(() => {
-        formCars().then((car: any) => setData(car));
-        console.log(data);
+        const car = Promise.resolve(formCars())
+        car.then((car: any) => {
+          console.log("New carArray", car);
+          setData(car)
+        });
         console.log("params", searchParams)
     }, [searchParams]);
 

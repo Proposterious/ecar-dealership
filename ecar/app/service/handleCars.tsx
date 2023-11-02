@@ -17,7 +17,7 @@ export async function getCarsByPage(page: String) {
         // await fetch, assign variable
         const response = await fetch(url, options);
         const responseJSON = await response.json();
-        console.log("Fetched data")
+        console.log("Fetched data", responseJSON.data[0].make_model.name + responseJSON.data[0].name)
 
         const carData = [...responseJSON.data];
 
@@ -83,9 +83,9 @@ export async function getCarByMake(make: string) {
         // await fetch, assign variable
         const response = await fetch(url, options);
         const responseJSON = await response.json();
-        console.log("Fetched data")
 
         const carData = responseJSON.data;
+        console.log(`Fetched ${carData[0].make_model.make.name} ${carData[0].make_model.name}`)
 
         if (carData === undefined) { 
             console.log(carData);
@@ -122,7 +122,7 @@ export async function getCarByType(type: string) {
         // await fetch, assign variable
         const response = await fetch(url, options);
         const responseJSON = await response.json();
-        console.log("Fetched data")
+        console.log("Fetched data", responseJSON.data[0].make_model.name + responseJSON.data[0].name)
 
         const carData = responseJSON.data;
 
@@ -165,9 +165,9 @@ export async function getCarByName(name: string) {
         // await fetch, assign variable
         const response = await fetch(url, options);
         const responseJSON = await response.json();
-        console.log("Fetched data")
 
         const carData = responseJSON.data;
+        console.log(`Fetched ${carData[0].make_model.make.name} ${carData[0].make_model.name}`)
 
         if (carData === undefined) { 
             console.log(carData);
