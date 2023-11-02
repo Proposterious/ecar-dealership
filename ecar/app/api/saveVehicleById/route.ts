@@ -13,7 +13,6 @@ export async function POST(req: NextRequestWithAuth) {
     const car = await req.json();
     const saveId = car as unknown as any;
     const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
-    const checkEmail = session?.email as string; // assigns email from token.email
     
     // Search for user in database
     const user = await prisma.user.findUnique({
@@ -40,6 +39,17 @@ export async function POST(req: NextRequestWithAuth) {
         console.log('Car Already Exists on User', saveId);
         await prisma.$disconnect(); return NextResponse.json("Car Exists: Error 202");
     }
+    
+    const newCar: any = await prisma.car.create({
+        data: {
+            userId: checkId,
+            carId: car
+        }
+    }).catch((error) => {
+        console.log("error creating car", error)
+        prisma.$disconnect()
+        return NextResponse.json({ success: false, error: error}, { status: 503 })
+    });
 
     const newUser = await prisma.user.update({ // update user with car model in Cars[]
         where: {
@@ -48,23 +58,22 @@ export async function POST(req: NextRequestWithAuth) {
         data: {
             cars: {
                 connect: { 
-                    id: checkId
+                    id: checkId,
                 },
             },
         },
         include: {
             cars: true,
         }
+    }).catch((error) => {
+        console.log("error connecting user to car", error)
+        prisma.$disconnect()
+        return NextResponse.json({ success: false, error: error}, { status: 503 })
     })
 
-    const updatedUser = prisma.user.findUnique({
-        where: { email: checkEmail }
-    })
+    console.log("created Car", newCar)
+    console.log("connected User", newUser)
 
-    console.log("newUser", newUser)
-    console.log("updatedUser", updatedUser)
-    
-    console.log('Completed User Update')
-    await prisma.$disconnect()
-    return NextResponse.json('Completed action');
+    await prisma.$disconnect();
+    return NextResponse.json({ success: true, message: "Completed Action from saveVehicleById"});
 }

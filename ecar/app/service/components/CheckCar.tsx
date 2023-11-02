@@ -12,19 +12,36 @@ function CheckCar({ carId }: any) {
     const { status } = useSession();
 
     async function handleCar(car: Car) {
-        const elem = document.getElementById(String(car));
         if (bool == true) {
-            setBool(false)
-        } else { setBool(true) }
-            await fetch('/api/saveVehicleById', {
+            const res = await fetch('/api/removeVehicle', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(car)
+                body: JSON.stringify(String(car))
               });
         
-              console.log("Made request to add Vehicle");
+            if (res.ok) { 
+                setBool(false);
+                console.log("Removed Vehicle") 
+            } else { console.log("Failed to Remove Vehicle")}
+
+        } else { 
+            const res = await fetch('/api/saveVehicleById', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(String(car))
+              });
+        
+              if (res.ok) { 
+                setBool(true);
+                console.log("Added Vehicle to User") 
+            } else { console.log("Failed to Add Vehicle")}
+        }
+        
+        return;
     }
 
     async function checkCar() {
@@ -98,6 +115,7 @@ function CheckCar({ carId }: any) {
             </li> 
         </>
         )}
+
     </>
     );
 }
