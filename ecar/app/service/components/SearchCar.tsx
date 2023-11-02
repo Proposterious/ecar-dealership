@@ -101,7 +101,6 @@ function SearchCar() {
                     </div>
 
                     <div id="search-name" className="border-r-2 child:z-50"> 
-
                         <div className="peer hover:cursor-pointer flex flex-row">
                             Name
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
@@ -109,10 +108,10 @@ function SearchCar() {
                             </svg>
                         </div>
                         
-                        <ul id='car-names' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible">
+                        <ul id='car-names' className="w-fit h-52 ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible overflow-y-scroll overscroll-contain snap-y child:snap-start">
                             {currentList && currentList.carNames.map((name:string) => 
                             <li className="duration-300 hover:font-semibold hover:text-orange-600 hover:bg-slate-500" key={name}>
-                                <button onClick={() => {
+                                <button type="button" onClick={() => {
                                 router.push(pathname + '?' + createQueryString('name', `${name}`));
                                 router.refresh();}}>
                                     {name}
@@ -120,11 +119,9 @@ function SearchCar() {
                             </li>
                             )}
                         </ul>
-
                     </div>
 
                     <div id="search-type" className="border-r-2 child:z-50"> 
-
                         <div className="peer hover:cursor-pointer flex flex-row">
                             Type
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
@@ -132,10 +129,10 @@ function SearchCar() {
                             </svg>
                         </div>
                         
-                        <ul id='car-types' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible">
+                        <ul id='car-types' className="w-fit h-32 ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible overflow-y-scroll overscroll-contain snap-y child:snap-start">
                             {currentList && currentList.carTypes.map((type:string) => 
                             <li className="duration-300 hover:font-semibold hover:text-orange-600 hover:bg-slate-500" key={type}>
-                                <button onClick={() => {
+                                <button type="button" onClick={() => {
                                 router.push(pathname + '?' + createQueryString('type', `${type}`));
                                 router.refresh();}}>
                                     {type}
@@ -145,20 +142,19 @@ function SearchCar() {
                         </ul>
 
                     </div>
-
-                    <div id="search-make" className="border-r-2 child:z-50"> 
+                    <div id="search-make" className="mr-1 border-r-2 child:z-50"> 
 
                         <div className="peer hover:cursor-pointer flex flex-row">
-                            Manufacturer
+                            Make
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </div>
                         
-                        <ul id='car-makes' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible">
-                            {currentList && currentList.carNames.map((make:string) => 
-                            <li className="duration-300 hover:font-semibold hover:text-orange-600 hover:bg-slate-500" key={make}>
-                                <button onClick={() => {
+                        <ul id='car-makes' className="w-fit h-32 ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible overflow-y-scroll overscroll-contain snap-y child:snap-start">
+                            {currentList && currentList.carMakes.map((make:string) => 
+                            <li className="duration-300 hover:font-semibold hover:text-orange-600 hover:bg-slate-500 px-4" key={make}>
+                                <button type="button" onClick={() => {
                                 router.push(pathname + '?' + createQueryString('make', `${make}`));
                                 router.refresh();}}>
                                     {make}

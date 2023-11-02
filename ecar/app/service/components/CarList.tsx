@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 // custom shenanigans
-import { getCarsByPage } from "../handleCars";
+import { getCarByName, getCarsByPage } from "../handleCars";
 import logo from "@/public/car-logo.png"
 import suvImage from "@/public/img/car-models/sketch_suv.jpg";
 import sedanImage from "@/public/img/car-models/sketch_sedan.jpg";
@@ -25,7 +25,6 @@ function CarList() {
     // initiating dynamic vars
     const [ data, setData ] = useState([]);
     const [ format, setFormat ] = useState("expand");
-    const [ currentUrl, setUrl ] = useState('');
     // fetch car data
     async function formCars() {
         // Fetch cars from 'carapi'
@@ -36,8 +35,12 @@ function CarList() {
         } else { // if user interacted with SortByPage
           var array = await getCarsByPage(String(page)) as any;
           console.log("page", page)
-        };
-        
+        }; 
+        const name = searchParams.get('name');
+        if (name != null) {
+          var array = await getCarByName(name) as any;
+          console.log("got name")
+        }
         // define new dictionary
         var carData = {} as any;
 
@@ -107,10 +110,10 @@ function CarList() {
     }
 
     useEffect(() => {
-        setUrl(pathname);
         formCars().then((car: any) => setData(car));
         console.log(data);
-    }, [currentUrl]);
+        console.log("params", searchParams)
+    }, [searchParams]);
 
     return (
     <>
@@ -165,7 +168,7 @@ function CarList() {
                 </li>
 
                 <li key="id">
-                  Car #{car.make_model.id}
+                  Car #{`${parseInt(car.id) - 6000}`}
                 </li>
 
                 <li key="type" className="text-sm">
@@ -201,7 +204,7 @@ function CarList() {
                 </li>
 
                 <li key="id">
-                Car #{dict[0].make_model.id}
+                Car #{dict[0].id}
                 </li>
 
                 <li key="type" className="text-sm">

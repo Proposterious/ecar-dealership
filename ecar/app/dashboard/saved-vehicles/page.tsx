@@ -153,6 +153,7 @@ function SavedVehicles() {
                 <h2 className="text-center text-lg font-semibold text-slate-200 bg-orange-600 py-3 px-2 rounded-lg">
                     Your Vehicles List
                 </h2>
+
                 <div className="flex flex-col items-center w-full h-[36rem] max-h-[36rem] child:w-2/3 overflow-scroll overscroll-y-contain snap-y snap-mandatory child:snap-always child:snap-center">
                 {!cars[0] && <Loader />}
             {cars[0] == "false" && (
@@ -170,10 +171,10 @@ function SavedVehicles() {
                 {cars.map((car: Car) => (
                 
                 <ul key={car.id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs | transition duration-200 hover:bg-orange-500 hover:shadow-2xl hover:-translate-y-2 hover:text-slate-100 ease-in shadow-orange-700/70 rounded-lg hover:cursor-default m-4 py-4 px-3">
-                <li key="learn-more" className="relative">
+                <li key="save" className="relative">
                     <button onClick={() => {
                         
-                      }} className="w-fit bg-orange-600 rounded-md -m-2 p-1 absolute right-0">
+                      }} className="w-fit bg-slate-700 rounded-md -m-2 p-1 absolute right-0">
                       <svg xmlns="http://www.w3.org/2000/svg" fill='rgb(20, 200, 240)' viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-8 h-8">
                       <path strokeLinecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                       </svg>
@@ -188,7 +189,7 @@ function SavedVehicles() {
                 </li>
 
                 <li key="id">
-                  Car #{car.make_model.id}
+                  Car #{car.id}
                 </li>
 
                 <li key="type" className="text-sm">

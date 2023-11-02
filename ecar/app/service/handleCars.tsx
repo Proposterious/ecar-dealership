@@ -26,7 +26,8 @@ export async function getCarsByPage(page: String) {
 
     } catch (error) {
         console.error(error)
-        return NextResponse.json({ failure: error }); // quit function
+        NextResponse.json({ success: false, error: error})
+        return; // quit function
     }
 }
 
@@ -60,7 +61,8 @@ export async function getCarById(id: string) {
 
     } catch (error) {
         console.error(error)
-        return NextResponse.json({ failure: error }); // quit function
+        NextResponse.json({ success: false, error: error})
+        return; // quit function
     }
     
 }
@@ -98,7 +100,8 @@ export async function getCarByMake(make: string) {
 
     } catch (error) {
         console.error(error)
-        return NextResponse.json({ failure: error }); // quit function
+        NextResponse.json({ success: false, error: error})
+        return; // quit function
     }
     
 }
@@ -136,7 +139,8 @@ export async function getCarByType(type: string) {
 
     } catch (error) {
         console.error(error)
-        return NextResponse.json({ failure: error }); // quit function
+        NextResponse.json({ success: false, error: error})
+        return; // quit function
     }
     
 }
@@ -178,7 +182,8 @@ export async function getCarByName(name: string) {
 
     } catch (error) {
         console.error(error)
-        return NextResponse.json({ failure: error }); // quit function
+        NextResponse.json({ success: false, error: error})
+        return; // quit function
     }
 }
 
