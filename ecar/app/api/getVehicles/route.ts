@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 export async function GET(req: NextRequest) {
     const prisma = new PrismaClient();  // initiate prisma
     const token = await getToken({ req }); // get token for token.sub (userId)
+    if (!token) { return NextResponse.json({ success: false, error: "User not found" }, { status: 404 }) }
     const checkEmail = token?.email as string; // assigns email from token.email
 
     const user = await prisma.user.findUnique({ // find user and include cars 
@@ -13,6 +14,7 @@ export async function GET(req: NextRequest) {
             cars: true,
         }
     })
+
     if (!user) { // quit function if no user
         await prisma.$disconnect();
         return NextResponse.json({ success: false, error: "User not found" }, { status: 404 })
