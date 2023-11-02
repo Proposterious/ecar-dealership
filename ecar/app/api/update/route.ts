@@ -36,7 +36,6 @@ export async function POST(req: NextRequestWithAuth) {
     // Search for user in database
     const user = await prisma.user.findUnique({
         where: {
-            id: checkId,
             email: checkEmail
         }
     });

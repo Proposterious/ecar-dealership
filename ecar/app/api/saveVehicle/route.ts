@@ -60,7 +60,7 @@ export async function POST(req: NextRequestWithAuth) {
     })
 
     const updatedUser = prisma.user.findUnique({
-        where: { id: checkId, email: checkEmail }
+        where: { email: checkEmail }
     })
 
     console.log("newUser", newUser)

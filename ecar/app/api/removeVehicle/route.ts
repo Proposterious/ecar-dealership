@@ -55,7 +55,7 @@ export async function DELETE(req: NextRequestWithAuth) {
     })
 
     const updatedUser = await prisma.user.findUnique({
-        where: { id: checkId, email: checkEmail },
+        where: { email: checkEmail },
         include: { cars: true }
     })
 

@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const checkEmail = token?.email as string; // assigns email from token.email
 
     const user = await prisma.user.findUnique({ // find user and include cars 
-        where: { id: token?.sub, email: checkEmail },
+        where: { email: checkEmail },
         include: {
             cars: true,
         }
