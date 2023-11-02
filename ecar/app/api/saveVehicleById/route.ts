@@ -13,7 +13,8 @@ export async function POST(req: NextRequestWithAuth) {
     const car = await req.json();
     const saveId = car as unknown as any;
     const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
-
+    const checkEmail = session?.email as string; // assigns email from token.email
+    
     // Search for user in database
     const user = await prisma.user.findUnique({
         where: {
@@ -57,7 +58,7 @@ export async function POST(req: NextRequestWithAuth) {
     })
 
     const updatedUser = prisma.user.findUnique({
-        where: { id: checkId }
+        where: { id: checkId, email: checkEmail }
     })
 
     console.log("newUser", newUser)

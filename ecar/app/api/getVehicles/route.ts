@@ -5,9 +5,10 @@ import { PrismaClient } from '@prisma/client';
 export async function GET(req: NextRequest) {
     const prisma = new PrismaClient();  // initiate prisma
     const token = await getToken({ req }); // get token for token.sub (userId)
-    
+    const checkEmail = token?.email as string; // assigns email from token.email
+
     const user = await prisma.user.findUnique({ // find user and include cars 
-        where: { id: token?.sub },
+        where: { id: token?.sub, email: checkEmail },
         include: {
             cars: true,
         }

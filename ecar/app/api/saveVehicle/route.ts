@@ -12,12 +12,14 @@ export async function POST(req: NextRequestWithAuth) {
     const prisma = new PrismaClient();
     const car = await req.json();
     const saveId = String(car.make_model.id) as unknown as any;
-    const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
+    const checkId = session?.id as string; // assigns id from token.id ('sub' object)
+    const checkEmail = session?.email as string; // assigns email from token.email
 
     // Search for user in database
     const user = await prisma.user.findUnique({
         where: {
             id: checkId,
+            email: checkEmail
         }
     });
 
@@ -43,6 +45,7 @@ export async function POST(req: NextRequestWithAuth) {
     const newUser = await prisma.user.update({ // update user with car model in Cars[]
         where: {
             id: checkId,
+            email: checkEmail
         },
         data: {
             cars: {
@@ -57,7 +60,7 @@ export async function POST(req: NextRequestWithAuth) {
     })
 
     const updatedUser = prisma.user.findUnique({
-        where: { id: checkId }
+        where: { id: checkId, email: checkEmail }
     })
 
     console.log("newUser", newUser)

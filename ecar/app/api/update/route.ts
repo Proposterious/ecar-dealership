@@ -12,6 +12,7 @@ export async function POST(req: NextRequestWithAuth) {
     const data = await req.json();
     const session = await getToken({ req, secret }); // returns dictionary
     const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
+    const checkEmail = session?.email as string; // assigns email from token.email
 
     // Assign mutable variables for 'prisma' to process
     let info = {} as any;
@@ -36,6 +37,7 @@ export async function POST(req: NextRequestWithAuth) {
     const user = await prisma.user.findUnique({
         where: {
             id: checkId,
+            email: checkEmail
         }
     });
     // Quit the function if user not found
