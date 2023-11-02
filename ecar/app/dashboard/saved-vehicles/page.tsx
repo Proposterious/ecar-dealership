@@ -153,9 +153,6 @@ function SavedVehicles() {
                 <h2 className="text-center text-lg font-semibold text-slate-200 bg-orange-600 py-3 px-2 rounded-lg">
                     Your Vehicles List
                 </h2>
-                <button onClick={() => console.log(cars)}>
-                    Click here to check cars
-                </button>
                 <div className="flex flex-col items-center w-full h-[36rem] max-h-[36rem] child:w-2/3 overflow-scroll overscroll-y-contain snap-y snap-mandatory child:snap-always child:snap-center">
                 {!cars[0] && <Loader />}
             {cars[0] == "false" && (
