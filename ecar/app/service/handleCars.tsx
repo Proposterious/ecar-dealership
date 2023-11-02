@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 
 export async function getCarsByPage(page: String) {
     const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&page=${page}&verbose=yes`;
-
     const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
@@ -11,8 +10,8 @@ export async function getCarsByPage(page: String) {
             'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
             'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
         },
-        cache,
-    };
+        cache
+    }
 
     try {
         // await fetch, assign variable
@@ -33,14 +32,15 @@ export async function getCarsByPage(page: String) {
 
 export async function getCarById(id: string) {
     const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&make_model_id=${id}&verbose=yes`;
-
+    const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
             'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        }
-    };
+        },
+        cache
+    }
 
     try {
         // await fetch, assign variable
@@ -67,14 +67,15 @@ export async function getCarById(id: string) {
 
 export async function getCarByMake(make: string) {
     const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&page=1&verbose=yes&make=${make}`;
-
+    const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
             'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        }
-    };
+        },
+        cache
+    }
 
     try {
         // await fetch, assign variable
@@ -104,14 +105,15 @@ export async function getCarByMake(make: string) {
 
 export async function getCarByType(type: string) {
     const url = `https://car-api2.p.rapidapi.com/api/bodies?sort=id&verbose=yes&direction=asc&year=2020&type=${type}`;
-
+    const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
             'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        }
-    };
+        },
+        cache
+    }
 
     try {
         // await fetch, assign variable
@@ -145,14 +147,15 @@ export async function getCarByName(name: string) {
     if (nameArray.length < 2) { console.log("array supposedly not length2\n", nameArray) }
 
     const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&model=${nameArray[1]}&verbose=yes&make=${nameArray[0]}`;
-
+    const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
             'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        }
-    };
+        },
+        cache
+    }
 
     try {
         // await fetch, assign variable
@@ -181,14 +184,15 @@ export async function getCarByName(name: string) {
 
 export async function getCarBySpecId(id: string) {
     const url = `https://car-api2.p.rapidapi.com/api/trims/${id}`;
-
+    const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
             'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        }
-    };
+        },
+        cache
+    }
 
     try {
         // await fetch, assign variable
