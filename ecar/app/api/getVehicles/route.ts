@@ -6,7 +6,9 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export async function GET(req: NextRequest) {
     const prisma = new PrismaClient();  // initiate prisma
-    const token = await getToken({ req, secret }); // get token for token.sub (userId)
+    const token = await getToken({ req, secret, 
+        cookieName: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token'}); // get token from userCookie
+
     if (!token) { return NextResponse.json({ success: false, error: "User not found" }, { status: 404 }) }
     const checkEmail = token?.email as string; // assigns email from token.email
 

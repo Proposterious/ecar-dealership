@@ -8,7 +8,8 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export async function POST(req: NextRequestWithAuth) {
     // Initialize instances
-    const session = await getToken({ req, secret }); // returns dictionary
+    const session = await getToken({ req, secret, 
+        cookieName: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token'}); // get token from userCookie
     const prisma = new PrismaClient();
     const car = await req.json();
     const saveId = String(car.make_model.id) as unknown as any;

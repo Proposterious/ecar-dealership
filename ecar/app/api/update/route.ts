@@ -10,7 +10,8 @@ export async function POST(req: NextRequestWithAuth) {
     // Initialize instances
     const prisma = new PrismaClient();
     const data = await req.json();
-    const session = await getToken({ req, secret }); // returns dictionary
+    const session = await getToken({ req, secret, 
+        cookieName: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token'}); // get token from userCookie
     const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
     const checkEmail = session?.email as string; // assigns email from token.email
 
