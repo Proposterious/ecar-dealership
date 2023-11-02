@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg';
 import Loader from '../loading';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 function RedirectDashboard() {
