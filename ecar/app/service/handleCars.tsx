@@ -1,5 +1,6 @@
 "use server"
 import { NextResponse } from 'next/server';
+import { writeCarAttr } from './function/handleJSON';
 
 export async function getCarsByPage(page: String) {
     const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&page=${page}&verbose=yes`;
@@ -49,6 +50,7 @@ export async function getCarById(id: string) {
         const responseJSON = await response.json();
 
         const carData = responseJSON.data;
+        writeCarAttr(responseJSON.data)
 
         if (carData === undefined) { 
             console.log(carData, carData);
@@ -85,6 +87,7 @@ export async function getCarByMake(make: string) {
         const responseJSON = await response.json();
 
         const carData = responseJSON.data;
+        writeCarAttr(responseJSON.data)
         console.log(`Fetched ${carData[0].make_model.make.name} ${carData[0].make_model.name}`)
 
         if (carData === undefined) { 
@@ -125,6 +128,7 @@ export async function getCarByType(type: string) {
         console.log("Fetched data", responseJSON.data[0].make_model.name + responseJSON.data[0].name)
 
         const carData = responseJSON.data;
+        writeCarAttr(responseJSON.data)
 
         if (carData === undefined) { 
             console.log(carData);
@@ -167,6 +171,7 @@ export async function getCarByName(name: string) {
         const responseJSON = await response.json();
 
         const carData = responseJSON.data;
+        writeCarAttr(carData)
         console.log(`Fetched ${carData[0].make_model.make.name} ${carData[0].make_model.name}`)
 
         if (carData === undefined) { 
