@@ -1,14 +1,15 @@
 "use client"
 import { Car } from "./service";
 import SaveCaution from "./SaveCaution";
-import { getCarById, getCarBySpecId } from "../handleCars";
+import { useSession } from "next-auth/react";
+import { getCarBySpecId } from "../handleCars";
 import { useState, useEffect } from "react";
 import { UserCar } from "@/app/dashboard/saved-vehicles/saved-vehicles";
-import { usePathname } from "next/navigation";
+
 
 function CheckCar({ carId }: any) {
     const [bool, setBool] = useState(false);
-    const pathname = usePathname();
+    const { status } = useSession();
 
     async function handleCar(car: Car) {
         const elem = document.getElementById(String(car));
@@ -45,7 +46,7 @@ function CheckCar({ carId }: any) {
     
         for (let i = 0; i < userCars.length - 1; i++) {
             const res = await getCarBySpecId(userCars[i].carId!);
-            console.log("getCarbySpecId returned ", res)
+            console.log("getCarBySpecId returned ", res)
             array.unshift(res);     
         } // setCars once finished fetching
         return array;
@@ -64,7 +65,7 @@ function CheckCar({ carId }: any) {
                 }
             }
         })
-    }, [pathname])
+    }, [status])
 
     return ( 
     <>
