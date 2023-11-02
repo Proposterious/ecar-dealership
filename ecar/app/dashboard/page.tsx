@@ -3,20 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Popout from '@/public/svg/popout.svg';
 import Loader from '../loading';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 function RedirectDashboard() {
-    const { data: session, status } = useSession();
     const router = useRouter();
-   
-    if (status == "loading") {
-        return (
-            <div className="min-h-screen">
-                <Loader />
-            </div>
-        )
-    }
+    const { data: session, status } = useSession();
 
     const placeholderName = session?.user?.name != undefined ? session.user?.name : "No Username Set";
 
@@ -26,7 +18,22 @@ function RedirectDashboard() {
 
     const placeholderEmail = session?.user?.email != undefined ? session.user?.email : "Not Currently Set";
 
-    return ( 
+    
+   
+    if (status == "loading") { // return loader while fetching session
+        return (
+            <div className="min-h-screen">
+                <Loader />
+            </div>
+        )
+    } else if (status == "unauthenticated")  { // return loader until redirected to signIn
+        return (
+            <div className="min-h-screen">
+                <Loader />
+            </div>
+        )
+    } else { // return main page content if logged in
+        return ( 
         <div className=''>
             <h2 className='underline decoration-wavy | font-semibold text-lg text-orange-600'>
                 Welcome to Your Dashboard, {' '}
@@ -97,7 +104,7 @@ function RedirectDashboard() {
                 </section>  
             </div>
         </div>
-    );
+    )};
 }
 
 export default RedirectDashboard;

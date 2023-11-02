@@ -8,6 +8,7 @@ function DashboardHeader() {
     
     const path = usePathname();
     var placeholderName; var pathname;
+    console.log("path", path)
     if (path === "/dashboard") {
         pathname = '';
     } else if (path === "/dashboard/settings") {
@@ -15,8 +16,7 @@ function DashboardHeader() {
     } else if (path === "/dashboard/saved-vehicles") {
         pathname = "Saved Vehicles"
     } else { pathname = "Undetermined" }
-
-    console.log("path", path)
+    
     // Get userData as 'session' from useSession()
     const { data: session, status } = useSession({ required: true });
     if (status == "loading") { placeholderName = "User" 
