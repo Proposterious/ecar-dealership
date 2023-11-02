@@ -32,7 +32,8 @@ function SavedVehicles() {
         }) as any;
 
         const data = await res.json();
-        if (!data) { console.log("got no cars"); return ["false"] }
+        if (!data) { console.log("got no cars"); return ["false"] 
+        } else if (data.error) { console.log("error", data.error)}
         
         const userCars = data.res as UserCar[];
         console.log("userCars", userCars)
