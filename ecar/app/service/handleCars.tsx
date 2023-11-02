@@ -177,5 +177,29 @@ export async function getCarByName(name: string) {
         console.error(error)
         return NextResponse.json({ failure: error }); // quit function
     }
+}
+
+export async function getCarBySpecId(id: string) {
+    const url = `https://car-api2.p.rapidapi.com/api/trims/${id}`;
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
+            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
+        }
+    };
+
+    try {
+        // await fetch, assign variable
+        const response = await fetch(url, options);
+        const responseJSON = await response.json();
+
+        return NextResponse.json({ responseJSON })
+
+    } catch (error) {
+        console.error(error)
+        return NextResponse.json({ failure: error }); // quit function
+    }
     
 }

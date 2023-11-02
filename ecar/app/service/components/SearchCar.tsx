@@ -139,7 +139,7 @@ function SearchCar() {
                         <button type="button" className="flex flex-row h-fit" onClick={() => hideList("car-types")}>
                             <span className={`px-3 py-2`}/>
                             Type 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" className="h-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
@@ -161,7 +161,7 @@ function SearchCar() {
                     <div id="search-make" className="-mr-1 child:z-50">
                         <button type="button" className="flex flex-row h-fit | ml-2 pr-1" onClick={() => hideList("car-makes")}>
                             Make 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" className="h-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>

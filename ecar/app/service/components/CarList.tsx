@@ -12,6 +12,8 @@ import sedanImage from "@/public/img/car-models/sketch_sedan.jpg";
 import Loader from "@/app/loading";
 import { Car } from "./service";
 import Link from "next/link";
+import SaveCaution from "./SaveCaution";
+import CheckCar from "./CheckCar";
 
 
 function CarList() { 
@@ -22,7 +24,7 @@ function CarList() {
 
     // initiating dynamic vars
     const [ data, setData ] = useState([]);
-    const [ format, setFormat ] = useState("compact");
+    const [ format, setFormat ] = useState("expand");
     const [ currentUrl, setUrl ] = useState('');
     // fetch car data
     async function formCars() {
@@ -64,13 +66,14 @@ function CarList() {
                 console.log("type undefined or base")
             }
 
-
+            
             // Add car cars to the carData object
             if (!carData[carName]) {
                 carData[carName] = [];
             }
             carData[carName].push(array[i]);
         }
+
         console.log("carData", carData)
 
         var carDicts = Object.values(carData)
@@ -78,7 +81,7 @@ function CarList() {
         
         return carDicts
     }
-
+  
     // create new url params
     const createQueryString = useCallback(
         (name: string, value: string) => {
@@ -101,22 +104,6 @@ function CarList() {
           setFormat("expand"); 
           router.push(pathname + '?' + createQueryString('format', 'expand'));
         }
-    }
-
-    async function uploadCar(car: Car) {
-      const elem = document.getElementById(String(car.make_model.id));
-      elem?.classList.remove("bg-sky-400");
-      elem?.classList.add("bg-black");
-      await fetch('/api/saveVehicle', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(car)
-      });
-
-      console.log("Made request to add Vehicle")
-
     }
 
     useEffect(() => {
@@ -166,17 +153,9 @@ function CarList() {
         <>
         {/* display expanded form of carList */}
           {format == "expand" && dict.map((car: any) => (
-            <div key={dict[0].id} className="space-y-4">
+            <div key={car.make_model.make.name + car.make_model.name} className="space-y-4">
               <ul key={car.id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg hover:cursor-default m-4 p-3">
-                <li key="learn-more" className="relative">
-                    <button onClick={() => {
-                      uploadCar(car);
-                      }} className="w-fit bg-sky-400 rounded-md -m-2 p-1 absolute right-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill='rgb(255, 0, 0)' viewBox="0 0 24 24" strokeWidth="1.5" stroke="rgb(240, 110, 20)" className="w-8 h-8">
-                      <path strokeLinecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                      </svg>
-                    </button>
-                </li>
+                <CheckCar carId={car.id} />
                 <li key="img" className="w-fit mx-auto">
                   <Image src={car.img} alt={car.name} className="bg-inherit" style={{ objectFit: "contain", maxHeight: "238px" }} />
                 </li>
@@ -205,51 +184,45 @@ function CarList() {
             </div>
           ))}
 
-          {/* display compacted form of carList */}
-            {format == "compact" && (
-              <div key={dict[0].id} className="space-y-4">
+        {/* display compacted form of carList */}
+          {format == "compact" && (
+            <div key={dict[0].make_model.make.name + dict[0].make_model.name} className="space-y-4">
 
-                <ul key={dict[0].id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg m-4 p-4 pb-4 hover:cursor-default">
+              <ul key={dict[0].id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg m-4 p-4 pb-4 hover:cursor-default">
 
-                  <li className="relative">
-                    <button onClick={() => uploadCar(dict[0])} className="w-fit bg-sky-400 rounded-md -m-2 p-1 absolute right-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill='rgb(255, 0, 0)' viewBox="0 0 24 24" strokeWidth="1.5" stroke="rgb(240, 110, 20)" className="w-8 h-8">
-                      <path strokeLinecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                      </svg>
-                    </button>
-                  </li>
+                <CheckCar carId={dict[0].id} />
 
-                  <li key="img" className="w-fit mx-auto">
-                  <Image src={dict[0].img} alt={dict[0].name} className="bg-inherit" style={{ objectFit: "contain", maxHeight: "238px" }} />
-                  </li>
+                <li key="img" className="w-fit mx-auto">
+                <Image src={dict[0].img} alt={dict[0].name} className="bg-inherit" style={{ objectFit: "contain", maxHeight: "238px" }} />
+                </li>
 
-                  <li key="name" className="text-black font-bold">
-                  Name: {dict[0].make_model.make.name + ' ' + dict[0].make_model.name}
-                  </li>
+                <li key="name" className="text-black font-bold">
+                Name: {dict[0].make_model.make.name + ' ' + dict[0].make_model.name}
+                </li>
 
-                  <li key="id">
-                  Car #{dict[0].make_model.id}
-                  </li>
+                <li key="id">
+                Car #{dict[0].make_model.id}
+                </li>
 
-                  <li key="type" className="text-sm">
-                  Type: {dict[0].name}
-                  </li>
+                <li key="type" className="text-sm">
+                Type: {dict[0].name}
+                </li>
 
-                  <li key="make" className="text-sm">
-                  Make: {dict[0].description}
-                  </li>
+                <li key="make" className="text-sm">
+                Make: {dict[0].description}
+                </li>
 
-                  <li key="learn-more" className="pt-3">
+                <li key="learn-more" className="pt-3">
 
-                    <Link href={`/service/car/${dict[0].make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
-                      Learn More
-                    </Link>
-                  </li>
+                  <Link href={`/service/car/${dict[0].make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
+                    Learn More
+                  </Link>
+                </li>
 
-                </ul>
-              </div>
-            )}
-            </>
+              </ul>
+            </div>
+          )}
+        </>
         ))}
       
       </section>  

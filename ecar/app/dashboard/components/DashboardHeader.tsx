@@ -19,7 +19,7 @@ function DashboardHeader() {
     console.log("path", path)
     // Get userData as 'session' from useSession()
     const { data: session, status } = useSession({ required: true });
-    if (status == "loading") { placeholderName = "Your" 
+    if (status == "loading") { placeholderName = "User" 
     } else if (status == "authenticated") { placeholderName = session?.user?.name as string; 
     } else { router.replace("/auth/login") }
 

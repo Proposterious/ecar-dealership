@@ -21,7 +21,7 @@ export interface Car {
             id: number | undefined;
             name: string | undefined;
         }
-    }
+    },
 };
 
 export interface UserCar {

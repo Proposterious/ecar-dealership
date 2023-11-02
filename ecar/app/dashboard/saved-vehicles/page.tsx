@@ -16,10 +16,10 @@ function SavedVehicles() {
     const [ cars, setCars ] = useState<Car[] | [] | any[]>([]);
     const [ numCars, setNumCars ] = useState(0);
     const [ makesDict, setMakesDict ] = useState<any>({});
-    
+
     async function handleCars() {
         // copies logic from formCars() in service page
-        var array: any[] = []; var carData:any = {};
+        var array: any[] = [];
         const res = await fetch('/api/getVehicles', {
             method: 'GET',
             headers: {
@@ -28,10 +28,12 @@ function SavedVehicles() {
             },
             cache: 'no-store'
         }) as any;
+
         const data = await res.json();
         if (!data.res) { return ["false"] }
         const userCars = data.res as UserCar[];
         console.log("res", userCars);
+
         for (let i = 0; i < userCars.length - 1; i++) {
             await getCarById(userCars[i].carId as string).then(
                 (data: Car[]) => {
@@ -41,7 +43,6 @@ function SavedVehicles() {
             )
         } // setCars once finished fetching
         
-
         for (let i = 0; i < array.length; i++) {
             var currentCar = array[i];
             // filter car by its name(s)
@@ -81,7 +82,8 @@ function SavedVehicles() {
             });
             setCars(cars => { 
                 newCars.forEach((car) => {
-                    if (car.make_model.make.name) {
+                    if (car = "false") { return newCars }
+                    else if (car.make_model.make.name) {
                         if (!newMakesDict[car.make_model.make.name]) {
                             console.log("car name not in dictionary")
                             newMakesDict[car.make_model.make.name] = 1
@@ -94,7 +96,7 @@ function SavedVehicles() {
                     // todo: MAKE A DICT FOR EACH ATTRIBUTE FOR VEHICLE STATISTICS SPACE
                 })
                 setMakesDict(newMakesDict);
-                setNumCars(newCars.length);
+                if (newCars[0] != "false") { setNumCars(newCars.length) };
 
                 return newCars;
             });
@@ -140,6 +142,7 @@ function SavedVehicles() {
                     </div>
                 </div>
             </article>
+
             <article className="w-2/5 h-fit bg-orange-300 rounded-lg p-3">
 
                 <h2 className="text-center text-lg font-semibold text-slate-200 bg-orange-600 py-3 px-2 rounded-lg">
@@ -149,9 +152,11 @@ function SavedVehicles() {
                 <div className="flex flex-col items-center w-full h-[36rem] max-h-[36rem] child:w-2/3 overflow-scroll overscroll-y-contain snap-y snap-mandatory child:snap-always child:snap-center">
                 {!cars[0] && <Loader />}
             {cars[0] == "false" && (
-                <div className="font-bold text-lg w-full text-red-500">
-                    No vehicles saved&ellipse;
-                    <Link href='/service' className="bg-orange-500 text-slate-100 p-3 rounded-md">
+                <div className="my-auto items-center child:w-fit flex flex-col">
+                    <p className=" font-bold text-center text-xl text-red-500">
+                        You Have Saved 0 Vehicles
+                    </p>
+                    <Link href='/service' className="font-semibold bg-orange-500 text-slate-100 p-3 rounded-md">
                         View Vehicles
                     </Link>
                 </div>
