@@ -44,7 +44,6 @@ export async function readCarAttr() {
 
     if (fs.existsSync(filePath)) {
         const data = JSON.parse(fs.readFileSync(filePath, "utf-8")) as any;
-        console.log("data from readCarAttr", data);
         return data as CarAttributes;
     } else { return }
 }

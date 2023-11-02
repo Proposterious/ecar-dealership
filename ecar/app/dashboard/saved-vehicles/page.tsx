@@ -1,7 +1,8 @@
 "use client"
 // functions
 import { useState, useEffect } from "react";
-import { getCarById } from "@/app/service/handleCars";
+import { useSession } from "next-auth/react";
+import { getCarBySpecId } from "@/app/service/handleCars";
 
 import { Car, UserCar } from "./saved-vehicles"; // ts interface
 import Link from "next/link"; // built-in component
@@ -11,10 +12,9 @@ import Loader from "@/app/loading"; // suspense
 import logo from "@/public/car-logo.png"
 import suvImage from "@/public/img/car-models/sketch_suv.jpg";
 import sedanImage from "@/public/img/car-models/sketch_sedan.jpg";
-import { usePathname } from "next/navigation";
+
 
 function SavedVehicles() {
-    const pathname = usePathname();
     const [ cars, setCars ] = useState<Car[] | [] | any[]>([]);
     const [ numCars, setNumCars ] = useState(0);
     const [ makesDict, setMakesDict ] = useState<any>({});
@@ -32,17 +32,15 @@ function SavedVehicles() {
         }) as any;
 
         const data = await res.json();
-        if (!data.res) { return ["false"] }
+        if (!data) { console.log("got no cars"); return ["false"] }
+        
         const userCars = data.res as UserCar[];
-        console.log("res", userCars);
+        console.log("userCars", userCars)
 
-        for (let i = 0; i < userCars.length - 1; i++) {
-            await getCarById(userCars[i].carId as string).then(
-                (data: Car[]) => {
-                    console.log("got data", data);
-                    array = [...new Set(data)]
-                }
-            )
+        for (let i = 0; i < userCars.length; i++) {
+            const carById = await getCarBySpecId(userCars[i].carId as string);
+            array.push(carById);
+            console.log("carById array", array)
         } // setCars once finished fetching
         
         for (let i = 0; i < array.length; i++) {
@@ -74,18 +72,24 @@ function SavedVehicles() {
     }
 
     useEffect(() => {
-        handleCars().then((data: Car[] | any[]) => {
-            let newCars: Car[] | any[] = [];
-            let newMakesDict: any = {};
-            data.forEach((car) => {
-                if (!newCars.includes(car)) {
-                    newCars.push(car);
-                }
+        console.log("Running useEffect()...")
+        let newCars: Car[] | any[] = [];
+        let newMakesDict: any = {};
+        Promise.resolve(handleCars()).then((array: Car[] | any[]) => {  
+            array.forEach((car) => {
+                const prevCar = newCars.findIndex((carRef) => {
+                    return car.id === carRef.id
+                })
+                if (prevCar < 0) { newCars.push(car) };
             });
-            setCars(cars => { 
+            console.log("newCars", newCars)
+            console.log("data", array)
+            setCars((cars) => { 
+                console.log("prevCars", cars)
+                // Add user's cars to array
                 newCars.forEach((car) => {
-                    if (car = "false") { return newCars }
-                    else if (car.make_model.make.name) {
+                    if (car = "false") { return ["false"] 
+                    } else if (car.make_model.make.name != undefined) { // if user has cars
                         if (!newMakesDict[car.make_model.make.name]) {
                             console.log("car name not in dictionary")
                             newMakesDict[car.make_model.make.name] = 1
@@ -99,11 +103,10 @@ function SavedVehicles() {
                 })
                 setMakesDict(newMakesDict);
                 if (newCars[0] != "false") { setNumCars(newCars.length) };
-
                 return newCars;
             });
         });
-    }, [pathname])
+    }, [])
 
     return (
         <section id="saved-vehicles" className="flex n-xs:flex-col n-md:flex-row justify-evenly">
@@ -150,7 +153,9 @@ function SavedVehicles() {
                 <h2 className="text-center text-lg font-semibold text-slate-200 bg-orange-600 py-3 px-2 rounded-lg">
                     Your Vehicles List
                 </h2>
-
+                <button onClick={() => console.log(cars)}>
+                    Click here to check cars
+                </button>
                 <div className="flex flex-col items-center w-full h-[36rem] max-h-[36rem] child:w-2/3 overflow-scroll overscroll-y-contain snap-y snap-mandatory child:snap-always child:snap-center">
                 {!cars[0] && <Loader />}
             {cars[0] == "false" && (

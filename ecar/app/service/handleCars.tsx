@@ -195,11 +195,14 @@ export async function getCarBySpecId(id: string) {
         const response = await fetch(url, options);
         const responseJSON = await response.json();
 
-        return NextResponse.json({ responseJSON })
+        NextResponse.json({ success: true, message: "Retrieved Car Successfully", status: 200})
+        
+        return responseJSON;
 
     } catch (error) {
         console.error(error)
-        return NextResponse.json({ failure: error }); // quit function
+        NextResponse.json({ failure: error }, { status: 408 }); // quit function
+        return "false";
     }
     
 }
