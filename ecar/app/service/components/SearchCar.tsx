@@ -47,19 +47,6 @@ function SearchCar() {
         [name]: value
         }))
     }
-    
-    function hideList(key:string) {
-        console.log(String(key))
-
-        if (document.getElementById(key)?.classList.contains("invisible")) {
-            document.getElementById(key)!.classList.remove('invisible')
-            document.getElementById(key)!.classList.remove('child:invisible')
-        } else { 
-            document.getElementById(key)!.classList.add('invisible') 
-            document.getElementById(key)!.classList.add('child:invisible')
-        }
-
-    }
 
     async function updateCars(params: StringDictionary) {
         // if no params -> quit function
@@ -113,18 +100,18 @@ function SearchCar() {
                         </div>
                     </div>
 
-                    <div id="search-name" className="-ml-4 border-r-2 child:z-50">
-                        <button type="button" onClick={() => hideList("car-names")}className="flex flex-row h-fit">
-                            <span className={`px-3 py-2`}/>
-                            Name 
+                    <div id="search-name" className="border-r-2 child:z-50"> 
+
+                        <div className="peer hover:cursor-pointer flex flex-row">
+                            Name
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
-                        </button>
+                        </div>
                         
-                        <ul id='car-names' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-2 | list-none absolute flex flex-col flex-wrap | invisible">
+                        <ul id='car-names' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible">
                             {currentList && currentList.carNames.map((name:string) => 
-                            <li className="duration-500 hover:font-semibold hover:text-orange-600" key={name}>
+                            <li className="duration-300 hover:font-semibold hover:text-orange-600 hover:bg-slate-500" key={name}>
                                 <button onClick={() => {
                                 router.push(pathname + '?' + createQueryString('name', `${name}`));
                                 router.refresh();}}>
@@ -133,20 +120,21 @@ function SearchCar() {
                             </li>
                             )}
                         </ul>
+
                     </div>
 
-                    <div id="search-type" className="-ml-4 border-r-2 child:z-50">
-                        <button type="button" className="flex flex-row h-fit" onClick={() => hideList("car-types")}>
-                            <span className={`px-3 py-2`}/>
-                            Type 
+                    <div id="search-type" className="border-r-2 child:z-50"> 
+
+                        <div className="peer hover:cursor-pointer flex flex-row">
+                            Type
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
-                        </button>
+                        </div>
                         
-                        <ul id='car-types' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-2 | list-none absolute flex flex-col flex-wrap | invisible">
+                        <ul id='car-types' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible">
                             {currentList && currentList.carTypes.map((type:string) => 
-                            <li className="duration-500 hover:font-semibold hover:text-orange-600" key={type}>
+                            <li className="duration-300 hover:font-semibold hover:text-orange-600 hover:bg-slate-500" key={type}>
                                 <button onClick={() => {
                                 router.push(pathname + '?' + createQueryString('type', `${type}`));
                                 router.refresh();}}>
@@ -158,18 +146,23 @@ function SearchCar() {
 
                     </div>
 
-                    <div id="search-make" className="-mr-1 child:z-50">
-                        <button type="button" className="flex flex-row h-fit | ml-2 pr-1" onClick={() => hideList("car-makes")}>
-                            Make 
+                    <div id="search-make" className="border-r-2 child:z-50"> 
+
+                        <div className="peer hover:cursor-pointer flex flex-row">
+                            Manufacturer
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
-                        </button>
-
-                        <ul id='car-makes' className="w-fit p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-2 | list-none absolute flex flex-col flex-wrap | invisible">
-                            {currentList && currentList.carMakes.map((make:string) => 
-                            <li className="duration-500 hover:font-semibold hover:text-orange-600" key={make}>
-                                <button>{make}</button>
+                        </div>
+                        
+                        <ul id='car-makes' className="w-fit ml-4 p-4 bg-slate-800 | font-normal text-slate-100 text-center space-y-0.5 child:py-1.5 | list-none absolute flex flex-col invisible hover:visible peer-hover:visible">
+                            {currentList && currentList.carNames.map((make:string) => 
+                            <li className="duration-300 hover:font-semibold hover:text-orange-600 hover:bg-slate-500" key={make}>
+                                <button onClick={() => {
+                                router.push(pathname + '?' + createQueryString('make', `${make}`));
+                                router.refresh();}}>
+                                    {make}
+                                </button>
                             </li>
                             )}
                         </ul>
