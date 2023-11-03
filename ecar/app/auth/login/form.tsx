@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 function LoginForm() {
     // Handle 'useState' and 'onChange'
     const router = useRouter();
+    const [disableButton, setDisableButton] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState({
         email: "",
@@ -108,11 +109,12 @@ function LoginForm() {
                         {/* CLICK TO SIGN IN */}
                         <div>
                             <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+                            type="submit" disabled={disableButton} onClick={() => setDisableButton(true)}
+                            className="peer flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm disabled:hidden hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                             >
                                 Sign In
                             </button>
+                            <div className="hidden peer-disabled:block loader mx-auto" />
                         </div>
                     </form>
                     {/* Additional Providers Section */}

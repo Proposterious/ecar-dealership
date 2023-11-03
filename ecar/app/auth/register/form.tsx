@@ -5,11 +5,13 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import Loader from '@/app/loading';
 
 function RegisterForm() {
     // Assign 'useRouter()
     const router = useRouter()
     // Handle 'useState' and 'onChange'
+    const [disableButton, setDisableButton] = useState(false)
     const [error, setError] = useState("");
     const [data, setData] = useState({
         name: "",
@@ -38,10 +40,11 @@ function RegisterForm() {
         const res = await response.json();
         if (res?.error) {
             setError(res.error);
+            setDisableButton(false);
         } else { 
             await signIn('credentials', {
             ...data,
-            redirect: true,
+            callbackUrl: '/dashboard',
             })
         }
     }
@@ -132,11 +135,12 @@ function RegisterForm() {
 
                         <div>
                             <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+                            type="submit" disabled={disableButton} onClick={() => setDisableButton(true)}
+                            className="peer flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm disabled:hidden hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                             >
-                                Sign Up
+                                Sign Up 
                             </button>
+                            <div className="hidden peer-disabled:block loader mx-auto" />
                         </div>
                     </form>
                     {/* Additional Providers Section */}
