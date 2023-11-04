@@ -25,6 +25,7 @@ function LoginForm() {
     };
     // Login user
     const loginUser = async (e: any) => {
+        setDisableButton(true)
         // Handle 'signIn()' request
         e.preventDefault()
         const result = await signIn('credentials', {
@@ -34,12 +35,13 @@ function LoginForm() {
 
         if (result?.error) { 
             setError(result.error);
+            setDisableButton(false);
         } else { router.replace('/dashboard'); }
     }
    
 
     return (
-        <section className='mx-auto n-xs:h-screen n-xs:w-full n-md:py-12 n-md:h-full n-md:w-2/3 n-lg:w-3/4 n-xl:w-1/2'>
+        <section className='mx-auto n-xs:h-screen n-xs:w-full onetime:mb-24 n-md:py-12 n-md:h-full n-md:w-2/3 n-lg:w-3/4 n-xl:w-1/2'>
             <div className="flex min-h-full flex-1 flex-col justify-center items-center rounded-md ease-linear duration-300 shadow-sm hover:shadow-xl hover:shadow-amber-700 shadow-amber-700 px-6 py-12 lg:px-8 bg-slate-100 hover:bg-white">
                 {/* Card Header */}
                 <div className="max-w-sm">
@@ -60,7 +62,7 @@ function LoginForm() {
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     {/* ENTER CREDENTIALS */}
-                    <form className="space-y-4" action="#" onSubmit={loginUser}>
+                    <form className="n-xs:space-y-6 n-md:space-y-4" action="#" onSubmit={loginUser}>
                         {/* ENTER AN EMAIL */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -82,34 +84,34 @@ function LoginForm() {
                         </div>
                         {/* ENTER A PASSWORD */}
                         <div>
-                        <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                            Password
-                            </label>
-                            <div className="text-sm">
-                            <Link href="/auth/register" className="font-semibold text-orange-600 hover:text-orange-500">
-                                Forgot password?
-                            </Link>
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                Password
+                                </label>
+                                <div className="text-sm">
+                                <Link href="/auth/register" className="font-semibold text-orange-600 hover:text-orange-500">
+                                    Forgot password?
+                                </Link>
+                                </div>
                             </div>
-                        </div>
-                        <div className="mt-2">
-                            <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            autoComplete="current-password"
-                            required
-                            value={data.password}
-                            onChange={handleInputChange}
-                            placeholder="***************"
-                            className="n-xs:text-sm n-md:text-md | block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
-                            />
-                        </div>
+                            <div className="mt-2">
+                                <input
+                                id="current-password"
+                                name="password"
+                                type="password"
+                                autoComplete="current-password"
+                                required
+                                value={data.password}
+                                onChange={handleInputChange}
+                                placeholder="***************"
+                                className="n-xs:text-sm n-md:text-md | block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+                                />
+                            </div>
                         </div>
                         {/* CLICK TO SIGN IN */}
                         <div>
                             <button
-                            type="submit" disabled={disableButton} onClick={() => setDisableButton(true)}
+                            type="submit" disabled={disableButton}
                             className="peer flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm disabled:hidden hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                             >
                                 Sign In

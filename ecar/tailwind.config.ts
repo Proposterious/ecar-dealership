@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       screens: {
       // global
+        'onetime': '600px',
         'xs': '0px', 
       // navbar
         'n-xs': '0px',
