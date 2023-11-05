@@ -38,8 +38,8 @@ export async function DELETE(req: NextRequestWithAuth) {
     })
 
     if (!oldCar) { // quit function if car exists
-        console.log('Car Does Not Exist on User', saveId);
-        await prisma.$disconnect(); return NextResponse.json("Car Exists: Error 202");
+        await prisma.$disconnect(); 
+        return NextResponse.json({ success: false, error: "Car Does Not Exist on User"}, { status: 202 });
     }
 
     const deleteCar = await prisma.user.update({
