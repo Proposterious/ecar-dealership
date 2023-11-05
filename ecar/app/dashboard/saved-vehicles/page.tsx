@@ -28,7 +28,7 @@ function SavedVehicles() {
         document.getElementById(choseCarId)?.classList.add('hidden')
 
         const res = await fetch('/api/removeVehicle', {
-            method: 'UPDATE',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
