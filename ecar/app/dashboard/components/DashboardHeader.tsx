@@ -25,8 +25,9 @@ function DashboardHeader() {
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
+
             <h2 className="n-xs:text-xl n-md:text-3xl font-extrabold text-orange-600 underline">
-            { placeholderName }&apos;s Dashboard | { pathname }
+                { placeholderName }&apos;s Dashboard | { pathname }
             </h2>
 
             <nav className="n-xs:text-normal n-md:text-lg n-md:tracking-wide w-fit child:inline-block items-center gap-2 select-none">
