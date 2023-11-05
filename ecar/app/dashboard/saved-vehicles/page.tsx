@@ -39,7 +39,7 @@ function SavedVehicles() {
             setPrevCars((prevCars) => { return [ choseCarId, ...prevCars] });
         } else if (res.error) {
             console.log(`Failed to remove vehicle... \n${res.error}`)
-            document.getElementById(choseCarId)?.classList.add('hidden')
+            document.getElementById(choseCarId)?.classList.remove('hidden')
         } return;
     }
 
@@ -50,10 +50,9 @@ function SavedVehicles() {
         }
         let prevCar: string = prevCars[0]
         const res = await getCarBySpecId(prevCar)
-        const undoneCar = await res.json()
 
-        if (undoneCar) { setCars((cars) => {
-            return [undoneCar, ...cars]
+        if (res) { setCars((cars) => {
+            return [res, ...cars]
         })} else { console.log("Failed to retrieve car ", prevCar)}
     }
 
