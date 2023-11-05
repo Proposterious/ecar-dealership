@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
 
     if (user.cars.length < 1) { // quit function if no cars
         await prisma.$disconnect()
-        return NextResponse.json({ success: false, message: "No cars found" }, { status: 201 });
+        return NextResponse.json({ success: false, error: "No cars found" }, { status: 201 });
     } else { // return cars if they exist on user
         const res = user.cars;
         await prisma.$disconnect();
