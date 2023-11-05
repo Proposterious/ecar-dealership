@@ -17,14 +17,14 @@ export async function GET(req: NextRequest) {
         include: {
             cars: true,
         }
-    })
+    }); 
 
     if (!user) { // quit function if no user
         await prisma.$disconnect();
         return NextResponse.json({ success: false, error: "User not found" }, { status: 404 })
     }
 
-    if (user.cars.length < 1) { // quit function if no cars
+    if (!user.cars.length) { // quit function if no cars
         await prisma.$disconnect()
         return NextResponse.json({ success: false, error: "No cars found" }, { status: 201 });
     } else { // return cars if they exist on user

@@ -8,7 +8,6 @@ import { UserCar } from "@/app/dashboard/saved-vehicles/saved-vehicles";
 
 function CheckCar({ carId }: any) {
     const [bool, setBool] = useState(false);
-    const { status } = useSession();
 
     async function handleCar(car: Car) {
         if (bool == true) {
@@ -81,7 +80,7 @@ function CheckCar({ carId }: any) {
                 }
             }
         })
-    }, [status])
+    }, [])
 
     return ( 
     <>

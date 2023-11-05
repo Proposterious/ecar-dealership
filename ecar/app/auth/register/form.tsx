@@ -120,7 +120,6 @@ function RegisterForm() {
                                 id="email"
                                 name="email"
                                 type="email"
-                                autoComplete="email"
                                 required
                                 value={data.email}
                                 onChange={handleInputChange}
@@ -152,7 +151,6 @@ function RegisterForm() {
                                 name="password"
                                 type={passwordType}
                                 minLength={8} maxLength={24}
-                                autoComplete="new-password"
                                 required
                                 value={data.password}
                                 onChange={handleInputChange}

@@ -25,6 +25,7 @@ function CarList() {
     // initiating dynamic vars
     const [ data, setData ] = useState([]);
     const [ format, setFormat ] = useState("expand");
+
     // fetch car data
     async function formCars() {
         // Fetch cars from 'carapi'
@@ -82,7 +83,7 @@ function CarList() {
         var carDicts = Object.values(carData)
         console.log("carDicts", carDicts)
         
-        return carDicts
+        return carDicts;
     }
   
     // create new url params
@@ -110,13 +111,10 @@ function CarList() {
     }
 
     useEffect(() => {
-        const car = Promise.resolve(formCars())
-        car.then((car: any) => {
+        Promise.resolve(formCars()).then((car: any) => {
           console.log("New carArray", car);
-          setData(car)
-        });
-        console.log("params", searchParams)
-    }, [searchParams]);
+          setData(car);
+      })}, []);
 
     return (
     <>

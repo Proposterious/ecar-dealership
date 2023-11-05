@@ -26,7 +26,8 @@ function SavedVehicles() {
 
     
     async function removeVehicle(choseCarId: string) {
-        document.getElementById(choseCarId)?.classList.add('hidden')
+        const elem = document.getElementById(choseCarId)
+        elem?.classList.add('hidden');
 
         const res = await fetch('/api/removeVehicle', {
             method: 'DELETE',
@@ -38,8 +39,9 @@ function SavedVehicles() {
 
         if (res.ok) {
             console.log("Car successfully removed\n", res.status)
-            setDisableButton(false)
+            elem?.remove()
             setPrevCars((prevCars) =>  [choseCarId, ...prevCars])
+            setDisableButton(false)
         } else if (res.error) {
             console.log(`Failed to remove vehicle... \n${res.error}`)
             document.getElementById(choseCarId)?.classList.remove('hidden')
@@ -48,18 +50,19 @@ function SavedVehicles() {
 
     async function undoRemoval(removedCars: string[]) {
         console.log("prevCars", removedCars)
-        if (removedCars.length = 0) { 
+        if (!removedCars.length) { 
             setDisableButton(true)
             console.log("found no previous cars")    
             return; 
         }
-        let removedCar: string = removedCars[0]
+        let removedCar = removedCars[0]
         console.log("fetching car of id", removedCar)
         const res = await getCarBySpecId(removedCar)
 
         if (res) { // if car retrieved
             console.log("retrieved car: ", res) 
             setCars((cars) => [res, ...cars])
+            setPrevCars((prevCars) => prevCars.filter(prevCar => prevCar !== removedCars[0]))
         } else { console.log("Failed to retrieve car ", removedCar)}
     }
 
@@ -75,9 +78,10 @@ function SavedVehicles() {
             cache: 'no-store'
         }) as any;
 
-        if (res.error) { 
+        if (res.status > 200) { 
             console.log(res.error, res.status)
-            return ["false"];
+            const failed = ["false"]
+            return failed;
         }
         const data = await res.json()
         const userCars = data.res as UserCar[];

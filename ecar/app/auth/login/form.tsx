@@ -99,7 +99,7 @@ function LoginForm() {
                                 id="current-password"
                                 name="password"
                                 type="password"
-                                autoComplete="current-password"
+                                autoComplete="new-password"
                                 required
                                 value={data.password}
                                 onChange={handleInputChange}
