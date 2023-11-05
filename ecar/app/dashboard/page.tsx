@@ -45,7 +45,7 @@ function RedirectDashboard() {
 
             <div id="dashboard-differ" className="child:mx-auto grid grid-flow-row grid-cols-2 space-x-8">
                 <section className="bg-slate-100 m-8 mt-3 p-6">
-                    <h3 className="underline text-lg text-slate-800 font-semibold">
+                    <h3 className="underline text-lg text-slate-800 font-semibold tracking-wide">
                         Dashboard
                     </h3>
 
@@ -68,14 +68,14 @@ function RedirectDashboard() {
                         </Link>
                     </div>
                     
-                    <button onClick={() => router.replace('/dashboard/settings')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold transition duration-300 hover:text-slate-200/90">
+                    <button onClick={() => router.replace('/dashboard/settings')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-semibold transition duration-300 hover:text-slate-200/90">
                         View Settings
                     </button>
                 
                 </section>
 
                 <section className="w-full bg-slate-100 m-8 mt-3 p-6">
-                    <h3 className="underline text-lg text-slate-800 font-semibold">
+                    <h3 className="underline text-lg text-slate-800 font-semibold tracking-wide">
                         Saved Vehicles
                     </h3>
 
@@ -97,7 +97,7 @@ function RedirectDashboard() {
                     </Link>
                     </div>
                     
-                    <button onClick={() => router.replace('/dashboard/saved-vehicles')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-extrabold transition duration-300 hover:text-slate-200/90">
+                    <button onClick={() => router.replace('/dashboard/saved-vehicles')} className="py-2 px-3 mt-8 text-white bg-orange-600 rounded-lg font-semibold transition duration-300 hover:text-slate-200/90">
                         View Your Vehicles
                     </button>
 

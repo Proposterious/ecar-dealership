@@ -25,28 +25,20 @@ function DashboardHeader() {
 
     return ( 
         <div className="mb-6 flex flex-col gap-4">
-            <h2 className="text-2xl font-extrabold text-orange-600 underline">
+            <h2 className="n-xs:text-xl n-md:text-3xl font-extrabold text-orange-600 underline">
             { placeholderName }&apos;s Dashboard | { pathname }
             </h2>
 
-            <nav>
-            <ol className="flex items-center gap-2">
-                <li>
-                    <Link href="/dashboard" className="font-semibold text-orange-600 duration-200 hover:font-bold hover:text-orange-500">
-                        Dashboard
-                    </Link>
-                </li>
-                <li>
-                    <p className="-indent-1 font-semibold">
-                        /
-                    </p>
-                </li>
-                <li>
-                    <Link href="path" className="-indent-1 font-semibold text-slate-700 duration-200 hover:font-bold hover:text-black">
-                        { pathname }
-                    </Link>
-                </li>
-            </ol>
+            <nav className="n-xs:text-normal n-md:text-lg n-md:tracking-wide w-fit child:inline-block items-center gap-2 select-none">
+                <Link href="/dashboard" className="mx-1 font-semibold text-orange-500 hover:text-orange-400 hover:bg-sky-200/40 n-md:hover:tracking-wide duration-300">
+                    Dashboard
+                </Link>
+                <div className="indent-1 font-semibold hover:cursor-default">
+                    /
+                </div>
+                <Link href="path" className="mx-1 font-semibold text-slate-800 hover:text-slate-600 hover:bg-sky-200/40 n-md:hover:tracking-wide duration-300">
+                    { pathname }
+                </Link>
             </nav>
 
         </div>
