@@ -17,6 +17,7 @@ function SavedVehicles() {
     // Car[] for recording data and user actions
     const [ cars, setCars ] = useState<Car[] | [] | any[]>([]);
     const [ prevCars, setPrevCars ] = useState<string[]>([]);
+    const [ disableButton, setDisableButton ] = useState<boolean>(true);
 
     // attributes for vehicle statistics
     const [ makesDict, setMakesDict ] = useState<any>({});
@@ -28,7 +29,7 @@ function SavedVehicles() {
         document.getElementById(choseCarId)?.classList.add('hidden')
 
         const res = await fetch('/api/removeVehicle', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -36,24 +37,30 @@ function SavedVehicles() {
         }) as any; // does not accept 'NextResponse' as type
 
         if (res.ok) {
-            setPrevCars((prevCars) => { return [ choseCarId, ...prevCars] });
+            console.log("Car successfully removed\n", res.status)
+            setDisableButton(false)
+            setPrevCars((prevCars) =>  [choseCarId, ...prevCars])
         } else if (res.error) {
             console.log(`Failed to remove vehicle... \n${res.error}`)
             document.getElementById(choseCarId)?.classList.remove('hidden')
         } return;
     }
 
-    async function undoRemoval() {
-        if (prevCars.length = 0) { 
+    async function undoRemoval(removedCars: string[]) {
+        console.log("prevCars", removedCars)
+        if (removedCars.length = 0) { 
+            setDisableButton(true)
             console.log("found no previous cars")    
             return; 
         }
-        let prevCar: string = prevCars[0]
-        const res = await getCarBySpecId(prevCar)
+        let removedCar: string = removedCars[0]
+        console.log("fetching car of id", removedCar)
+        const res = await getCarBySpecId(removedCar)
 
-        if (res) { setCars((cars) => {
-            return [res, ...cars]
-        })} else { console.log("Failed to retrieve car ", prevCar)}
+        if (res) { // if car retrieved
+            console.log("retrieved car: ", res) 
+            setCars((cars) => [res, ...cars])
+        } else { console.log("Failed to retrieve car ", removedCar)}
     }
 
     async function handleCars() {
@@ -68,10 +75,11 @@ function SavedVehicles() {
             cache: 'no-store'
         }) as any;
 
-        const data = await res.json();
-        if (!data) { console.log("got no cars"); return ["false"] 
-        } else if (data.error) { console.log("error", data.error)}
-        
+        if (res.error) { 
+            console.log(res.error, res.status)
+            return ["false"];
+        }
+        const data = await res.json()
         const userCars = data.res as UserCar[];
         console.log("userCars", userCars)
 
@@ -229,7 +237,7 @@ function SavedVehicles() {
                                 removeVehicle(String(car.id));
                             }} className="w-fit bg-slate-700 rounded-md -m-2 p-1 absolute right-0">
                             <svg xmlns="http://www.w3.org/2000/svg" fill='rgb(20, 200, 240)' viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-8 h-8">
-                            <path strokeLinecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
                             </button>
                         </li>
@@ -268,7 +276,7 @@ function SavedVehicles() {
                     </div>
                 </section>
 
-                <button onClick = {() => undoRemoval()} className="bg-slate-400 py-2 px-3 text-slate-100 font-semibold rounded-lg transition ease-in-out duration-300 hover:bg-slate-300 hover:text-slate-500 hover:ring-2 hover:ring-slate-500">
+                <button disabled={disableButton} onClick = {() => undoRemoval(prevCars)} className="bg-slate-400 py-2 px-3 text-slate-100 font-semibold rounded-lg transition ease-in-out duration-300 hover:bg-slate-300 hover:text-slate-500 hover:ring-2 hover:ring-slate-500">
                     Restore Last Vehicle
                 </button>
             </article>

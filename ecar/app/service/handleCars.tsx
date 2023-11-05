@@ -207,6 +207,7 @@ export async function getCarBySpecId(id: string) {
     try {
         // await fetch, assign variable
         const response = await fetch(url, options);
+        console.log("getCarBySpecId response", response)
         const responseJSON = await response.json();
 
         NextResponse.json({ success: true, message: "Retrieved Car Successfully", status: 200})
