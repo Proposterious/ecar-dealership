@@ -20,6 +20,7 @@ function SavedVehicles() {
     const [ disableButton, setDisableButton ] = useState<boolean>(true);
 
     // attributes for vehicle statistics
+    const [ yearsDict, setYearsDict ] = useState<any>({});
     const [ makesDict, setMakesDict ] = useState<any>({});
     const [ typesDict, setTypesDict ] = useState<any>({});
     const [ numCars, setNumCars ] = useState(0);
@@ -124,6 +125,7 @@ function SavedVehicles() {
     useEffect(() => {
         console.log("Running useEffect()...")
         let newCars: Car[] | any[] = [];
+        let newYears: any = {};
         let newMakesDict: any = {}; let newTypesDict: any = {};
         Promise.resolve(handleCars()).then((array: Car[] | any[]) => {  
             array.forEach((car) => {
@@ -160,9 +162,22 @@ function SavedVehicles() {
                         }
                     } else { console.log("No car type specified")}
                     // todo: MAKE A DICT FOR EACH ATTRIBUTE FOR VEHICLE STATISTICS SPACE
-                }) 
+                }); newCars.every((car) => {
+                    if (car === "false") { return ["false"] 
+                    } else if (car.year != undefined) { // if user has cars
+                        if (!newYears[String(car.year)]) {
+                            console.log("car year not in dictionary")
+                            newYears[String(car.year)] = 1
+                        } else { 
+                            console.log("car year in dictionary", newYears)
+                            newYears[String(car.year)] = newYears[String(car.year)] + 1;
+                        }
+                    } else { console.log("No car year specified")}
+                    // todo: MAKE A DICT FOR EACH ATTRIBUTE FOR VEHICLE STATISTICS SPACE
+                }); 
                 setMakesDict(newMakesDict);
                 setTypesDict(newTypesDict);
+                setYearsDict(newYears)
                 if (newCars[0] != "false") { setNumCars(newCars.length) };
                 console.log(newMakesDict)
                 return newCars;
@@ -180,31 +195,44 @@ function SavedVehicles() {
                 </div>
 
                 <div id="stats-body" className="bg-slate-100 p-4 border-t-orange-600 border-t-2 mt-2 | n-xs:h-[36rem] max-h-[36rem] n-xs:grid n-xs:grid-flow-row n-xs:grid-cols-1 n-xs:child:border-2 n-xs:child:border-b-0 n-xs:child:border-sky-300 n-xs:child:p-2 n-xs:overflow-y-scroll n-xs:overscroll-contain | n-md:h-fit n-md:child:p-0 n-md:child:border-0 n-md:flex md:flex-col n-md:space-y-3 child:w-full n-md:justify-evenly">
-                    <div>
-                        <h3 className="text-lg font-bold underline tracking-wider">
-                            Cars of Specific Make
-                        </h3>
-                        {Object.values(makesDict) && (
-                            Object.entries(makesDict).map(([carName, carInstances]: any) => (
-                            <li key={carName} className="list-none flex n-xs:flex-row | n-md:flex-col n-md:w-1/2">
-                                <span className="tracking-wide font-semibold">{carName} - {carInstances}</span>
-                            </li>
-                            ))
-                        )}
-                    </div>
+                        <div>
+                            <h3 className="text-lg text-orange-600 font-bold underline tracking-wider">
+                                Favorite Vehicle Makes by Count
+                            </h3>
+                            {Object.values(makesDict) && (
+                                Object.entries(makesDict).map(([carName, carInstances]: any) => (
+                                <li key={carName} className="list-none flex n-xs:flex-row | n-md:flex-col n-md:w-1/2">
+                                    <span className="tracking-wide font-semibold">{carName} - {carInstances}</span>
+                                </li>
+                                ))
+                            )}
+                        </div>
+                        
+                        <div className="px-12">
+                            <h3 className="text-lg text-orange-600 font-bold underline tracking-wider">
+                                Vehicle Years &#40;Descending&#41;
+                            </h3>
+                            {Object.values(yearsDict) && (
+                                Object.entries(yearsDict).map(([carName, carInstances]: any) => (
+                                <li key={carName} className="list-none flex n-xs:flex-row | n-md:flex-col n-md:w-1/2">
+                                    <span className="tracking-wide font-semibold">Cars from Year {carName} - {carInstances}</span>
+                                </li>
+                                ))
+                            )}
+                        </div>
 
-                    <div className="px-12">
-                        <h3 className="text-lg font-bold underline tracking-wider">
-                            Car by Type <span className="font-semibold">&#40;Sedan, SUV, Base, etc.&#41;</span>
-                        </h3>
-                        {Object.values(typesDict) && (
-                            Object.entries(typesDict).map(([carName, carInstances]: any) => (
-                            <li key={carName} className="list-none flex n-xs:flex-row | n-md:flex-col n-md:w-1/2">
-                                <span className="tracking-wide font-semibold">{carName} Type - {carInstances}</span>
-                            </li>
-                            ))
-                        )}
-                    </div>
+                        <div className="px-12">
+                            <h3 className="text-lg text-orange-600 font-bold underline tracking-wider">
+                                Favorite Vehicle Types <span className="font-normal">&#40;Sedan, SUV, Base, etc.&#41;</span>
+                            </h3>
+                            {Object.values(typesDict) && (
+                                Object.entries(typesDict).map(([carName, carInstances]: any) => (
+                                <li key={carName} className="list-none flex n-xs:flex-row | n-md:flex-col n-md:w-1/2">
+                                    <span className="tracking-wide font-semibold">{carName} Type - {carInstances}</span>
+                                </li>
+                                ))
+                            )}
+                        </div>
 
                     <sub className="w-fit select-none text-right text-sm text-orange-600 font-light underline tracking-wide">
                         You Currently Have {numCars} Vehicles Saved
