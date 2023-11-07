@@ -42,7 +42,7 @@ export async function DELETE(req: NextRequestWithAuth) {
         return NextResponse.json({ success: false, error: "Car Does Not Exist on User"}, { status: 202 });
     }
 
-    const deleteCar = await prisma.user.update({
+    await prisma.user.update({
         where: {
             id: checkId,
         },
@@ -53,17 +53,10 @@ export async function DELETE(req: NextRequestWithAuth) {
                 }]
             }
         }
+    }).then(async () => {
+        console.log('Completed User Update')
+        await prisma.$disconnect();
+        return NextResponse.json({ success: true, message: "Completed Action."}, { status: 200 });
     })
-
-    const updatedUser = await prisma.user.findUnique({
-        where: { email: checkEmail },
-        include: { cars: true }
-    })
-
-    console.log("deleteCar", deleteCar)
-    console.log("updatedUser", updatedUser)
     
-    console.log('Completed User Update')
-    await prisma.$disconnect();
-    return NextResponse.json({ success: true, message: "Completed Action."}, { status: 200 });
 }

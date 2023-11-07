@@ -19,8 +19,7 @@ function CheckCar({ carId }: any) {
                 body: JSON.stringify(String(car))
               });
         
-            if (res.ok) { 
-                setBool(false);
+            if (res.ok) {
                 console.log("Removed Vehicle") 
             } else { console.log("Failed to Remove Vehicle")}
 
@@ -43,8 +42,8 @@ function CheckCar({ carId }: any) {
     }
 
     async function checkCar() {
+        let array: any[] = [];
         // copies logic from formCars() in service page
-        var array: any[] = [];
         const res = await fetch('/api/getVehicles', {
             method: 'GET',
             headers: {
@@ -64,14 +63,15 @@ function CheckCar({ carId }: any) {
             console.log("getCarBySpecId returned ", res)
             array.unshift(res);     
         } // setCars once finished fetching
-        return array;
+        return array as UserCar[];
     }
     
     useEffect(() => {
         checkCar().then((carArray) => {
             if (carArray[0] != "false") {
                 for (let i = 0; i < carArray.length; i++) {
-                    var userCar = document.getElementById(carArray[i].id)
+                    let gotCar = carArray[i] as UserCar;
+                    var userCar = document.getElementById(String(gotCar.carId));
                     if (userCar) {
                         setBool(true);
                         i = carArray.length;
@@ -84,6 +84,9 @@ function CheckCar({ carId }: any) {
 
     return ( 
     <>
+        <button onClick={() => console.log(bool)}>
+            log bool
+        </button>
         {bool && (
         <> 
             <li key="learn-more" className="relative">
