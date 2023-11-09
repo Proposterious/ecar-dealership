@@ -27,10 +27,14 @@ function CarList() {
 
     // initiating dynamic vars
     const [ formedCars, setFormedCars ] = useState([]);
+    const [ fetched, setFetched ] = useState(false)
     const [ format, setFormat ] = useState("expand");
+    const [ caution, displayCaution ] = useState(false);
     const [ bool, setBool ]  = useState<{[key: string]: boolean }>({});
     
     async function handleCar(car: string) {
+      displayCaution(true);
+      document.getElementById("check-cars-alert")?.classList.remove("hidden");
       if (bool[car] === true) {
         setBool({
           ...bool,
@@ -38,7 +42,7 @@ function CarList() {
         });
 
         const res = await fetch('/api/removeVehicle', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -82,7 +86,6 @@ function CarList() {
   
         if (res.status === 200) {
           console.log("Added Vehicle to User")
-          return ( <SaveCaution /> );
         } else { 
           console.log("Failed to Add Vehicle")
           setBool({
@@ -233,11 +236,13 @@ function CarList() {
         }).then((checkedCars) => Promise.resolve(formCars(checkedCars)).then((car: any) => {
           console.log("formedCars", car);
           setFormedCars(car);
+          setFetched(true);
         }));
     }, []);
 
     return (
     <>
+    {caution === true && ( <SaveCaution /> )}
       <section id="about-format" className="flex flex-row | first:invisible hover:first:visible | fixed right-8 n-xs:top-12 n-md:top-32 n-lg:top-48 z-50">
         <div id="carList-tooltip" className="bg-slate-200/90 p-1 -mr-10 -mt-8 h-fit | font-semibold text-sm text-slate-600 | hidden">
             <span id="explanation" className="border-b-2 border-orange-600">
@@ -270,7 +275,8 @@ function CarList() {
       </section>
       
       {/* Display Loader while Fetching Data */}
-      {formedCars.length < 2 && <Loader />}
+      {fetched !== true && <Loader />}
+      <button onClick={() => console.log(bool)}>bool check</button>
       <section id="format-cars" className="bg-inherit | grid grid-cols-4 grid-flow-row">
       {/* Display Cars after Fetching Data */}
       {formedCars && formedCars.map((dict: any) => (

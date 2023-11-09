@@ -7,6 +7,9 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    safeList: [
+      '[slide-in-down_1s_ease-in-out]'
+    ],
     extend: {
       screens: {
       // global

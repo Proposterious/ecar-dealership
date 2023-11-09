@@ -9,7 +9,11 @@ export async function GET(req: NextRequest) {
     const token = await getToken({ req, secret, 
         cookieName: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token'}); // get token from userCookie
 
-    if (!token) { return NextResponse.json({ success: false, error: "User not found" }, { status: 404 }) }
+    if (token === null) { // quit if user is not logged in
+        await prisma.$disconnect();
+        return NextResponse.json({ success: false, error: "User not found" }, { status: 404 }) 
+    }
+
     const checkEmail = token?.email as string; // assigns email from token.email
 
     const user = await prisma.user.findUnique({ // find user and include cars 

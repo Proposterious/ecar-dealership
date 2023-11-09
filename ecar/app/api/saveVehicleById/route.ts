@@ -15,6 +15,10 @@ export async function POST(req: NextRequestWithAuth) {
     const saveId = car as unknown as any;
     const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
     
+    if (session === null) {
+        await prisma.$disconnect()
+        return NextResponse.json({ success: false, error: "User not found" }, { status: 404 }) ;
+    }
     // Search for user in database
     const user = await prisma.user.findUnique({
         where: {

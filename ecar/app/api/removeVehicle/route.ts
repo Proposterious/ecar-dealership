@@ -14,7 +14,6 @@ export async function DELETE(req: NextRequestWithAuth) {
     const car = await req.json();
     const saveId = car as unknown as any;
     const checkId = session?.sub as string; // assigns id from token.id ('sub' object)
-    const checkEmail = session?.email as string; // assigns email from token.email
     
     // Search for user in database
     const user = await prisma.user.findUnique({
@@ -56,7 +55,7 @@ export async function DELETE(req: NextRequestWithAuth) {
     }).then(async () => {
         console.log('Completed User Update')
         await prisma.$disconnect();
-        return NextResponse.json({ success: true, message: "Completed Action."}, { status: 200 });
     })
-    
+
+    return NextResponse.json({ success: true, message: "Removed Vehicle from User"}, { status: 200 });
 }
