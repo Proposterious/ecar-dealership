@@ -276,7 +276,6 @@ function CarList() {
       
       {/* Display Loader while Fetching Data */}
       {fetched !== true && <Loader />}
-      <button onClick={() => console.log(bool)}>bool check</button>
       <section id="format-cars" className="bg-inherit | grid grid-cols-4 grid-flow-row">
       {/* Display Cars after Fetching Data */}
       {formedCars && formedCars.map((dict: any) => (
