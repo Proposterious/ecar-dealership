@@ -14,7 +14,7 @@ export async function writeCarAttr(cars: any[]) {
     // static vars
     var types: string[] = ["SUV", "Base", "Coup", "Sedan", "Minivan", "Wagon", "Convertible", "Truck", "Truck (Extended Cab)", "Truck (Double Cab", "Truck (Crew Cab)", "Truck (Regular Cab)"];
 
-    const filePath = path.join(__dirname, '../../../../app/service/cars.json');
+    const filePath = process.cwd() + '/app/carInfo.json';
     
     cars.map((car:any) => {
         var carName = `${car.make_model.make.name} ${car.make_model.name}`
@@ -40,7 +40,7 @@ export async function writeCarAttr(cars: any[]) {
 }
 
 export async function readCarAttr() {
-    const filePath = path.join(__dirname, '../../../../app/service/cars.json');
+    const filePath = process.cwd() + '/app/data.json';
 
     if (fs.existsSync(filePath)) {
         const data = JSON.parse(fs.readFileSync(filePath, "utf-8")) as any;
