@@ -13,6 +13,7 @@ import car4 from '@/public/img/car-models/sketch_sedan.jpg';
 
 
 export default function CarPage({ params }: { params: { car: string[] } }) {
+    console.log(params);
     const [displayImage, setDisplayImage] = useState(Logo);
     const [car, setCar] = useState(null) as unknown as any;
     const [index, setIndex] = useState(0);
