@@ -26,11 +26,6 @@
  **2. Backend**:
     - **Nextjs** does not actually provide an efficient way of handling server requests or API calls, but thankfully **NextAuth** resolves this issue. While many common ways I have seen others handle API calls is with axios, Node, express, and django, I myself found NextAuth to be perfect for my project since it was made specifically for Nextjs and there were plenty of tutorials that would assist in setting up a simple handler file for CRUD operations. However, it actually helped me most to create separate files to handle many different individualized tasks rather than using a handler file to deal with all of the requests in my application.
     - Although I just talked about how much I loved NextAuth's ease of use, when it came to making changes to what would be passed in the session or token cookies, I encountered more problems that I wished to have had to spend so much of my time on. For example, I wanted to use **MongoDB/Mongoose** to handle all my user information and its retrieval; however, since MongoDB did not have a dedicated NextAuth adapter, I would have to either switch databases entirely or use schemas provided by **Prisma**. On top of not having a dedicated adapter which forced me to add yet another abstraction to my project, I would spend much of my time defining Schema's, walking through how to not have multiple instances of Prisma connections running at the same time (since you have to tell Prisma to disconnect every time before you exit a function), having to determine whether `db push` or `migrate dev` would actually update my database, etc. While these were all definitely small bugs with easy fixes most of the time, the abundancy of these issues can definitely get into your head.
-    
- ***3. .env Files (sort of unrelated)***:
-    - I still have no clue how I am meant to deploy my website using secretive passwords and urls without having them be visible to anyone willing to snoop around in search for them.
-    
-*4. I'm addicted to coding send help*
 
 ## What are your plans for the future? 📆
 
