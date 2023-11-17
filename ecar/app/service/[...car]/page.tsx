@@ -65,8 +65,6 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
     }, [])
 
     return (
-    
-    
     <main className="w-full min-h-screen n-xs:py-20 n-xs:px-4 n-md:p-3 bg-orange-400">
     {car === null && <Loader />}
     {car &&

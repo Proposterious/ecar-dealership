@@ -1,6 +1,5 @@
 "use client"
 import { Car } from "./service";
-import { useSession } from "next-auth/react";
 import { getCarBySpecId } from "../handleCars";
 import { useState, useEffect } from "react";
 import { UserCar } from "@/app/dashboard/saved-vehicles/saved-vehicles";
