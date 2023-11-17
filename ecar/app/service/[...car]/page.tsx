@@ -62,7 +62,7 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
     }
 
     useEffect(() => {
-        getCarById(params.car[1]).then((obj: Car) => setCar(obj));
+        getCarById(params.car[1]).then((obj: Car) => {setCar(obj).then(() => console.log(car))});
     }, [])
 
     return (
