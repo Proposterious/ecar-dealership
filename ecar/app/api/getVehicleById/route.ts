@@ -18,8 +18,6 @@ export async function GET(req: NextRequest) {
         const response = await fetch(url, options);
         const responseJSON = await response.json();
         console.log("Fetched car by id (api call)")
-
-
         
         return NextResponse.json({ responseJSON }, { status: 200}); // return function
 
