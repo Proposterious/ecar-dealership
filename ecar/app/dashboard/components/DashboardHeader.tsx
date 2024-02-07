@@ -26,11 +26,11 @@ function DashboardHeader() {
     return ( 
         <div className="mb-6 flex flex-col gap-4">
 
-            <h2 className="n-xs:text-xl n-md:text-3xl font-extrabold text-orange-600 underline">
+            <h2 className="n-xs:text-center n-xs:text-xl n-md:text-left n-md:text-2xl n-lg:text-3xl font-extrabold text-orange-600 underline">
                 { placeholderName }&apos;s Dashboard | { pathname }
             </h2>
 
-            <nav className="n-xs:text-normal n-md:text-lg n-md:tracking-wide w-fit child:inline-block items-center gap-2 select-none">
+            <nav className="n-xs:mx-auto n-xs:text-normal n-md:mx-0 n-md:text-lg n-md:tracking-wide w-fit child:inline-block items-center gap-2 select-none">
                 <Link href="/dashboard" className="mx-1 font-semibold text-orange-500 hover:text-orange-400 hover:bg-sky-200/40 n-md:hover:tracking-wide duration-300">
                     Dashboard
                 </Link>

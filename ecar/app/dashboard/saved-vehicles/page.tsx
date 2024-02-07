@@ -186,7 +186,7 @@ function SavedVehicles() {
     }, [])
 
     return (
-        <section id="saved-vehicles" className="flex n-xs:flex-col n-xs:justify-evenly n-xs:child:mx-auto n-md:flex-row n-md:justify-evenly">
+        <section id="saved-vehicles" className="flex n-xs:flex-col n-xs:gap-y-6 n-xs:justify-evenly n-xs:child:mx-auto n-md:flex-row n-md:justify-evenly">
             <article id="user-stats" className="n-xs:w-full n-md:w-2/5 n-xs:h-3/5 n-md:h-fit bg-slate-200 rounded-lg p-3">
                 <div id="stats-header" className="select-none">
                     <h2 className="text-center bg-slate-700 p-3 rounded-md text-xl text-orange-500 font-semibold tracking-wider">
@@ -194,9 +194,9 @@ function SavedVehicles() {
                     </h2>
                 </div>
 
-                <div id="stats-body" className="bg-slate-100 p-4 border-t-orange-600 border-t-2 mt-2 | n-xs:h-[36rem] max-h-[36rem] n-xs:grid n-xs:grid-flow-row n-xs:grid-cols-1 n-xs:child:border-2 n-xs:child:border-b-0 n-xs:child:border-sky-300 n-xs:child:p-2 n-xs:overflow-y-scroll n-xs:overscroll-contain | n-md:h-fit n-md:child:p-0 n-md:child:border-0 n-md:flex md:flex-col n-md:space-y-3 child:w-full n-md:justify-evenly">
+                <div id="stats-body" className="bg-slate-100 p-4 border-t-orange-600 border-t-2 mt-2 | n-xs:h-[36rem] max-h-[36rem] n-xs:grid n-xs:grid-flow-row n-xs:grid-cols-1 n-xs:child:border-2 n-xs:child:border-slate-300 n-xs:gap-2 n-xs:child:p-2 n-xs:overflow-y-scroll n-xs:overscroll-contain | n-md:h-fit n-md:child:p-0 n-md:child:border-0 n-md:flex md:flex-col n-md:space-y-3 child:w-full n-md:justify-evenly">
                         <div>
-                            <h3 className="text-lg text-orange-600 font-bold underline tracking-wider">
+                            <h3 className="n-xs:text-md n-md:text-lg text-orange-600 font-bold underline tracking-wider">
                                 Favorite Vehicle Makes by Count
                             </h3>
                             {Object.values(makesDict) && (
@@ -209,7 +209,7 @@ function SavedVehicles() {
                         </div>
                         
                         <div className="px-12">
-                            <h3 className="text-lg text-orange-600 font-bold underline tracking-wider">
+                            <h3 className="n-xs:text-md n-md:text-lg text-orange-600 font-bold underline tracking-wider">
                                 Vehicle Years &#40;Descending&#41;
                             </h3>
                             {Object.values(yearsDict) && (
@@ -222,7 +222,7 @@ function SavedVehicles() {
                         </div>
 
                         <div className="px-12">
-                            <h3 className="text-lg text-orange-600 font-bold underline tracking-wider">
+                            <h3 className="n-xs:text-md n-md:text-lg text-orange-600 font-bold underline tracking-wider">
                                 Favorite Vehicle Types <span className="font-normal">&#40;Sedan, SUV, Base, etc.&#41;</span>
                             </h3>
                             {Object.values(typesDict) && (
@@ -234,7 +234,7 @@ function SavedVehicles() {
                             )}
                         </div>
 
-                    <sub className="w-fit select-none text-right text-sm text-orange-600 font-light underline tracking-wide">
+                    <sub className="w-fit select-none n-xs:text-center n-xs:my-auto n-sm:my-0 n-sm:text-right text-sm text-orange-600 font-light underline tracking-wide">
                         You Currently Have {numCars} Vehicles Saved
                     </sub>
 
@@ -251,8 +251,8 @@ function SavedVehicles() {
                     {!cars[0] && <Loader />}
                     {cars[0] == "false" && (
                         <div className="my-auto items-center child:w-fit flex flex-col">
-                            <p className=" font-bold text-center text-xl text-red-500">
-                                You Have Saved 0 Vehicles
+                            <p className=" font-bold text-center text-xl text-red-500 pb-4">
+                                No Vehicles Were Found
                             </p>
                             <Link href='/service' className="font-semibold bg-orange-500 text-slate-100 p-3 rounded-md">
                                 View Vehicles
@@ -308,7 +308,7 @@ function SavedVehicles() {
                     </div>
                 </section>
 
-                <button disabled={disableButton} onClick = {() => undoRemoval(prevCars)} className="bg-slate-400 py-2 px-3 text-slate-100 font-semibold rounded-lg transition ease-in-out duration-300 hover:bg-slate-300 hover:text-slate-500 hover:ring-2 hover:ring-slate-500">
+                <button disabled={disableButton} onClick = {() => undoRemoval(prevCars)} className="bg-slate-400 py-2 px-3 text-slate-100 font-semibold rounded-lg transition ease-in-out duration-300 hover:ring-2 disabled:hover:ring-0">
                     Restore Last Vehicle
                 </button>
             </article>
