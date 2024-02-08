@@ -196,7 +196,7 @@ function SavedVehicles() {
 
                 <div id="stats-body" className="bg-slate-100 p-4 border-t-orange-600 border-t-2 mt-2 | n-xs:h-[36rem] max-h-[36rem] n-xs:grid n-xs:grid-flow-row n-xs:grid-cols-1 n-xs:child:border-2 n-xs:child:border-slate-300 n-xs:gap-2 n-xs:child:p-2 n-xs:overflow-y-scroll n-xs:overscroll-contain | n-md:h-fit n-md:child:p-0 n-md:child:border-0 n-md:flex md:flex-col n-md:space-y-3 child:w-full n-md:justify-evenly">
                         <div>
-                            <h3 className="n-xs:text-md n-md:text-lg text-orange-600 font-bold underline tracking-wider">
+                            <h3 className="n-xs:text-base n-md:text-lg text-orange-600 font-bold underline tracking-wider">
                                 Favorite Vehicle Makes by Count
                             </h3>
                             {Object.values(makesDict) && (
@@ -209,7 +209,7 @@ function SavedVehicles() {
                         </div>
                         
                         <div className="px-12">
-                            <h3 className="n-xs:text-md n-md:text-lg text-orange-600 font-bold underline tracking-wider">
+                            <h3 className="n-xs:text-base n-md:text-lg text-orange-600 font-bold underline tracking-wider">
                                 Vehicle Years &#40;Descending&#41;
                             </h3>
                             {Object.values(yearsDict) && (
@@ -222,7 +222,7 @@ function SavedVehicles() {
                         </div>
 
                         <div className="px-12">
-                            <h3 className="n-xs:text-md n-md:text-lg text-orange-600 font-bold underline tracking-wider">
+                            <h3 className="n-xs:text-base n-md:text-lg text-orange-600 font-bold underline tracking-wider">
                                 Favorite Vehicle Types <span className="font-normal">&#40;Sedan, SUV, Base, etc.&#41;</span>
                             </h3>
                             {Object.values(typesDict) && (
