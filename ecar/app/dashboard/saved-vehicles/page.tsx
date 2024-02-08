@@ -129,7 +129,7 @@ function SavedVehicles() {
         let newMakesDict: any = {}; let newTypesDict: any = {};
         Promise.resolve(handleCars()).then((array: Car[] | any[]) => {  
             array.forEach((car) => {
-                const prevCar = newCars.findIndex((carRef) => {
+                let prevCar = newCars.findIndex((carRef) => {
                     return car.id === carRef.id
                 })
                 if (prevCar < 0) { newCars.push(car) };
