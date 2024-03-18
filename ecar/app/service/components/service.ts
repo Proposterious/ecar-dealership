@@ -6,7 +6,7 @@ export interface Car {
     year: number | undefined;
     name: string | undefined;
     description: string | undefined;
-    msrp: number | undefined;
+    msrp: number;
     invoice: number | undefined;
     created: string | undefined;
     modified: string | undefined

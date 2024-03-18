@@ -15,7 +15,7 @@ import car4 from '@/public/img/car-models/sketch_sedan.jpg';
 export default function CarPage({ params }: { params: { car: string[] } }) {
     console.log(params);
     const [displayImage, setDisplayImage] = useState(Logo);
-    const [car, setCar] = useState(null) as unknown as any;
+    const [car, setCar] = useState<Car[]>([]);
     const [index, setIndex] = useState(0);
     const [imageIndex, setImageIndex] = useState(0);
 
@@ -62,13 +62,15 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
     }
 
     useEffect(() => {
-        getCarById(params.car[1]).then((obj: Car) => {setCar(obj).then(() => console.log(car))});
+        getCarById(params.car[1]).then((obj) => {
+            if (obj) { setCar(obj); }
+        });
     }, [])
 
     return (
     <main className="w-full min-h-screen n-xs:py-20 n-xs:px-4 n-md:p-3 bg-orange-400">
-    {car === null && <Loader />}
-    {car &&
+    {!car[index] && <Loader />}
+    {car[index] &&
         <div className="p-6  bg-slate-100 rounded-md">
             <h1 className="w-full text-center my-4 pb-2 | font-extrabold text-slate-800 n-xs:text-2xl n-md:text-3xl n-lg:text-6xl">
                 Learn More About the
@@ -165,7 +167,7 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
                                 <button className="group animate-bounce duration-400 shadow-lg shadow-current text-orange-600 bg-slate-100 px-5 py-2.5 border-2 border-slate-200 ring-1 ring-sky-400 rounded-xl duration-200 hover:text-slate-100 hover:border-orange-600 hover:bg-indigo-500 hover:ring-black hover:ring-2">
                                     On Sale for 
                                     {/* Fake Price */}
-                                    <span className='ml-1 text-black line-through'>${car[index].msrp+1500}
+                                    <span className='ml-1 text-black line-through'>${car[index].msrp + 1500}
                                     </span> &gt;
                                     {/* Real Price */}
                                     <span className='underline group-hover:text-slate-100 text-indigo-500'>{' '}${car[index].msrp}</span>
