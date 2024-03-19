@@ -1,199 +1,64 @@
 "use server"
 import { NextResponse } from 'next/server';
-import { writeCarAttr } from './function/handleJSON';
+import { Car } from './components/service';
 
-export async function getCarsByPage(page: String) {
-    const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&page=${page}&verbose=yes`;
-    const cache: RequestCache = "no-store";
-    const options = {
+import axios from 'axios'; // replace fetch-by-url with fetch-by-axios
+
+export async function getCarByAxiosFetch(sortDirection: string | null, sortType: string | null, pageNumber: string | null, trimType: string | null, makeName: string | null, modelName: string | null, makeModelId: string | null, pricing: string | null) {
+    // define axios options
+    let options: any = {
         method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
-            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
+        url: 'https://car-api2.p.rapidapi.com/api/trims',
+        params: {
+         // expected params
+          direction: sortDirection,
+          sort: sortType,
+          year: '2020',
+          page: pageNumber,
+         // specific params
+          msrp: pricing,
+          name: trimType,
+          make: makeName,
+          model: modelName,
+          trim: trimType,
+          make_model_id: makeModelId,
+          verbose: 'yes'
         },
-        cache
-    }
-
-    try {
-        // await fetch, assign variable
-        const response = await fetch(url, options);
-        const responseJSON = await response.json();
-        console.log("Fetched data", responseJSON.data[0].make_model.name + responseJSON.data[0].name)
-
-        const carData = [...responseJSON.data];
-
-        NextResponse.json({ success: 200 })
-        return carData; // return function
-
-    } catch (error) {
-        console.error(error)
-        NextResponse.json({ success: false, error: error})
-        return; // quit function
-    }
-}
-
-export async function getCarById(id: string) {
-    const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&make_model_id=${id}&verbose=yes`;
-    const cache: RequestCache = "no-store";
-    const options = {
-        method: 'GET',
         headers: {
-            'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
-            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        },
-        cache
-    }
-
-    try {
-        // await fetch, assign variable
-        const response = await fetch(url, options);
-        const responseJSON = await response.json();
-
-        const carData = responseJSON.data;
-        writeCarAttr(responseJSON.data)
-
-        if (carData === undefined) { 
-            console.log(carData, carData);
-            NextResponse.json({ failure: 404, message: 'no id provided' }); // quit function
-            return;
+          'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
+          'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
         }
-        console.log("getCarById succeeded")
-        NextResponse.json({ success: 200 })
-        return carData; // return function
-
-    } catch (error) {
-        console.error(error)
-        NextResponse.json({ success: false, error: error})
-        return; // quit function
-    }
+    };
     
-}
-
-export async function getCarByMake(make: string) {
-    const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&page=1&verbose=yes&make=${make}`;
-    const cache: RequestCache = "no-store";
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
-            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        },
-        cache
-    }
-
-    try {
-        // await fetch, assign variable
-        const response = await fetch(url, options);
-        const responseJSON = await response.json();
-
-        const carData = responseJSON.data;
-        writeCarAttr(responseJSON.data)
-        console.log(`Fetched ${carData[0].make_model.make.name} ${carData[0].make_model.name}`)
-
-        if (carData === undefined) { 
-            console.log(carData);
-            NextResponse.json({ failure: 404, message: 'no id provided' }); // quit function
-            return;
+    // remove unused/empty params
+    for (let key in options) {
+        if (!options[key]) {
+            delete options[key]
         }
-
-        console.log("car exists")
-
-        NextResponse.json({ success: 200 })
-        return carData; // return function
-
-    } catch (error) {
-        console.error(error)
-        NextResponse.json({ success: false, error: error})
-        return; // quit function
     }
-    
-}
-
-export async function getCarByType(type: string) {
-    const url = `https://car-api2.p.rapidapi.com/api/bodies?sort=id&verbose=yes&direction=asc&year=2020&type=${type}`;
-    const cache: RequestCache = "no-store";
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
-            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        },
-        cache
-    }
-
+    // fetch api by options
     try {
-        // await fetch, assign variable
-        const response = await fetch(url, options);
-        const responseJSON = await response.json();
-        console.log("Fetched data", responseJSON.data[0].make_model.name + responseJSON.data[0].name)
-
-        const carData = responseJSON.data;
-        writeCarAttr(responseJSON.data)
-
-        if (carData === undefined) { 
-            console.log(carData);
-            NextResponse.json({ failure: 404, message: 'no id provided' }); // quit function
-            return;
-        }
-
-        console.log("car exists")
-
-        NextResponse.json({ success: 200 })
-        return carData; // return function
-
-    } catch (error) {
-        console.error(error)
-        NextResponse.json({ success: false, error: error})
-        return; // quit function
-    }
-    
-}
-
-export async function getCarByName(name: string) {
-    const nameArray = name.split(' ')
-
-    if (nameArray.length < 2) { console.log("array supposedly not length2\n", nameArray) }
-
-    const url = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=id&year=2020&model=${nameArray[1]}&verbose=yes&make=${nameArray[0]}`;
-    const cache: RequestCache = "no-store";
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
-            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        },
-        cache
-    }
-
-    try {
-        // await fetch, assign variable
-        const response = await fetch(url, options);
-        const responseJSON = await response.json();
-
-        const carData = responseJSON.data;
-        writeCarAttr(carData)
-        console.log(`Fetched ${carData[0].make_model.make.name} ${carData[0].make_model.name}`)
-
-        if (carData === undefined) { 
-            console.log(carData);
-            NextResponse.json({ failure: 404, message: 'no id provided' }); // quit function
-            return;
-        }
-
-        console.log("car exists")
+        const response = await axios.request(options);
+        NextResponse.json({ success: 200 });
         
-        NextResponse.json({ success: 200 })
-        return carData; // return function
+        if (response.data.length) { 
+            let carData = response;
+            return carData; // return Cars
+        } else {
+            let carData = [response.data];
+            return carData; // return Cars
+        }
+        
 
-    } catch (error) {
-        console.error(error)
-        NextResponse.json({ success: false, error: error})
-        return; // quit function
-    }
+        } catch (error) {
+            console.error(error)
+            NextResponse.json({ success: false, error: error})
+            return; // quit function
+        }        
 }
 
 export async function getCarBySpecId(id: string) {
-    const url = `https://car-api2.p.rapidapi.com/api/trims/${id}`;
+    const url = `https://car-api2.p.rapidapi.com/api/trims/make_model_id=${id}`;
     const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
@@ -219,5 +84,4 @@ export async function getCarBySpecId(id: string) {
         NextResponse.json({ failure: error }, { status: 408 }); // quit function
         return null;
     }
-    
 }
