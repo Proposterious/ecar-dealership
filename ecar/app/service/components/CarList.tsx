@@ -3,11 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-
+import { useRouter, usePathname, useSearchParams, useParams } from "next/navigation";
 import { Car } from "./service"; // ts safety
 import { UserCar } from "@/app/dashboard/saved-vehicles/saved-vehicles"; // ts safety
-import { getCarByName, getCarBySpecId, getCarsByPage } from "../handleCars"; // functions
+import { getCarByAxiosFetch, getCarBySpecId } from "../handleCars"; // functions
 
 // static image imports
 import logo from "@/public/car-logo.png"
@@ -16,6 +15,7 @@ import sedanImage from "@/public/img/car-models/sketch_sedan.jpg";
 import Loader from "@/app/loading";
 
 import SaveCaution from "./SaveCaution"; // returns when saveVehicle fails or succeeds
+import { NextResponse } from "next/server";
 
 
 
@@ -26,11 +26,36 @@ function CarList() {
     const searchParams = useSearchParams()!
 
     // initiating dynamic vars
-    const [ formedCars, setFormedCars ] = useState([]);
-    const [ fetched, setFetched ] = useState(false)
-    const [ format, setFormat ] = useState("expand");
+    const [ formedCars, setFormedCars ] = useState<Car[]>([]);
+    const [ usersCars, setUsersCars ] = useState<Car[]>([]);
+    const [ fetched, setFetched ] = useState(false);
+
+    const [ format, setFormat ] = useState("compact");
+    const [ amount, setAmount] = useState(1);
+
     const [ caution, displayCaution ] = useState(false);
     const [ bool, setBool ]  = useState<{[key: string]: boolean }>({});
+    
+    // SearchCar params
+    const [data, setData] = useState<any>({
+      id: "",
+      name: "",
+      make: "",
+      model: "",
+      trim: "",
+      direction: ""
+    });
+    
+    // Get a new searchParams string by merging the current
+    // searchParams with a provided key/value pair
+    const createQueryString = useCallback(
+      (name: string, value: string) => {
+        const params = new URLSearchParams(searchParams)
+        params.set(name, value)
+        return params.toString()
+      },
+      [searchParams]
+    )
     
     async function handleCar(car: string) {
       displayCaution(true);
@@ -124,21 +149,19 @@ function CarList() {
     
     // fetch car data
     async function formCars(checkedCars: any[]) {
+      // define params
+      let sortDirection = searchParams.get("sort") ? searchParams.get("sort") : "asc";
+      let sortType = searchParams.get("sort-cars") ? searchParams.get("sort-cars") : "id";
+      let pageNumber = searchParams.get("page") ? searchParams.get("page") : "";
+      let trimType = searchParams.get("trim") ? searchParams.get("trim") : "";
+      let makeName = searchParams.get("make") ? searchParams.get("make") : "";
+      let modelName = searchParams.get("model") ? searchParams.get("model") : "";
+      let makeModelId = searchParams.get("make-model-id") ? searchParams.get("make-model-id") : "";
+      let pricing = searchParams.get("price") ? searchParams.get("price") : "";
       // Fetch cars from 'carapi'
-      const page = searchParams.get('page');
-      if (page == null) { // if no page is selected
-        var array = await getCarsByPage('1') as any; 
-        console.log("no page")
-      } else { // if user interacted with SortByPage
-        var array = await getCarsByPage(String(page)) as any;
-        console.log("page", page)
-      }; 
-      const name = searchParams.get('name');
-      if (name != null) {
-        var array = await getCarByName(name) as any;
-        console.log("got name")
-      }
-      // define new dictionary
+      let array: any = await getCarByAxiosFetch(sortDirection, sortType, pageNumber, trimType, makeName, modelName, makeModelId, pricing);
+
+      // create empty dictionary
       var carData = {} as any;
 
       for (let i = 0; i < array.length; i++) {
@@ -183,7 +206,7 @@ function CarList() {
       carDicts.forEach((carArray) => {
         carArray.forEach((car: Car) => {
           let carId = String(car.id) as string; 
-          let result = checkedCars.filter((usersCar) => String(usersCar.id) === carId);
+          let result: Car[] = checkedCars.filter((usersCar) => String(usersCar.id) === carId);
           console.log("checkedCars", checkedCars)
           if (result.length > 0) { // if car does exist on user
               let updateVal: any = {};
@@ -205,16 +228,113 @@ function CarList() {
       return carDicts;
     }
   
-    // create new url params
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-        const params = new URLSearchParams(searchParams)
-        params.set(name, value)
+    // handles useStates in form element
+    const handleInputChange = (e: any) => {
+        const { name, value } = e.target;
+        setData((prevProps: any) => ({
+          ...prevProps,
+          [name]: value
+        }))
+        router.replace(pathname + '?' + createQueryString(name, value));
+        router.refresh();
+    };
+
+    // handleSearch handles form submit action
+    async function handleSearch(e: any) {
+        e.preventDefault();
+        if (data.id) { // searchById if provided
+          setFormat("compact");
+          const res = await getCarBySpecId(data.id);
+          console.log("completed search")
+          let newCar = [res];
+          console.log(newCar);
+          setFormedCars(newCar);
+        } else {
+          // grab params from searchbar
+          let sortDirection = searchParams.get("sort") ? searchParams.get("sort") : "asc";
+          let sortType = searchParams.get("sort-cars") ? searchParams.get("sort-cars") : "id";
+          let pageNumber = searchParams.get("page") ? searchParams.get("page") : "";
+          let trimType = searchParams.get("trim") ? searchParams.get("trim") : "";
+          let makeName = searchParams.get("make") ? searchParams.get("make") : "";
+          let modelName = searchParams.get("model") ? searchParams.get("model") : "";
+          let makeModelId = searchParams.get("make-model-id") ? searchParams.get("make-model-id") : "";
+          let pricing = searchParams.get("price") ? searchParams.get("price") : "";
+
+          const res: any = await getCarByAxiosFetch(sortDirection, sortType, pageNumber, trimType, makeName, modelName, makeModelId, pricing);
     
-        return params.toString()
-    },
-    [searchParams]
-    )
+          if (res?.error) {
+            router.push(pathname + '?' + createQueryString("error", res?.error));
+          } else { 
+            setFetched(false);
+
+            var carData = {} as any;
+
+            for (let i = 0; i < res.length; i++) {
+                  // filter car by its name(s)
+                  let carName = `${res[i].make_model.make.name} ${res[i].make_model.name}`;
+                  console.log(carName)
+        
+              // define str, strList from Car's description
+                  let str = res[i].description;
+                  let strList = str.split(' ');
+        
+              // handles images
+                if (strList.includes("Sedan")) {
+                    res[i]["img"] = sedanImage;
+                    console.log("was img atr", res[i].img)
+                    console.log("has sedan", str); 
+      
+                } else if (strList.includes("SUV")) {
+                    res[i]["img"] = suvImage;
+                    console.log("was img atr", res[i].img)
+                    console.log("has suv", str);
+      
+                } else { 
+                    res[i]["img"] = logo; 
+                    console.log("type undefined or base")
+                }
+      
+                // Add car cars to the carData object
+                if (!carData[carName]) {
+                    carData[carName] = [];
+                }
+                carData[carName].push(res[i]);
+            }
+        
+            console.log("carData", carData)
+      
+            var carDicts = Object.values(carData) as any[];
+            console.log("carDicts", carDicts)
+      
+            
+            carDicts.forEach((carArray) => {
+              carArray.forEach((car: Car) => {
+                let carId = String(car.id) as string; 
+                let result: Car[] = usersCars.filter((usersCar) => String(usersCar.id) === carId);
+                console.log("checkedCars", usersCars)
+                if (result.length > 0) { // if car does exist on user
+                    let updateVal: any = {};
+                    updateVal[`${carId}`] = true;
+                    console.log(`${updateVal}`)
+                    setBool(bool => ({...bool, ...updateVal}))
+                } else if (result.length === 0) { // if car does not exist on user
+                  let updateVal: any = {};
+                  updateVal[`${carId}`] = false;
+                  console.log(`${updateVal}`)
+                    setBool(bool => ({...bool, ...updateVal}))
+                } else (console.log('result failed', result))
+                /* finished */ 
+                result = [];
+                console.log(`attempted to add carId (${carId}) to boolDict\ncurrent bool: ${JSON.stringify(bool)}`)
+              })
+            })
+      
+            setFormedCars(carDicts);
+            setFetched(true);
+        }
+      }
+      router.refresh();
+    }
 
     async function toggleFormat() {
       // toggle carList
@@ -224,7 +344,8 @@ function CarList() {
           router.push(pathname + '?' + createQueryString('format', 'compact')); 
         } else { // b) expand carList
           // handle search params
-          setFormat("expand"); 
+          setFormat("expand");
+          setAmount(1); 
           router.push(pathname + '?' + createQueryString('format', 'expand'));
         }
     }
@@ -235,19 +356,92 @@ function CarList() {
           return checkedCars;
         }).then((checkedCars) => Promise.resolve(formCars(checkedCars)).then((car: any) => {
           console.log("formedCars", car);
+          setUsersCars(checkedCars);
           setFormedCars(car);
           setFetched(true);
-        }));
-    }, []);
+        }))}, [searchParams]);
 
     return (
     <>
     {caution === true && ( <SaveCaution /> )}
+  {/* SEARCH CAR WITH PARAMS */}
+     <section id="search-car" className="py-3 bg-sky-100">
+            
+            <div className="w-fit flex flex-row mx-auto py-2 | rounded-sm border-2 border-white bg-orange-600 | font-semibold text-slate-100">
+                <nav className="w-fit flex flex-row flex-shrink | child:my-auto child:px-2 border-x-orange-600 | border-white">
+
+                    <form id="search-id" action="#" onSubmit={handleSearch} className="flex flex-row space-x-3 child:my-auto | font-normal text-slate-100 divide-x-2 child:px-2">
+                        <div id="search-id" className="flex flex-row space-x-2 my-auto child:z-50">
+                            <label className="font-semibold my-auto" htmlFor="id">
+                                Car #
+                            </label>
+                            <input id="id" name="id"
+                            type="text" value={data.id}
+                            onChange={handleInputChange}
+                            placeholder="Search by #"
+                            size={12}
+                            maxLength={4}
+                            className="w-fit ml-2| n-xs:text-sm n-md:text-md text-center | rounded-sm border-0 | shadow-sm ring-1 ring-inset ring-slate-100 placeholder:text-orange-300  bg-orange-500 focus:ring-orange-500"
+                            />
+                        </div>
+                        
+
+                        <div id="search-name" className="border-r-2 child:z-50"> 
+                            <div className="peer hover:cursor-pointer flex flex-row space-x-1.5">
+                                <label className="font-semibold" htmlFor="name">Name:</label>
+                                <input id="name" name="name"
+                                type="text" value={data.name}
+                                onChange={handleInputChange}
+                                size={12}
+                                className="w-fit ml-2| n-xs:text-sm n-md:text-md text-center | rounded-sm border-0 | shadow-sm ring-1 ring-inset ring-slate-100 placeholder:text-orange-300  bg-orange-500 focus:tracking-wider focus:ring-orange-500"
+                                aria-placeholder="Find by name" 
+                                placeholder="Search" />
+                            </div>
+                        </div>
+
+                        <div id="search-trim" className="border-r-2 child:z-50"> 
+                            <div className="peer hover:cursor-pointer flex flex-row space-x-1.5">
+                                <label className="font-semibold" htmlFor="trim">Trim:</label>
+                                <input id="trim" name="trim" 
+                                type="text" value={data.trim}
+                                size={12}
+                                onChange={handleInputChange}
+                                className="w-fit ml-2| n-xs:text-sm n-md:text-md text-center | rounded-sm border-0 | shadow-sm ring-1 ring-inset ring-slate-100 placeholder:text-orange-300  focus:tracking-wider bg-orange-500 focus:ring-orange-500"
+                                aria-placeholder="Find by trim" 
+                                placeholder="Search" />
+                            </div>
+                        </div>
+                        <div id="search-make" className="mr-1 child:z-50"> 
+
+                            <div className="peer hover:cursor-pointer flex flex-row space-x-1.5">
+                                <label className="font-semibold" htmlFor="make">Make:</label>
+                                <input id="make" name="make"
+                                type="text" value={data.make}
+                                size={12}
+                                onChange={handleInputChange}
+                                className="w-fit ml-2| n-xs:text-sm n-md:text-md text-center | rounded-sm border-0 | shadow-sm ring-1 ring-inset ring-slate-100 placeholder:text-orange-300  focus:tracking-wider bg-orange-500 focus:ring-orange-500"
+                                aria-placeholder="Find by make" 
+                                placeholder="Search" />
+                            </div>
+                        </div>
+
+                        <button type="submit">
+                            Search
+                        </button>
+                    </form>
+                    
+                </nav>
+               
+                
+            </div>
+      </section>
+
+  {/* TOOLTIP */}
       <section id="about-format" className="flex flex-row | first:invisible hover:first:visible | fixed right-8 n-xs:top-12 n-md:top-32 n-lg:top-48 z-50">
-        <div id="carList-tooltip" className="bg-slate-200/90 p-1 -mr-10 -mt-8 h-fit | font-semibold text-sm text-slate-600 | hidden">
-            <span id="explanation" className="border-b-2 border-orange-600">
+        <div id="carList-tooltip" className="bg-zinc-900/80 p-1 -mr-10 -mt-8 h-fit | font-semibold text-sm text-slate-200 | hidden">
+            <a href="#search-car" id="explanation" className="border-b-2 border-orange-600">
                 Click "?" to toggle between "Compact" and "Expand" formats
-            </span>
+            </a>
 
             <br/>
 
@@ -273,18 +467,19 @@ function CarList() {
           </button>
         </span>
       </section>
-      
+  
+  {/* MAIN CONTENT */}
       {/* Display Loader while Fetching Data */}
       {fetched !== true && <Loader />}
-      <section id="format-cars" className="bg-inherit | grid grid-cols-4 grid-flow-row">
+      <section id="format-cars" className="bg-inherit | grid grid-flow-row n-xs:child:w-3/4 n-xs:child:mx-auto n-xs:grid-cols-1 n-sm:child:mx-0 n-sm:child:w-auto n-sm:grid-cols-2 n-md:grid-cols-3 n-lg:grid-cols-4">
       {/* Display Cars after Fetching Data */}
-      {formedCars && formedCars.map((dict: any) => (
+      {formedCars && formedCars.slice(0, 8 * amount).map((dict: any) => (
         <>
         {/* display expanded form of carList */}
           {format == "expand" && dict.map((car: any) => (
             <div key={car.make_model.make.name + car.make_model.name + ' ' + car.id} className="space-y-4">
-              <ul key={car.id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg hover:cursor-default m-4 p-3">
-              {bool[String(car.id)] == true && (<> 
+              <ul key={car.id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg hover:cursor-default m-4 p-3 | min-w-[90%] max-w-min min-h-[95%] max-h-min">
+              {bool[String(car.id)] && (<> 
                   <li key="save" className="relative">
                       <button id={`button${car.id}`} onClick={() => {
                           handleCar(car.id);
@@ -321,12 +516,13 @@ function CarList() {
                 </li>
 
                 <li key="type" className="text-sm">
-                  Type: {car.name}
+                  Trim: {car.name}
                 </li>
 
-                <li key="make" className="text-sm">
-                  Make: {car.description}
+                <li key="description" className="text-sm">
+                  Description: {car.description}
                 </li>
+
                 <li key="learn-more" className="pt-3">
                   <Link href={`/service/car/${car.make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
                     Learn More
@@ -340,7 +536,7 @@ function CarList() {
           {format == "compact" && (
             <div key={dict[0].make_model.make.name + dict[0].make_model.name} className="space-y-4">
 
-              <ul key={dict[0].id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg m-4 p-4 pb-4 hover:cursor-default">
+              <ul key={dict[0].id} className="bg-slate-100 font-semibold text-center text-lg space-y-1 shadow-xs transition duration-300 ease-out hover:shadow-lg shadow-orange-700/70 rounded-lg m-4 p-4 pb-4 hover:cursor-default | min-w-[90%] max-w-min min-h-[95%] max-h-min">
 
               {bool[String(dict[0].id)] === true && (<> 
                   <li key="save" className="relative">
@@ -379,11 +575,11 @@ function CarList() {
                 </li>
 
                 <li key="type" className="text-sm">
-                Type: {dict[0].name}
+                Trim: {dict[0].name}
                 </li>
 
-                <li key="make" className="text-sm">
-                Make: {dict[0].description}
+                <li key="desc" className="text-sm">
+                Description: {dict[0].description}
                 </li>
 
                 <li key="learn-more" className="pt-3">
@@ -397,9 +593,21 @@ function CarList() {
             </div>
           )}
         </>
+
         ))}
-      
       </section>  
+      {formedCars.length >= amount*8 && (
+        <section id="bottom-buttons-container" className ="flex flex-row w-fit mx-auto my-4 space-x-4 n-md:space-16 n-lg:space-x-32 n-xl:space-x-48 align-center">
+          <a href="#search-car" id="back-to-top"
+          className="w-56 px-2 h-fit py-4 rounded-md | bg-zinc-900/90 text-center text-lg text-slate-200 font-semibold">
+              Go Back to Top of Page
+            </a>
+          <button type="button" id="load-more" onClick={() => setAmount(amount + 1)} 
+          className="w-56 px-2 h-fit py-4 rounded-md | bg-zinc-900/90 text-center text-lg text-orange-400 font-semibold">
+              Load More Vehicles
+            </button>
+        </section>
+        )}
     </>
     );
 }
