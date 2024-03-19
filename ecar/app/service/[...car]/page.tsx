@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import { getCarById } from "../handleCars";
+import { getCarBySpecId } from "../handleCars";
 import { Car } from "../components/service";
 
 import Image, { StaticImageData } from "next/image";
@@ -62,29 +62,21 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
     }
 
     useEffect(() => {
-        getCarById(params.car[1]).then((obj) => {
+        getCarBySpecId(params.car[1]).then((obj) => {
+            console.log("params", params);
             if (obj) { setCar(obj); }
         });
     }, [])
 
     return (
     <main className="w-full min-h-screen n-xs:py-20 n-xs:px-4 n-md:p-3 bg-orange-400">
-    {!car[index] && <Loader />}
+    {!car.length && <Loader />}
     {car[index] &&
         <div className="p-6  bg-slate-100 rounded-md">
             <h1 className="w-full text-center my-4 pb-2 | font-extrabold text-slate-800 n-xs:text-2xl n-md:text-3xl n-lg:text-6xl">
                 Learn More About the
-                <span className='ml-3 underline underline-offset-2 decoration-double text-orange-600'> 
+                <span className='ml-3 underline underline-offset-2 decoration-dotted text-orange-600'> 
                     {car[index].make_model.make.name} {car[index].make_model.name} 
-                </span> {'  '}
-                <span className="n-xs:block n-xs:mt-1 n-md:inline-block n-md:mt-0 indent-1 font-light">
-                &#40;
-                    Thanks to
-                    <Image className="inline-block ml-2"
-                src={Logo}
-                width={100}
-                alt='' />
-                &#41;
                 </span>
             </h1>
 
@@ -141,7 +133,7 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
                 </section>
 
                 <section className="n-xs:w-full n-md:w-2/5 p-4 bg-orange-300 rounded-md">
-                    <button className="flex justify-center items-center w-5/6 h-full mx-auto my-auto border-2 border-orange-600 shadow-inner shadow-amber-600 hover:shadow-2xl transition duration-1000 delay-400 hover:-translate-y-1 hover:-translate-x-1 bg-orange-400 px-7 rounded-lg hover:cursor-default">
+                    <button className="flex justify-center items-center w-5/6 h-full mx-auto my-auto border-2 border-orange-600 shadow-inner shadow-amber-600 hover:shadow-2xl transition duration-1000 delay-400 hover:-translate-y-1 bg-orange-400 px-7 rounded-lg hover:cursor-default">
                         <ul id="car-listed-info" key={car[index].id} className="list-none h-fit my-auto rounded-sm  text-white font-normal | child:w-fit child:my-16 child:mx-auto">
                             <li key="name" className="text-3xl font-bold text-slate-800 px-24 py-2 bg-zinc-100/90 rounded-md">
                             {car[index].make_model.make.name + ' ' + car[index].make_model.name}
@@ -164,13 +156,13 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
                             </li>
 
                             <li className="font-semibold text-xl mt-5">
-                                <button className="group animate-bounce duration-400 shadow-lg shadow-current text-orange-600 bg-slate-100 px-5 py-2.5 border-2 border-slate-200 ring-1 ring-sky-400 rounded-xl duration-200 hover:text-slate-100 hover:border-orange-600 hover:bg-indigo-500 hover:ring-black hover:ring-2">
+                                <button className="group animate-pulse hover:animate-none duration-400 shadow-lg shadow-current text-orange-600 bg-slate-100 px-5 py-2.5 border-2 border-slate-200 ring-2 ring-zinc-900 rounded-xl duration-200 hover:text-slate-100 hover:border-orange-600 hover:bg-zinc-800 hover:ring-black hover:ring-2">
                                     On Sale for 
                                     {/* Fake Price */}
-                                    <span className='ml-1 text-black line-through'>${car[index].msrp + 1500}
+                                    <span className='ml-1 text-red-800 line-through decoration-2'>${car[index].msrp + 1500}
                                     </span> &gt;
                                     {/* Real Price */}
-                                    <span className='underline group-hover:text-slate-100 text-indigo-500'>{' '}${car[index].msrp}</span>
+                                    <span className='underline group-hover:text-slate-100 text-emerald-500'>{' '}${car[index].msrp}</span>
                                 </button>
                             </li>
                         </ul>
@@ -194,7 +186,7 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
                 </div>
                 <div className='w-fit mx-auto mt-2 | text-orange-600 text-center font-light'>
                     Currently at {index+1} / {car.length} 
-                    <br/> of Cars with this Name
+                    <br/> <span className="overline"> of {car[index].make_model.make.name} {car[index].make_model.name} Vehicles</span>
                 </div>
             </section>
         </div> }
