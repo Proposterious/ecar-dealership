@@ -2,7 +2,6 @@
 import CarList from './components/CarList';
 import SortByOrder from './components/SortByOrder';
 import SortByPage from './components/SortByPage';
-import SearchCar from './components/SearchCar';
 import ServiceAlert from './components/ServiceAlert';
 
 function Service() {
