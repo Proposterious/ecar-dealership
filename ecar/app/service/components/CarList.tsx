@@ -60,7 +60,7 @@ function CarList() {
     async function handleCar(car: string) {
       displayCaution(true);
       document.getElementById("check-cars-alert")?.classList.remove("hidden");
-      if (bool[car] === true) {
+      if (bool[car]) {
         setBool({
           ...bool,
           [car]: false
@@ -152,7 +152,7 @@ function CarList() {
       // define params
       let sortDirection = searchParams.get("sort") ? searchParams.get("sort") : "asc";
       let sortType = searchParams.get("sort-cars") ? searchParams.get("sort-cars") : "id";
-      let pageNumber = searchParams.get("page") ? searchParams.get("page") : "";
+      let pageNumber = searchParams.get("page") ? searchParams.get("page") : "1";
       let trimType = searchParams.get("trim") ? searchParams.get("trim") : "";
       let makeName = searchParams.get("make") ? searchParams.get("make") : "";
       let modelName = searchParams.get("model") ? searchParams.get("model") : "";
@@ -166,6 +166,7 @@ function CarList() {
 
       for (let i = 0; i < array.length; i++) {
           // filter car by its name(s)
+          console.log("carArray", array);
           let carName = `${array[i].make_model.make.name} ${array[i].make_model.name}`;
           console.log(carName)
 
@@ -208,16 +209,17 @@ function CarList() {
           let carId = String(car.id) as string; 
           let result: Car[] = checkedCars.filter((usersCar) => String(usersCar.id) === carId);
           console.log("checkedCars", checkedCars)
+          console.log("result", result)
           if (result.length > 0) { // if car does exist on user
-              let updateVal: any = {};
-              updateVal[`${carId}`] = true;
-              console.log(`${updateVal}`)
-              setBool(bool => ({...bool, ...updateVal}))
-          } else if (result.length === 0) { // if car does not exist on user
-            let updateVal: any = {};
-            updateVal[`${carId}`] = false;
-            console.log(`${updateVal}`)
-              setBool(bool => ({...bool, ...updateVal}))
+            setBool(prev => ({
+              ...prev,
+              [carId]: true
+            }));
+          } else if (!result.length) { // if car does not exist on user
+              setBool(prev => ({
+                ...prev,
+                [carId]: false
+              }));
           } else (console.log('result failed', result))
           /* finished */ 
           result = [];
@@ -242,11 +244,11 @@ function CarList() {
     // handleSearch handles form submit action
     async function handleSearch(e: any) {
         e.preventDefault();
-        if (data.id) { // searchById if provided
+        if (data.id !== "") { // searchById if provided
           setFormat("compact");
           const res = await getCarBySpecId(data.id);
           console.log("completed search")
-          let newCar = [res];
+          let newCar: any[] = res;
           console.log(newCar);
           setFormedCars(newCar);
         } else {
@@ -333,7 +335,6 @@ function CarList() {
             setFetched(true);
         }
       }
-      router.refresh();
     }
 
     async function toggleFormat() {
@@ -482,7 +483,7 @@ function CarList() {
               {bool[String(car.id)] && (<> 
                   <li key="save" className="relative">
                       <button id={`button${car.id}`} onClick={() => {
-                          handleCar(car.id);
+                          handleCar(String(car.id));
                           }} className="w-fit bg-slate-700 rounded-md -m-2 p-1 absolute right-0">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="rgb(20, 200, 240)" viewBox="0 0 24 24" strokeWidth="1.5" stroke="rgb(240, 110, 20)" className="w-8 h-8">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -491,7 +492,7 @@ function CarList() {
                   </li> 
               </>
               )}
-              {bool[String(car.id)] == false && (
+              {!bool[String(car.id)] && (
                   <li key="save" className="relative">
                     <button id={String(car.id)} onClick={() => {
                         handleCar(String(car.id));

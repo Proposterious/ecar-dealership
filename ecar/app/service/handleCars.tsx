@@ -45,7 +45,7 @@ export async function getCarByAxiosFetch(sortDirection: string | null, sortType:
             let carData = response;
             return carData; // return Cars
         } else {
-            let carData = [response.data];
+            let carData = response.data.data;
             return carData; // return Cars
         }
         
@@ -58,7 +58,7 @@ export async function getCarByAxiosFetch(sortDirection: string | null, sortType:
 }
 
 export async function getCarBySpecId(id: string) {
-    const url = `https://car-api2.p.rapidapi.com/api/trims/make_model_id=${id}`;
+    const url = `https://car-api2.p.rapidapi.com/api/trims/${id}`;
     const cache: RequestCache = "no-store";
     const options = {
         method: 'GET',
@@ -74,9 +74,8 @@ export async function getCarBySpecId(id: string) {
         const response = await fetch(url, options);
         console.log("getCarBySpecId response", response)
         const responseJSON = await response.json();
-
         NextResponse.json({ success: true, message: "Retrieved Car Successfully", status: 200})
-        
+
         return responseJSON;
 
     } catch (error) {
