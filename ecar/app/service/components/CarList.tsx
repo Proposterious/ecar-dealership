@@ -150,16 +150,18 @@ function CarList() {
     // fetch car data
     async function formCars(checkedCars: any[]) {
       // define params
-      let sortDirection = searchParams.get("sort") ? searchParams.get("sort") : "asc";
-      let sortType = searchParams.get("sort-cars") ? searchParams.get("sort-cars") : "id";
-      let pageNumber = searchParams.get("page") ? searchParams.get("page") : "1";
-      let trimType = searchParams.get("trim") ? searchParams.get("trim") : "";
-      let makeName = searchParams.get("make") ? searchParams.get("make") : "";
-      let modelName = searchParams.get("model") ? searchParams.get("model") : "";
-      let makeModelId = searchParams.get("make-model-id") ? searchParams.get("make-model-id") : "";
-      let pricing = searchParams.get("price") ? searchParams.get("price") : "";
+      let currentParams = {
+        sortDirection : searchParams.get("sort") as string,
+        sortType : searchParams.get("sort-cars") as string,
+        pageNumber : searchParams.get("page") as string,
+        trimType : searchParams.get("trim") as string,
+        makeName : searchParams.get("make") as string,
+        modelName : searchParams.get("model") as string,
+        makeModelId : searchParams.get("make-model-id") as string,
+        pricing : searchParams.get("price") as string
+      }
       // Fetch cars from 'carapi'
-      let array: any = await getCarByAxiosFetch(sortDirection, sortType, pageNumber, trimType, makeName, modelName, makeModelId, pricing);
+      let array: any = await getCarByAxiosFetch(currentParams);
 
       // create empty dictionary
       var carData = {} as any;
@@ -253,16 +255,18 @@ function CarList() {
           setFormedCars(newCar);
         } else {
           // grab params from searchbar
-          let sortDirection = searchParams.get("sort") ? searchParams.get("sort") : "asc";
-          let sortType = searchParams.get("sort-cars") ? searchParams.get("sort-cars") : "id";
-          let pageNumber = searchParams.get("page") ? searchParams.get("page") : "";
-          let trimType = searchParams.get("trim") ? searchParams.get("trim") : "";
-          let makeName = searchParams.get("make") ? searchParams.get("make") : "";
-          let modelName = searchParams.get("model") ? searchParams.get("model") : "";
-          let makeModelId = searchParams.get("make-model-id") ? searchParams.get("make-model-id") : "";
-          let pricing = searchParams.get("price") ? searchParams.get("price") : "";
+          let currentParams = {
+            sortDirection : searchParams.get("sort") as string,
+            sortType : searchParams.get("sort-cars") as string,
+            pageNumber : searchParams.get("page") as string,
+            trimType : searchParams.get("trim") as string,
+            makeName : searchParams.get("make") as string,
+            modelName : searchParams.get("model") as string,
+            makeModelId : searchParams.get("make-model-id") as string,
+            pricing : searchParams.get("price") as string
+          }
 
-          const res: any = await getCarByAxiosFetch(sortDirection, sortType, pageNumber, trimType, makeName, modelName, makeModelId, pricing);
+          const res = await getCarByAxiosFetch(currentParams);
     
           if (res?.error) {
             router.push(pathname + '?' + createQueryString("error", res?.error));
@@ -483,7 +487,7 @@ function CarList() {
               {bool[String(car.id)] && (<> 
                   <li key="save" className="relative">
                       <button id={`button${car.id}`} onClick={() => {
-                          handleCar(String(car.id));
+                          handleCar(car.id);
                           }} className="w-fit bg-slate-700 rounded-md -m-2 p-1 absolute right-0">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="rgb(20, 200, 240)" viewBox="0 0 24 24" strokeWidth="1.5" stroke="rgb(240, 110, 20)" className="w-8 h-8">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -525,7 +529,7 @@ function CarList() {
                 </li>
 
                 <li key="learn-more" className="pt-3">
-                  <Link href={`/service/car/${car.make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
+                  <Link href={`/service/car/${car.make_model_id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
                     Learn More
                   </Link>
                 </li>
@@ -585,7 +589,7 @@ function CarList() {
 
                 <li key="learn-more" className="pt-3">
 
-                  <Link href={`/service/car/${dict[0].make_model.id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
+                  <Link href={`/service/car/${dict[0].make_model_id}`} className="bg-orange-500 rounded-lg p-3 hover:text-white">
                     Learn More
                   </Link>
                 </li>

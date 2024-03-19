@@ -3,8 +3,34 @@ import { NextResponse } from 'next/server';
 import { Car } from './components/service';
 
 import axios from 'axios'; // replace fetch-by-url with fetch-by-axios
-
-export async function getCarByAxiosFetch(sortDirection: string | null, sortType: string | null, pageNumber: string | null, trimType: string | null, makeName: string | null, modelName: string | null, makeModelId: string | null, pricing: string | null) {
+export async function getCarByAxiosFetch(
+{
+    sortType = 'id',
+    sortDirection = 'asc', 
+    carYear = '2020',
+    pageNumber = '1',
+    // specific params
+    pricing = '',
+    trimType = '',
+    makeName = '',
+    modelName = '',
+    makeModelId = '',
+    verboseConfirm = 'yes'
+}:{
+    sortType?: string;
+    sortDirection?: string;
+    carYear?: string;
+    pageNumber?: string;
+   // specific params
+    pricing?: string;
+    trimType?: string;
+    makeName?: string;
+    modelName?: string;
+    makeModelId?: string;
+    verboseConfirm?: string;
+})
+    
+ {
     // define axios options
     let options: any = {
         method: 'GET',
@@ -13,7 +39,7 @@ export async function getCarByAxiosFetch(sortDirection: string | null, sortType:
          // expected params
           direction: sortDirection,
           sort: sortType,
-          year: '2020',
+          year: carYear,
           page: pageNumber,
          // specific params
           msrp: pricing,
@@ -22,7 +48,7 @@ export async function getCarByAxiosFetch(sortDirection: string | null, sortType:
           model: modelName,
           trim: trimType,
           make_model_id: makeModelId,
-          verbose: 'yes'
+          verbose: verboseConfirm
         },
         headers: {
           'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
@@ -73,10 +99,10 @@ export async function getCarBySpecId(id: string) {
         // await fetch, assign variable
         const response = await fetch(url, options);
         console.log("getCarBySpecId response", response)
-        const responseJSON = await response.json();
+        const cars = await response.json();
         NextResponse.json({ success: true, message: "Retrieved Car Successfully", status: 200})
 
-        return responseJSON;
+        return cars;
 
     } catch (error) {
         console.error(error)

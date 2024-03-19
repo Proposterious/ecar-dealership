@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import { getCarBySpecId } from "../handleCars";
+import { getCarByAxiosFetch } from "../handleCars";
 import { Car } from "../components/service";
 
 import Image, { StaticImageData } from "next/image";
@@ -62,15 +62,17 @@ export default function CarPage({ params }: { params: { car: string[] } }) {
     }
 
     useEffect(() => {
-        getCarBySpecId(params.car[1]).then((obj) => {
+      // Fetch cars from 'carapi'
+        getCarByAxiosFetch({makeModelId: params.car[1]}).then((obj: any) => {
             console.log("params", params);
+            console.log("cars", obj);
             if (obj) { setCar(obj); }
         });
     }, [])
 
     return (
     <main className="w-full min-h-screen n-xs:py-20 n-xs:px-4 n-md:p-3 bg-orange-400">
-    {!car.length && <Loader />}
+    {car.length < 1 && <Loader />}
     {car[index] &&
         <div className="p-6  bg-slate-100 rounded-md">
             <h1 className="w-full text-center my-4 pb-2 | font-extrabold text-slate-800 n-xs:text-2xl n-md:text-3xl n-lg:text-6xl">
