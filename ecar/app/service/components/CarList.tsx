@@ -151,8 +151,8 @@ function CarList() {
     async function formCars(checkedCars: any[]) {
       // define params
       let currentParams = {
-        sortDirection : searchParams.get("sort") as string,
         sortType : searchParams.get("sort-cars") as string,
+        sortDirection : searchParams.get("sort") as string,
         pageNumber : searchParams.get("page") as string,
         trimType : searchParams.get("trim") as string,
         makeName : searchParams.get("make") as string,

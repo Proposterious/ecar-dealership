@@ -37,8 +37,8 @@ export async function getCarByAxiosFetch(
         url: 'https://car-api2.p.rapidapi.com/api/trims',
         params: {
          // expected params
-          direction: sortDirection,
           sort: sortType,
+          direction: sortDirection,
           year: carYear,
           page: pageNumber,
          // specific params
