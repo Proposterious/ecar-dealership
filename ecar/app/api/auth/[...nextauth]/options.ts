@@ -63,14 +63,12 @@ export const authOptions: NextAuthOptions = {
         if (!user) { 
           await prisma.$disconnect(); 
           throw new Error("Account does not exist");
-          return null;
         }
       // Check if password matches db 
         const passwordsMatch = await bcrypt.compare(credentials.password, user.hashedPassword as string)
         if (!passwordsMatch) { 
           await prisma.$disconnect(); 
           throw new Error("Invalid email or password"); 
-          return null;
         }
 
       // Return user if no errors
