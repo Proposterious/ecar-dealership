@@ -1,6 +1,5 @@
 "use server"
 import { NextResponse } from 'next/server';
-import { Car } from './components/service';
 
 import axios from 'axios'; // replace fetch-by-url with fetch-by-axios
 export async function getCarByAxiosFetch(
@@ -10,24 +9,22 @@ export async function getCarByAxiosFetch(
     carYear = '2020',
     pageNumber = '1',
     // specific params
-    pricing = '',
     trimType = '',
-    makeName = '',
     modelName = '',
     makeModelId = '',
     verboseConfirm = 'yes'
 }:{
-    sortType?: string;
-    sortDirection?: string;
-    carYear?: string;
-    pageNumber?: string;
+    sortType: string | null;
+    sortDirection: string | null;
+    carYear: string | null;
+    pageNumber: string | null;
    // specific params
-    pricing?: string;
-    trimType?: string;
-    makeName?: string;
-    modelName?: string;
-    makeModelId?: string;
-    verboseConfirm?: string;
+    pricing: string | null;
+    trimType: string | null;
+    makeName: string | null;
+    modelName: string | null;
+    makeModelId: string | null;
+    verboseConfirm: string | null;
 })
     
  {
@@ -36,25 +33,23 @@ export async function getCarByAxiosFetch(
         method: 'GET',
         url: 'https://car-api2.p.rapidapi.com/api/trims',
         params: {
-         // expected params
-          sort: sortType,
           direction: sortDirection,
+          sort: sortType,
           year: carYear,
-          page: pageNumber,
-         // specific params
-          msrp: pricing,
-          name: trimType,
-          make: makeName,
           model: modelName,
+          page: pageNumber,
           trim: trimType,
           make_model_id: makeModelId,
           verbose: verboseConfirm
         },
+        
         headers: {
           'X-RapidAPI-Key': '907f0a7383msh38d61721f0ac188p1b95e2jsn2a029f962ac0',
           'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
         }
     };
+
+    console.log("options", options)
     
     // remove unused/empty params
     for (let key in options) {
@@ -83,7 +78,7 @@ export async function getCarByAxiosFetch(
         }        
 }
 
-export async function getCarBySpecId(id: string) {
+export async function getCarBySpecId(id: string | null) {
     const url = `https://car-api2.p.rapidapi.com/api/trims/${id}`;
     const cache: RequestCache = "no-store";
     const options = {

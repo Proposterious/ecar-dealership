@@ -150,16 +150,21 @@ function CarList() {
     // fetch car data
     async function formCars(checkedCars: any[]) {
       // define params
-      let currentParams = {
-        sortType : searchParams.get("sort-by") as string,
-        sortDirection : searchParams.get("sort") as string,
-        carYear : searchParams.get("year") as string,
-        pageNumber : searchParams.get("page") as string,
-        pricing : searchParams.get("price") as string,
-        trimType : searchParams.get("trim") as string,
-        makeName : searchParams.get("make") as string,
-        modelName : searchParams.get("model") as string,
-        makeModelId : searchParams.get("make-model-id") as string
+      let currentParams: any = {
+        sortType : searchParams.get("sort-by"),
+        sortDirection : searchParams.get("sort"),
+        carYear : searchParams.get("year"),
+        pageNumber : searchParams.get("page"),
+        trimType : searchParams.get("trim"),
+        makeName : searchParams.get("make"),
+        modelName : searchParams.get("model"),
+        makeModelId : searchParams.get("make-model-id")
+      }
+      // remove unused/empty params
+      for (let key in currentParams) {
+        if (!currentParams[key]) {
+            delete currentParams[key]
+        }
       }
       // Fetch cars from 'carapi'
       let array: any = await getCarByAxiosFetch(currentParams);
@@ -257,14 +262,20 @@ function CarList() {
         } else {
           // grab params from searchbar
           let currentParams = {
-            sortDirection : searchParams.get("sort") as string,
-            sortType : searchParams.get("sort-cars") as string,
-            pageNumber : searchParams.get("page") as string,
-            trimType : searchParams.get("trim") as string,
-            makeName : searchParams.get("make") as string,
-            modelName : searchParams.get("model") as string,
-            makeModelId : searchParams.get("make-model-id") as string,
-            pricing : searchParams.get("price") as string
+            sortType : searchParams.get("sort-cars"),
+            sortDirection : searchParams.get("sort"),
+            carYear: searchParams.get("year"),
+            pageNumber : searchParams.get("page"),
+            trimType : searchParams.get("trim"),
+            makeName : searchParams.get("make"),
+            modelName : searchParams.get("model"),
+            makeModelId : searchParams.get("make-model-id")
+          }
+
+          for (let key in currentParams) {
+            if (!currentParams[key]) {
+                delete currentParams[key]
+            }
           }
 
           const res = await getCarByAxiosFetch(currentParams);
