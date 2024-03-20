@@ -262,14 +262,14 @@ function CarList() {
         } else {
           // grab params from searchbar
           let currentParams = {
-            sortType : searchParams.get("sort-cars"),
-            sortDirection : searchParams.get("sort"),
-            carYear: searchParams.get("year"),
-            pageNumber : searchParams.get("page"),
-            trimType : searchParams.get("trim"),
-            makeName : searchParams.get("make"),
-            modelName : searchParams.get("model"),
-            makeModelId : searchParams.get("make-model-id")
+            sortType : searchParams.get("sort-cars") as string | null,
+            sortDirection : searchParams.get("sort") as string | null,
+            carYear: searchParams.get("year") as string | null,
+            pageNumber : searchParams.get("page") as string | null,
+            trimType : searchParams.get("trim") as string | null,
+            makeName : searchParams.get("make") as string | null,
+            modelName : searchParams.get("model") as string | null,
+            makeModelId : searchParams.get("make-model-id") as string | null
           }
 
           for (let key in currentParams) {
