@@ -14,17 +14,17 @@ export async function getCarByAxiosFetch(
     makeModelId = '',
     verboseConfirm = 'yes'
 }:{
-    sortType: string | null;
-    sortDirection: string | null;
-    carYear: string | null;
-    pageNumber: string | null;
+    sortType?: string | null;
+    sortDirection?: string | null;
+    carYear?: string | null;
+    pageNumber?: string | null;
    // specific params
-    pricing: string | null;
-    trimType: string | null;
-    makeName: string | null;
-    modelName: string | null;
-    makeModelId: string | null;
-    verboseConfirm: string | null;
+    pricing?: string | null;
+    trimType?: string | null;
+    makeName?: string | null;
+    modelName?: string | null;
+    makeModelId?: string | null;
+    verboseConfirm?: string | null;
 })
     
  {
