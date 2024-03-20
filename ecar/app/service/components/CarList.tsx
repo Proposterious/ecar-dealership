@@ -261,7 +261,7 @@ function CarList() {
           setFormedCars(newCar);
         } else {
           // grab params from searchbar
-          let currentParams = {
+          let currentParams: any = {
             sortType : searchParams.get("sort-cars") as string | null,
             sortDirection : searchParams.get("sort") as string | null,
             carYear: searchParams.get("year") as string | null,
