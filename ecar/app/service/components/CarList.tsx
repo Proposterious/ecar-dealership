@@ -155,11 +155,11 @@ function CarList() {
         sortDirection : searchParams.get("sort") as string,
         carYear : searchParams.get("year") as string,
         pageNumber : searchParams.get("page") as string,
+        pricing : searchParams.get("price") as string,
         trimType : searchParams.get("trim") as string,
         makeName : searchParams.get("make") as string,
         modelName : searchParams.get("model") as string,
-        makeModelId : searchParams.get("make-model-id") as string,
-        pricing : searchParams.get("price") as string
+        makeModelId : searchParams.get("make-model-id") as string
       }
       // Fetch cars from 'carapi'
       let array: any = await getCarByAxiosFetch(currentParams);
