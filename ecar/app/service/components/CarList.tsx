@@ -601,18 +601,20 @@ function CarList() {
 
         ))}
       </section>  
-      {formedCars.length >= amount*8 && (
+      
         <section id="bottom-buttons-container" className ="flex flex-row w-fit mx-auto my-4 space-x-4 n-md:space-16 n-lg:space-x-32 n-xl:space-x-48 align-center">
           <a href="#search-car" id="back-to-top"
           className="w-56 px-2 h-fit py-4 rounded-md | bg-zinc-900/90 text-center text-lg text-slate-200 font-semibold">
               Go Back to Top of Page
             </a>
-          <button type="button" id="load-more" onClick={() => setAmount(amount + 1)} 
-          className="w-56 px-2 h-fit py-4 rounded-md | bg-zinc-900/90 text-center text-lg text-orange-400 font-semibold">
-              Load More Vehicles
-            </button>
+            {formedCars.length >= amount*8 && (
+              <button type="button" id="load-more" onClick={() => setAmount(amount + 1)} 
+              className="w-56 px-2 h-fit py-4 rounded-md | bg-zinc-900/90 text-center text-lg text-orange-400 font-semibold">
+                Load More Vehicles
+              </button>
+            )}
         </section>
-        )}
+        
     </>
     );
 }
