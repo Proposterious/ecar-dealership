@@ -66,8 +66,8 @@ function RegisterForm() {
             setDisableButton(false);
         } else { 
             await signIn('credentials', {
-            ...data,
-            callbackUrl: '/dashboard',
+                ...data,
+                callbackUrl: '/dashboard',
             })
         }
     }

@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     });
 
     if (isValue) {
-        await prisma.$disconnect()
+        await prisma.$disconnect();
         return NextResponse.json({ success: false, error: "User already exists"}, { status: 202 });
     }
 
